@@ -1,6 +1,8 @@
-# How to Ace Java Developer Interviews for 3+ Years of Experience
+# How to Ace Java Developer Interviews
 
-To excel in Java developer interviews for someone with 3+ years of experience, you should have a strong grasp of both core and advanced Java concepts, as well as a solid understanding of related tools and technologies. Below is a comprehensive list of topics and subtopics that you should prepare:
+Welcome to the Java Developer Interview Prep repository! This resource is designed to help Java developers prepare for technical interviews. It contains documentation, code samples, and interview questions and answers covering a wide range of topics relevant to Java development.
+
+To excel in Java developer interviews, you should have a strong grasp of both core and advanced Java concepts, as well as a solid understanding of related tools and technologies. Below is a comprehensive list of topics and subtopics that you should prepare:
 
 ## 1. **Core Java**
    - **Object-Oriented Programming (OOP) Concepts**
