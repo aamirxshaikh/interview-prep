@@ -8,9 +8,9 @@ To excel in Java developer interviews, you should have a strong grasp of both co
 as a solid understanding of related tools and technologies. Below is a comprehensive list of topics and subtopics that
 you should prepare:
 
-## 1. **Core Java**
+## 1. **[Core Java](core-java)**
 
-- **Java Basics**
+- **[Java Basics](core-java/src/main/java/com/interviewprep/java_basics)**
     - Introduction to Java
     - Java Development Kit (JDK) and Java Runtime Environment (JRE)
     - The Java Virtual Machine (JVM)
