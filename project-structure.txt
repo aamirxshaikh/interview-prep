@@ -1,0 +1,98 @@
+interview-prep/
+│
+├── README.md                     # Main overview file for the repository
+│
+├── core-java/
+│   ├── src/                      # Java code related to Core Java concepts
+│   ├── docs/
+│   │   ├── OOP.md                # Documentation on Object-Oriented Programming
+│   │   ├── Collections.md        # Documentation on Java Collections Framework
+│   │   ├── Concurrency.md        # Documentation on Java Concurrency
+│   │   └── Java-8-Features.md    # Documentation on Java 8+ Features
+│   └── tests/                    # Unit tests for Core Java concepts
+│
+├── advanced-java/
+│   ├── src/                      # Java code for Advanced Java topics
+│   ├── docs/
+│   │   ├── JDBC.md               # Documentation on JDBC
+│   │   ├── Servlets-JSP.md       # Documentation on Java Servlets and JSP
+│   │   ├── Annotations.md        # Documentation on Java Annotations
+│   │   ├── Reflection.md         # Documentation on Java Reflection
+│   │   └── Design-Patterns.md    # Documentation on Design Patterns
+│   └── tests/                    # Unit tests for Advanced Java topics
+│
+├── spring-framework/
+│   ├── spring-core/
+│   │   ├── src/                  # Spring Core code
+│   │   ├── docs/
+│   │   │   ├── IoC.md            # Documentation on Inversion of Control
+│   │   │   └── DI.md             # Documentation on Dependency Injection
+│   │   └── tests/                # Unit tests for Spring Core
+│   │
+│   ├── spring-mvc/
+│   │   ├── src/                  # Spring MVC code
+│   │   ├── docs/
+│   │   │   ├── DispatcherServlet.md   # Documentation on DispatcherServlet
+│   │   │   ├── Controllers.md         # Documentation on Controllers and Views
+│   │   │   └── RequestMapping.md      # Documentation on Request Mapping
+│   │   └── tests/                # Unit tests for Spring MVC
+│   │
+│   ├── spring-boot/
+│   │   ├── src/                  # Spring Boot code
+│   │   ├── docs/
+│   │   │   ├── SpringBootAnnotations.md  # Documentation on Spring Boot Annotations
+│   │   │   ├── AutoConfiguration.md     # Documentation on Auto-Configuration
+│   │   │   └── SpringBootStarters.md    # Documentation on Spring Boot Starters
+│   │   └── tests/                # Unit tests for Spring Boot
+│   │
+│   ├── spring-data-jpa/
+│   │   ├── src/                  # Spring Data JPA code
+│   │   ├── docs/
+│   │   │   ├── Repositories.md    # Documentation on Repositories
+│   │   │   └── JPQL.md            # Documentation on JPQL and Criteria API
+│   │   └── tests/                # Unit tests for Spring Data JPA
+│   │
+│   └── spring-security/
+│       ├── src/                  # Spring Security code
+│       ├── docs/
+│       │   ├── Authentication.md  # Documentation on Authentication
+│       │   └── Authorization.md   # Documentation on Authorization
+│       └── tests/                # Unit tests for Spring Security
+│
+├── hibernate-jpa/
+│   ├── src/                      # Hibernate and JPA code
+│   ├── docs/
+│   │   ├── ORM.md                # Documentation on Object-Relational Mapping
+│   │   ├── Associations.md       # Documentation on Entity Relationships
+│   │   └── Transactions.md       # Documentation on Transaction Management
+│   └── tests/                    # Unit tests for Hibernate and JPA
+│
+├── microservices/
+│   ├── src/                      # Microservices architecture code
+│   ├── docs/
+│   │   ├── SpringCloud.md        # Documentation on Spring Cloud
+│   │   ├── ServiceDiscovery.md   # Documentation on Service Discovery (Eureka)
+│   │   └── CircuitBreaker.md     # Documentation on Circuit Breaker (Hystrix)
+│   └── tests/                    # Unit tests for Microservices components
+│
+├── testing/
+│   ├── src/                      # Testing code (JUnit, Mockito, etc.)
+│   ├── docs/
+│   │   ├── UnitTesting.md        # Documentation on Unit Testing
+│   │   ├── IntegrationTesting.md # Documentation on Integration Testing
+│   │   └── PerformanceTesting.md # Documentation on Performance Testing
+│   └── tests/                    # Unit tests for various testing strategies
+│
+├── version-control/
+│   ├── docs/
+│   │   ├── Git.md                # Documentation on Git Commands and Strategies
+│   │   └── GitHub.md             # Documentation on GitHub/GitLab workflows
+│   └── examples/                 # Example code and scenarios for Git usage
+│
+└── system-design/
+    ├── docs/
+    │   ├── DesignPrinciples.md   # Documentation on Design Principles (SOLID, etc.)
+    │   ├── Scalability.md        # Documentation on Scalability
+    │   ├── DistributedSystems.md # Documentation on Distributed Systems
+    │   └── APIs.md               # Documentation on APIs and Protocols
+    └── examples/                 # Example system design scenarios and solutions
