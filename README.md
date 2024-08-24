@@ -11,38 +11,128 @@ you should prepare:
 ## 1. **Core Java**
 
 - **Java Basics**
-    - Data types and Variables
-    - Operators and Expressions
-    - Control Statements (if-else, switch, loops)
-    - Exception Handling (try-catch, finally, throw, throws)
+    - Introduction to Java
+    - Java Development Kit (JDK) and Java Runtime Environment (JRE)
+    - The Java Virtual Machine (JVM)
+    - **The `static` Keyword**
+        - Static Variables (Class Variables)
+        - Static Methods
+        - Static Blocks
+        - Static Class (Nested Static Classes)
+        - Static Import
+
+- **Data Types and Variables**
+    - Primitive Data Types (int, char, float, etc.)
+    - Reference Data Types (Objects and Arrays)
+    - Variable Declaration and Initialization
+    - Type Casting (Implicit and Explicit)
+    - Constants (final keyword)
+
+- **Exception Handling**
+    - Introduction to Exceptions
+    - Types of Exceptions: Checked vs. Unchecked
+    - try-catch Block
+    - finally Block
+    - throw and throws Keywords
+    - Custom Exceptions
+    - Handling Multiple Exceptions
+    - Exception Propagation
+    - try-with-resources Statement (Automatic Resource Management)
+
 - **Object-Oriented Programming (OOP) Concepts**
+    - Class and Object
+        - Defining a Class and Creating Objects
+        - Constructors and Initialization Blocks
+        - this Keyword
+        - **Static Context in OOP**
+            - Accessing Static Members
+            - Restrictions in Static Context
+            - Static vs. Instance Context
     - Encapsulation
+        - Access Modifiers (private, public, protected, default)
+        - Getters and Setters
+        - Data Hiding
     - Inheritance
+        - Single Inheritance
+        - Multilevel Inheritance
+        - Method Overriding
+        - super Keyword
     - Polymorphism
+        - Compile-Time Polymorphism (Method Overloading)
+        - Runtime Polymorphism (Method Overriding)
     - Abstraction
+        - Abstract Classes and Methods
+        - Interfaces and Multiple Inheritance
+
 - **Java Collections Framework**
-    - List, Set, Map, Queue
+    - Overview of Collections Framework
+    - Collection Interfaces: List, Set, Queue, Map
+    - Implementations of Collection Interfaces
+        - List: ArrayList, LinkedList, Vector, Stack
+        - Set: HashSet, LinkedHashSet, TreeSet
+        - Map: HashMap, LinkedHashMap, TreeMap, Hashtable
+        - Queue: PriorityQueue, LinkedList
     - ArrayList vs. LinkedList
     - HashMap vs. TreeMap
     - HashSet vs. TreeSet
     - Collections Utility Class
+        - Sorting, Searching, and Shuffling Collections
+        - Synchronized Collections
+        - Unmodifiable Collections
+
 - **Concurrency**
-    - Threads and Runnable
+    - Introduction to Multithreading
+    - Creating Threads: Thread Class vs. Runnable Interface
+    - Thread Lifecycle and States
     - Synchronization and Locks
+        - Synchronized Methods and Blocks
+        - Intrinsic Locks and Reentrant Locks
+        - Deadlock, Starvation, and Livelock
+    - Inter-Thread Communication (wait, notify, notifyAll)
     - Executor Framework
+        - ExecutorService and ThreadPoolExecutor
+        - ScheduledExecutorService
     - Callable and Future
+        - Creating Asynchronous Tasks with Callable
+        - Retrieving Results with Future
     - Concurrent Collections
+        - BlockingQueue, ConcurrentHashMap, CopyOnWriteArrayList
+        - ConcurrentLinkedQueue, ConcurrentSkipListMap
+
 - **Java 8+ Features**
     - Lambda Expressions
+        - Syntax and Usage
+        - Functional Programming with Lambdas
     - Streams API
+        - Creating and Using Streams
+        - Stream Operations: filter, map, reduce, collect
+        - Parallel Streams
     - Optional Class
+        - Avoiding NullPointerExceptions with Optional
+        - Working with Optional Methods
     - Functional Interfaces
+        - Predefined Functional Interfaces: Predicate, Function, Consumer, Supplier
+        - Creating Custom Functional Interfaces
     - Method References
+        - Static Method References
+        - Instance Method References
+        - Constructor References
     - Default and Static Methods in Interfaces
+        - Extending Interfaces with Default Methods
+        - Defining Static Methods in Interfaces
+
 - **Memory Management**
-    - Heap and Stack Memory
+    - Understanding Heap and Stack Memory
+    - Object Creation and Memory Allocation
     - Garbage Collection
+        - How Garbage Collection Works
+        - Types of Garbage Collectors
+        - Manual vs. Automatic Garbage Collection
+        - finalize() Method and Its Uses
     - Java Memory Model
+        - Memory Visibility and Ordering
+        - Happens-Before Relationship
+        - Volatile Variables and Atomic Variables
 
 ## 2. **Advanced Java**
 
