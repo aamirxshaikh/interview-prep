@@ -10,7 +10,7 @@ you should prepare:
 
 ## 1. **[Core Java](core-java)**
 
-- **[Java Basics](core-java/src/main/java/com/interviewprep/java_basics)**
+- **[Java Basics](core-java/docs/java-basics.md)**
     - Introduction to Java
     - Java Development Kit (JDK) and Java Runtime Environment (JRE)
     - The Java Virtual Machine (JVM)
