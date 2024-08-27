@@ -21,7 +21,7 @@ you should prepare:
         - Static Class (Nested Static Classes)
         - Static Import
 
-- **Data Types and Variables**
+- **[Data Types and Variables](core-java/docs/data-types-and-variables.md)**
     - Primitive Data Types (int, char, float, etc.)
     - Reference Data Types (Objects and Arrays)
     - Variable Declaration and Initialization
