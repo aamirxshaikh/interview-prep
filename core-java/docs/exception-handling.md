@@ -1,5 +1,4 @@
-
-# Exception Handling in Java
+# [Exception Handling in Java](https://github.com/aamirxshaikh/interview-prep/tree/main/core-java/src/main/java/com/interviewprep/exception_handling)
 
 Exception handling in Java is a mechanism that handles runtime errors to maintain normal application flow. It allows a program to catch and handle errors gracefully rather than abruptly terminating the program.
 

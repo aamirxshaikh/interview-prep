@@ -28,7 +28,7 @@ you should prepare:
     - Type Casting (Implicit and Explicit)
     - Constants (final keyword)
 
-- **[Exception Handling](core-java/docs/ExceptionHandling.md)**
+- **[Exception Handling](core-java/docs/exception-handling.md)**
     - Introduction to Exceptions
     - Types of Exceptions: Checked vs. Unchecked
     - try-catch Block
