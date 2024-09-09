@@ -48,21 +48,36 @@ you should prepare:
             - Accessing Static Members
             - Restrictions in Static Context
             - Static vs. Instance Context
+        - **Object Class and Its Methods**
+            - equals() and hashCode()
+            - toString()
+            - clone() and Cloning in Java
+            - finalize() Method
     - Encapsulation
         - Access Modifiers (private, public, protected, default)
         - Getters and Setters
         - Data Hiding
+        - **Immutable Classes**
+            - Creating Immutable Classes
+            - Benefits of Immutability
     - Inheritance
         - Single Inheritance
         - Multilevel Inheritance
         - Method Overriding
         - super Keyword
+        - **Hierarchical Inheritance**
+            - Inheritance with Multiple Subclasses
+        - **Composition vs. Inheritance**
+            - When to Use Composition Over Inheritance
     - Polymorphism
         - Compile-Time Polymorphism (Method Overloading)
         - Runtime Polymorphism (Method Overriding)
+        - **Covariant Return Types**
+            - Method Overriding with Covariant Return Types
     - Abstraction
         - Abstract Classes and Methods
         - Interfaces and Multiple Inheritance
+        - **Default and Static Methods in Interfaces** (Java 8+)
 
 - **Java Collections Framework**
     - Overview of Collections Framework
