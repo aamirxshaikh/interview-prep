@@ -39,7 +39,7 @@ you should prepare:
     - Exception Propagation
     - try-with-resources Statement (Automatic Resource Management)
 
-- **Object-Oriented Programming (OOP) Concepts**
+- **[Object-Oriented Programming (OOP) Concepts](core-java/docs/oop-concepts.md)**
     - Class and Object
         - Defining a Class and Creating Objects
         - Constructors and Initialization Blocks
