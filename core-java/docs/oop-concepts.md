@@ -834,3 +834,6 @@ static method that can be called on the `Vehicle` interface itself.
 - How do default methods in interfaces help in evolving APIs without breaking existing implementations?
 - What are the potential pitfalls of using default and static methods in interfaces?
 
+## Summary
+
+This document provides a comprehensive set of interview questions on key Object-Oriented Programming (OOP) concepts in Java, covering everything from basic principles like class and object creation to more advanced topics such as polymorphism, abstraction, and inheritance. The questions are designed to help you understand the fundamental aspects of OOP, test your knowledge of Java-specific implementations, and prepare you for a variety of scenarios that may arise in technical interviews. By mastering these topics, you can demonstrate a strong grasp of OOP principles, which are essential for designing robust and maintainable software systems in Java.
