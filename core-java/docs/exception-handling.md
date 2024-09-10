@@ -279,20 +279,20 @@ If multiple exceptions occur, only the first exception that matches a `catch` bl
 
 # Exception Propagation
 
-## 1. What is exception propagation in Java?
+### 1. What is exception propagation in Java?
 Exception propagation in Java refers to the process by which an exception is passed (or propagated) from one method to another along the call stack. When an exception occurs in a method, it can either be handled within that method or be thrown to the calling method. This continues until the exception is caught and handled, or it reaches the top of the call stack and causes the program to terminate.
 
-## 2. How does exception propagation work in a method call stack?
+### 2. How does exception propagation work in a method call stack?
 When an exception is thrown in a method, the Java runtime checks if there is a corresponding `catch` block within the method. If not, the exception is propagated to the method that called the current method. This continues up the call stack until the exception is either caught by a method higher up or reaches the `main()` method. If the exception is not caught by any method, the program will terminate, and the exception's stack trace will be printed.
 
-## 3. Can you explain the concept of rethrowing an exception?
+### 3. Can you explain the concept of rethrowing an exception?
 Rethrowing an exception occurs when an exception is caught in a `catch` block and then thrown again to be handled by another `catch` block higher up in the call stack. This allows for a specific method to log or modify the exception before passing it on to another method for further handling. This can be done using the `throw` keyword.
 
-## 4. How do checked and unchecked exceptions behave differently during propagation?
+### 4. How do checked and unchecked exceptions behave differently during propagation?
 - **Checked exceptions** must be either caught or declared in the `throws` clause of a method. If a method does not handle a checked exception, it must declare it in its `throws` clause, allowing the exception to propagate up the call stack.
 - **Unchecked exceptions** (runtime exceptions) do not need to be declared or caught. They automatically propagate up the call stack without requiring any specific handling.
 
-## 5. What are the best practices for handling exceptions that propagate through multiple methods?
+### 5. What are the best practices for handling exceptions that propagate through multiple methods?
 - **Handle exceptions at the appropriate level**: Only catch exceptions where you can actually handle them meaningfully. Otherwise, let them propagate.
 - **Use custom exceptions**: Define custom exceptions to provide more context about the error.
 - **Log exceptions**: Log exceptions at the point where they are caught to preserve the stack trace and understand the cause.
@@ -301,19 +301,19 @@ Rethrowing an exception occurs when an exception is caught in a `catch` block an
 
 # try-with-resources Statement (Automatic Resource Management)
 
-## 1. What is the try-with-resources statement in Java?
+### 1. What is the try-with-resources statement in Java?
 The try-with-resources statement in Java is a special form of the `try` statement that automatically closes resources (like files, database connections, etc.) after they are used. It ensures that resources are properly closed regardless of whether an exception occurs or not, reducing the likelihood of resource leaks.
 
-## 2. How does try-with-resources improve resource management in Java?
+### 2. How does try-with-resources improve resource management in Java?
 Try-with-resources simplifies resource management by automatically closing resources at the end of the `try` block, eliminating the need for a `finally` block to manually close resources. This ensures that resources are always released, reducing the risk of memory leaks and other resource-related issues.
 
-## 3. What are the requirements for a resource to be used with try-with-resources?
+### 3. What are the requirements for a resource to be used with try-with-resources?
 For a resource to be used with try-with-resources, it must implement the `AutoCloseable` interface. This interface has a single method, `close()`, which is automatically called when the `try` block is exited.
 
-## 4. Can you nest try-with-resources statements? How does it affect resource management?
+### 4. Can you nest try-with-resources statements? How does it affect resource management?
 Yes, you can nest try-with-resources statements. Nested try-with-resources statements allow you to manage multiple resources that depend on each other. Each resource in the nested try blocks will be closed in reverse order of their creation, ensuring proper release of resources.
 
-## 5. How does the try-with-resources statement differ from a traditional try-catch-finally block?
+### 5. How does the try-with-resources statement differ from a traditional try-catch-finally block?
 - **Automatic resource management**: Try-with-resources automatically closes resources, while in a traditional try-catch-finally block, resources must be manually closed in the `finally` block.
 - **Less boilerplate code**: Try-with-resources reduces the amount of code needed to manage resources compared to a traditional try-catch-finally block.
 - **Guaranteed resource closure**: With try-with-resources, resources are always closed, even if an exception occurs. In a traditional block, resources may not be closed if an exception occurs before the `finally` block is reached.
