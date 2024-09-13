@@ -48,6 +48,9 @@ you should prepare:
             - Accessing Static Members
             - Restrictions in Static Context
             - Static vs. Instance Context
+        - **Nested Classes and Static Classes**
+            - Inner Classes (Non-static Nested Classes)
+            - Static Nested Classes
         - **Object Class and Its Methods**
             - equals() and hashCode()
             - toString()
