@@ -147,6 +147,137 @@ class Car {
 }
 ```
 
+### Nested Classes and Static Classes
+
+In Java, classes can be nested within other classes. Nested classes are divided into two categories:
+
+1. **Inner Classes (Non-static Nested Classes)**
+2. **Static Nested Classes**
+
+#### Inner Classes (Non-static Nested Classes)
+
+An inner class is a class defined within another class that is not declared as `static`. Inner classes have access to
+all members (including private members) of the outer class. However, an inner class is associated with an instance of
+the outer class, meaning it cannot exist independently of an instance of the outer class.
+
+##### Types of Inner Classes
+
+1. **Member Inner Class**: A non-static class defined directly within another class.
+2. **Anonymous Inner Class**: A class defined on the fly without a name, often used for implementing interfaces or
+   extending classes.
+3. **Local Inner Class**: A class defined within a method or a block of code.
+4. **Anonymous Inner Class**: An unnamed class that is typically used when a class is needed for immediate use.
+
+##### Example of Member Inner Class
+
+```java
+class OuterClass {
+  private String outerField = "Outer Field";
+
+  class InnerClass {
+    void display() {
+      System.out.println("Accessing from InnerClass: " + outerField);
+    }
+  }
+
+  void createInnerInstance() {
+    InnerClass inner = new InnerClass();
+    inner.display();
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    OuterClass outer = new OuterClass();
+    outer.createInnerInstance();
+  }
+}
+```
+
+##### Example of Local Inner Class
+
+```java
+class OuterClass {
+  void outerMethod() {
+    class LocalInnerClass {
+      void display() {
+        System.out.println("Inside Local Inner Class");
+      }
+    }
+
+    LocalInnerClass localInner = new LocalInnerClass();
+    localInner.display();
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    OuterClass outer = new OuterClass();
+    outer.outerMethod();
+  }
+}
+```
+
+##### Example of Anonymous Inner Class
+
+```java
+abstract class Animal {
+  abstract void sound();
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Animal dog = new Animal() {
+      void sound() {
+        System.out.println("Bark");
+      }
+    };
+    dog.sound();
+  }
+}
+```
+
+##### Characteristics of Inner Classes
+
+- Inner classes have access to the members of the outer class, including private members.
+- Inner classes are tied to an instance of the outer class.
+- They can be used to logically group classes that are only used in one place.
+- They can lead to more readable and maintainable code by keeping related classes together.
+
+#### Static Nested Classes
+
+A static nested class is a class defined within another class with the static modifier. Unlike inner classes, a `static`
+nested class does not have access to the instance variables and methods of the outer class. It behaves like any other
+top-level class but is logically grouped with its outer class.
+
+##### Example of Static Nested Class
+
+```java
+class OuterClass {
+  private static String staticOuterField = "Static Outer Field";
+
+  static class StaticNestedClass {
+    void display() {
+      System.out.println("Accessing from StaticNestedClass: " + staticOuterField);
+    }
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    OuterClass.StaticNestedClass nested = new OuterClass.StaticNestedClass();
+    nested.display();
+  }
+}
+```
+
+##### Characteristics of Static Nested Class
+
+- Static nested classes do not have access to non-static members of the outer class.
+- They can be instantiated without an instance of the outer class.
+- They are used when the nested class does not need to access the outer class's instance members.
+- Like top-level classes, they can contain static members.
+
 ### Object Class and Its Methods
 
 #### equals() and hashCode()
@@ -656,9 +787,30 @@ static method that can be called on the `Vehicle` interface itself.
 - When would you prefer to use static methods over instance methods?
 - What are some common use cases for static methods in utility classes?
 
-### 1.5 Object Class and Its Methods
+### 1.5 Nested Classes and Static Classes
 
-#### 1.5.1 equals() and hashCode()
+#### 1.5.1 Inner Classes (Non-static Nested Classes)
+
+- What is an inner class in Java, and how does it differ from a static nested class?
+- How do you define an inner class in Java?
+- What are the different types of inner classes in Java?
+- Can you explain the difference between member inner classes, local inner classes, and anonymous inner classes?
+- How does an inner class access the members of its outer class?
+- Provide an example of when to use an inner class.
+- What are the limitations or challenges of using inner classes?
+
+#### 1.5.2 Static Nested Classes
+
+- What is a static nested class in Java?
+- How does a static nested class differ from an inner class?
+- Can you provide an example of a static nested class?
+- How do static nested classes interact with the outer class's static members?
+- What are the benefits of using a static nested class?
+- When would you choose a static nested class over an inner class?
+
+### 1.6 Object Class and Its Methods
+
+#### 1.6.1 equals() and hashCode()
 
 - What is the purpose of the `equals()` method in Java?
 - How does the `equals()` method differ from the `==` operator?
@@ -667,7 +819,7 @@ static method that can be called on the `Vehicle` interface itself.
 - What are the potential issues if `equals()` and `hashCode()` are not overridden properly?
 - How would you implement a custom `equals()` and `hashCode()` method for a complex object?
 
-#### 1.5.2 toString()
+#### 1.6.2 toString()
 
 - What is the purpose of the `toString()` method in Java?
 - How does overriding `toString()` benefit your code?
@@ -675,7 +827,7 @@ static method that can be called on the `Vehicle` interface itself.
 - How does the default `toString()` implementation work for an object?
 - How would you design a `toString()` method to avoid exposing sensitive information?
 
-#### 1.5.3 clone() and Cloning in Java
+#### 1.6.3 clone() and Cloning in Java
 
 - What is cloning in Java, and how do you achieve it?
 - What is the difference between a shallow copy and a deep copy?
@@ -684,7 +836,7 @@ static method that can be called on the `Vehicle` interface itself.
 - What are the challenges and pitfalls of implementing the `clone()` method?
 - How would you implement deep cloning in Java without using the `Cloneable` interface?
 
-#### 1.5.4 finalize() Method
+#### 1.6.4 finalize() Method
 
 - What is the `finalize()` method in Java?
 - Why is the `finalize()` method considered deprecated or unreliable in modern Java?
