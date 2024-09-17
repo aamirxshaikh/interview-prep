@@ -282,22 +282,109 @@ public class Main {
 
 #### equals() and hashCode()
 
-- Used to compare objects and ensure proper behavior in collections.
-- Example:
-  ```java
-  @Override
-  public boolean equals(Object obj) {
-      if (this == obj) return true;
-      if (obj == null || getClass() != obj.getClass()) return false;
-      Car car = (Car) obj;
-      return color.equals(car.color) && model.equals(car.model);
+- In Java, `equals()` and `hashCode()` are methods inherited from the `Object` class. They are fundamental for comparing
+  objects and storing them efficiently in collections like `HashSet`, `HashMap`, and `Hashtable`.
+
+##### `equals()` method
+
+The `equals()` method is used to compare the equality of two objects. By default, the `equals()` method in the `Object`
+class compares the memory addresses of objects (reference equality). However, in many cases, you want to compare the
+actual data of objects (value equality), so you override this method to provide a custom equality check.
+
+### Example:
+
+```java
+class Person {
+  private String name;
+  private int age;
+
+  public Person(String name, int age) {
+    this.name = name;
+    this.age = age;
   }
 
+  // Override equals() to compare based on name and age
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true; // If both references are the same
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false; // If obj is not the same type
+    }
+    Person person = (Person) obj;
+    return age == person.age && name.equals(person.name);
+  }
+}
+
+public class EqualsExample {
+  public static void main(String[] args) {
+    Person p1 = new Person("Alice", 25);
+    Person p2 = new Person("Alice", 25);
+    Person p3 = new Person("Bob", 30);
+
+    System.out.println(p1.equals(p2)); // true
+    System.out.println(p1.equals(p3)); // false
+  }
+}
+```
+
+### `hashCode()` Method
+
+The `hashCode()` method returns an integer value (hash code) that represents the object. It is used in hashing-based
+collections like `HashMap` and `HashSet` to determine the bucket location of the object. The general contract of
+`hashCode()` is:
+
+- If two objects are considered equal according to `equals()`, they **must** have the same `hashCode()`.
+- If two objects are not equal, they may have different `hashCode()`, but it is not required.
+
+The default implementation in `Object` class generates a hash code based on the memory address. For proper functioning
+of hash-based collections, it is important to override both `equals()` and `hashCode()`.
+
+### Example:
+
+```java
+class Person {
+  private String name;
+  private int age;
+
+  public Person(String name, int age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  // Override equals() for value-based equality
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) return true;
+    if (obj == null || getClass() != obj.getClass()) return false;
+    Person person = (Person) obj;
+    return age == person.age && name.equals(person.name);
+  }
+
+  // Override hashCode() to return a consistent hash value for equal objects
   @Override
   public int hashCode() {
-      return Objects.hash(color, model);
+    return Objects.hash(name, age); // Using the name and age to generate a hash code
   }
-  ```
+}
+
+public class HashCodeExample {
+  public static void main(String[] args) {
+    Person p1 = new Person("Alice", 25);
+    Person p2 = new Person("Alice", 25);
+    Person p3 = new Person("Bob", 30);
+
+    // Using HashSet to demonstrate hashCode's role
+    Set<Person> set = new HashSet<>();
+    set.add(p1);
+    set.add(p2);
+    set.add(p3);
+
+    System.out.println("Set size: " + set.size()); // 2 (p1 and p2 are equal, p3 is different)
+  }
+}
+```
 
 #### toString()
 
@@ -988,4 +1075,9 @@ static method that can be called on the `Vehicle` interface itself.
 
 ## Summary
 
-This document provides a comprehensive set of interview questions on key Object-Oriented Programming (OOP) concepts in Java, covering everything from basic principles like class and object creation to more advanced topics such as polymorphism, abstraction, and inheritance. The questions are designed to help you understand the fundamental aspects of OOP, test your knowledge of Java-specific implementations, and prepare you for a variety of scenarios that may arise in technical interviews. By mastering these topics, you can demonstrate a strong grasp of OOP principles, which are essential for designing robust and maintainable software systems in Java.
+This document provides a comprehensive set of interview questions on key Object-Oriented Programming (OOP) concepts in
+Java, covering everything from basic principles like class and object creation to more advanced topics such as
+polymorphism, abstraction, and inheritance. The questions are designed to help you understand the fundamental aspects of
+OOP, test your knowledge of Java-specific implementations, and prepare you for a variety of scenarios that may arise in
+technical interviews. By mastering these topics, you can demonstrate a strong grasp of OOP principles, which are
+essential for designing robust and maintainable software systems in Java.
