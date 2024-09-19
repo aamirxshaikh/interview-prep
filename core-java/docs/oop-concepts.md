@@ -163,10 +163,9 @@ the outer class, meaning it cannot exist independently of an instance of the out
 ##### Types of Inner Classes
 
 1. **Member Inner Class**: A non-static class defined directly within another class.
-2. **Anonymous Inner Class**: A class defined on the fly without a name, often used for implementing interfaces or
+2. **Local Inner Class**: A class defined within a method or a block of code.
+3. **Anonymous Inner Class**: A class defined on the fly without a name, often used for implementing interfaces or
    extending classes.
-3. **Local Inner Class**: A class defined within a method or a block of code.
-4. **Anonymous Inner Class**: An unnamed class that is typically used when a class is needed for immediate use.
 
 ##### Example of Member Inner Class
 
