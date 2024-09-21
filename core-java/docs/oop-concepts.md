@@ -401,18 +401,96 @@ public class HashCodeExample {
 
 #### clone() and Cloning in Java
 
-- Used to create a copy of an object.
+- The `clone()` method is used to create a copy of an object. To use this method, the class must implement the
+  `Cloneable` interface. By default, `clone()` performs a shallow copy.
+
 - Example:
+
+  Consider a class `Person` that has a reference to an `Address` object. A shallow copy of a `Person` object would
+  create a new `Person` object but still reference the same `Address` object as the original.
+
   ```java
-  @Override
-  protected Object clone() throws CloneNotSupportedException {
-    return super.clone();
+  class Address {
+    String city;
+    
+    public Address(String city) {
+        this.city = city;
+    }
+  }
+
+  class Person implements Cloneable {
+    String name;
+    Address address;
+  
+    public Person(String name, Address address) {
+      this.name = name;
+      this.address = address;
+    }
+  
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+      return super.clone(); // This performs a shallow copy
+    }
+  }
+  
+  public class Main {
+    public static void main(String[] args) throws CloneNotSupportedException {
+      Address address = new Address("Mumbai");
+      Person original = new Person("Aamir", address);
+  
+      // Shallow copy
+      Person shallowCopy = (Person) original.clone();
+          
+      // Modifying the address in shallowCopy
+      shallowCopy.address.city = "Pune";
+          
+      System.out.println(original.address.city);  // Output: Pune
+    }
   }
   ```
 
+  In the above example, shallowCopy is a new `Person` object, but both original and shallowCopy share the same `Address`
+  object. When the city field in shallowCopy is modified, it also affects the original object, because they both point
+  to the same `Address` object in memory.
+
 #### finalize() Method
 
-- Called by the garbage collector before an object is destroyed.
+- The `finalize()` method is called by the garbage collector before an object is reclaimed. It can be overridden to
+  perform cleanup operations before the object is destroyed. However, its use is discouraged in modern Java due to
+  unpredictability in garbage collection timing.
+
+- Example:
+
+  ```java
+  class MyClass {
+    // Override finalize to define cleanup logic
+    @Override
+    protected void finalize() throws Throwable {
+      try {
+        System.out.println("Finalize method called.");
+      } finally {
+        super.finalize();
+      }
+    }
+  }
+  
+  public class Main {
+    public static void main(String[] args) {
+      MyClass obj = new MyClass();
+      obj = null;  // Make object eligible for garbage collection
+  
+      // Suggest garbage collection
+      System.gc();
+  
+      // Give time for the Garbage Collector to run (optional)
+      try {
+        Thread.sleep(1000);
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    }
+  }
+  ```
 
 ## 3. Encapsulation
 
