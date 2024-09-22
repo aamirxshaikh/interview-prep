@@ -48,6 +48,10 @@ you should prepare:
             - Accessing Static Members
             - Restrictions in Static Context
             - Static vs. Instance Context
+            - **Method Hiding**
+                - Definition of Method Hiding
+                - Characteristics of Method Hiding
+                - Differences Between Method Hiding and Method Overriding
         - **Nested Classes and Static Classes**
             - Inner Classes (Non-static Nested Classes)
             - Static Nested Classes
