@@ -147,6 +147,59 @@ class Car {
 }
 ```
 
+#### Method Hiding
+
+Method hiding in Java occurs when a subclass defines a static method with the same name and signature as a static method
+in its superclass. Unlike method overriding, which involves instance methods and is resolved at runtime, method hiding
+is determined at compile time based on the reference type. Here’s a detailed explanation of method hiding, its
+characteristics, and how it differs from method overriding.
+
+##### Definition of Method Hiding
+
+When a subclass defines a static method that has the same name and parameters as a static method in its superclass, the
+subclass's method hides the superclass's method. This means that if you call the static method using a reference of the
+superclass type, the superclass's version will be executed, while if you call it using a reference of the subclass type,
+the subclass's version will be executed.
+
+##### Characteristics of Method Hiding
+
+1. **Static Methods**: Method hiding only applies to static methods. Instance methods cannot hide static methods.
+
+2. **Compile-Time Resolution**: The method to be called is determined at compile time based on the reference type, not
+   at runtime based on the object type.
+
+3. **No Polymorphism**: Unlike overriding, where polymorphism allows for dynamic method resolution, method hiding does
+   not exhibit polymorphic behavior.
+
+**Example:**
+
+```java
+class Parent {
+  public static void display() {
+    System.out.println("Static method in Parent class");
+  }
+}
+
+class Child extends Parent {
+  public static void display() {
+    System.out.println("Static method in Child class");
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Parent parent = new Parent();
+    Parent childAsParent = new Child(); // Reference of Parent type pointing to Child object
+    Child child = new Child();
+
+    // Calling static methods
+    parent.display(); // Output: Static method in Parent class
+    childAsParent.display(); // Output: Static method in Parent class (method hiding)
+    child.display(); // Output: Static method in Child class
+  }
+}
+```
+
 ### Nested Classes and Static Classes
 
 In Java, classes can be nested within other classes. Nested classes are divided into two categories:
@@ -1018,6 +1071,14 @@ static method that can be called on the `Vehicle` interface itself.
 - How does memory allocation differ for static and instance members?
 - When would you prefer to use static methods over instance methods?
 - What are some common use cases for static methods in utility classes?
+
+#### 1.4.4 Method Hiding
+
+- Explain the concept of method hiding and how it differs from method overriding.
+- Explain how Java resolves method calls when both superclass and subclass have static methods with the same name.
+- Discuss whether polymorphism applies to method hiding and why.
+- Suggest best practices to differentiate between when to use overriding versus hiding, particularly for developers new
+  to Java.
 
 ### 1.5 Nested Classes and Static Classes
 
