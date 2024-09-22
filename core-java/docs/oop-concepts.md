@@ -558,31 +558,99 @@ class Car {
 
 ### Immutable Classes
 
-- Creating Immutable Classes
-    - Class with fields that cannot be modified after the object is created.
-    - Example:
-      ```java
-      public final class Car {
-          private final String color;
-          private final String model;
-  
-          public Car(String color, String model) {
-              this.color = color;
-              this.model = model;
-          }
-  
-          public String getColor() {
-              return color;
-          }
-  
-          public String getModel() {
-              return model;
-          }
-      }
-      ```
+To create a fully immutable class in Java, you should follow a set of best practices that ensure the object's state
+cannot be modified after it has been created. Below are the detailed steps and an example demonstrating how to implement
+an immutable class.
+
+#### Steps to Create an Immutable Class
+
+1. **Declare the Class as Final**: This prevents subclasses from modifying the behavior of the class.
+
+2. **Declare All Fields as Private and Final**: This ensures that the fields cannot be accessed directly from outside
+   the class and cannot be changed once initialized.
+
+3. **Initialize All Fields in the Constructor**: All fields should be assigned values through a constructor, ensuring
+   that they are set when the object is created.
+
+4. **Do Not Provide Setter Methods**: To maintain immutability, do not provide any methods that would allow modification
+   of the fields.
+
+5. **Defensive Copies for Mutable Objects**: If your class contains fields that are mutable objects (like arrays or
+   collections), ensure that you create defensive copies of these objects in both the constructor and any getter
+   methods. This prevents external code from modifying the internal state.
+
+- Example:
+  ```java
+  final class Address {
+    private final String city;
+    private final String state;
+
+    public Address(String city, String state) {
+      this.city = city;
+      this.state = state;
+    }
+
+    public String getCity() {
+      return city;
+    }
+
+    public String getState() {
+      return state;
+    }
+  }
+
+  final class Person {
+    private final String name;
+    private final int age;
+    private final Address address;
+
+    public Person(String name, int age, Address address) {
+      this.name = name;
+        this.age = age;
+        // Create a defensive copy of Address
+        this.address = new Address(address.getCity(), address.getState());
+    }
+
+    public String getName() {
+      return name;
+    }
+
+    public int getAge() {
+      return age;
+    }
+
+    public Address getAddress() {
+      // Return a defensive copy of Address
+      return new Address(address.getCity(), address.getState());
+    }
+  }
+
+  public class Main {
+    public static void main(String[] args) {
+      Address address = new Address("New York", "NY");
+      Person person1 = new Person("John", 30, address);
+
+      // Displaying original data
+      System.out.println(person1.getName()); // Output: John
+      System.out.println(person1.getAddress().getCity()); // Output: New York
+
+      // Attempting to modify the address will not affect person1
+      Address address2 = person1.getAddress();
+      System.out.println(address2.getCity()); // Output: New York
+      // address2.setCity("San Francisco"); // This line would cause a compilation error if set methods existed
+
+      // Modifying address2 does not affect person1's address
+      System.out.println(person1.getAddress().getCity()); // Output: New York
+    }
+  }
+  ```
 
 - Benefits of Immutability
-    - Thread safety, easier to reason about, and reduced chances of bugs.
+    - **Thread-Safety**: Immutable objects are inherently thread-safe since their state cannot change after creation.
+    - **Simplicity**: They simplify reasoning about code since you can be sure that once created, their state cannot
+      change.
+    - **Caching and Performance**: Immutable objects can be cached and reused without concern for their state changing
+      unexpectedly.
 
 ## 4. Inheritance
 
