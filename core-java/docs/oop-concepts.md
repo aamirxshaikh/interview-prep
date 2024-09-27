@@ -1022,13 +1022,53 @@ static method that can be called on the `Vehicle` interface itself.
 
 ### 1.1 Defining a Class and Creating Objects
 
-- What is a class in Java, and how is it different from an object?
-- How do you define a class in Java?
-- How do you create an object of a class?
-- Can you explain the process of memory allocation when an object is created?
-- What is the significance of a constructor in object creation?
-- How can you create an anonymous object in Java, and when would you use it?
-- Can a class be defined inside another class in Java? What are inner classes?
+#### 1.1.1. What is a class in Java, and how is it different from an object?**
+
+A class in Java is a blueprint for creating objects. It defines properties (fields) and behaviors (methods) that the
+objects created from the class will have. An object is an instance of a class, representing a concrete entity with state
+and behavior defined by the class.
+
+#### 1.1.2. How do you define a class in Java?
+
+A class in Java is defined using the `class` keyword followed by the class name, as in the following example:
+
+```java
+public class Car {
+  // Fields and methods
+}
+```
+
+#### 1.1.3. How do you create an object of a class?
+
+An object is created using the `new` keyword followed by the constructor of the class, like this:
+
+```java
+Car myCar = new Car();
+```
+
+#### 1.1.4. Can you explain the process of memory allocation when an object is created?
+
+When an object is created, memory is allocated on the heap for the object's instance variables, and the reference to
+this object is stored in the stack. The object's methods are stored in the method area.
+
+#### 1.1.5. What is the significance of a constructor in object creation?
+
+A constructor initializes the newly created object. It sets up the initial state of the object by assigning values to
+its fields or executing other initialization logic.
+
+#### 1.1.6. How can you create an anonymous object in Java, and when would you use it?
+
+An anonymous object is an object that is created but not assigned to a reference variable. It is typically used when the
+object is needed for a single operation:
+
+```java
+new Car().start();
+```
+
+#### 1.1.7. Can a class be defined inside another class in Java? What are inner classes?
+
+Yes, a class can be defined inside another class, and such a class is called an inner class. Inner classes are
+categorized into member inner classes, static nested classes, local inner classes, and anonymous inner classes.
 
 ### 1.2 Constructors and Initialization Blocks
 
