@@ -1062,7 +1062,9 @@ An anonymous object is an object that is created but not assigned to a reference
 object is needed for a single operation:
 
 ```java
-new Car().start();
+new Car().
+
+start();
 ```
 
 #### 1.1.7. Can a class be defined inside another class in Java? What are inner classes?
@@ -1072,14 +1074,66 @@ categorized into member inner classes, static nested classes, local inner classe
 
 ### 1.2 Constructors and Initialization Blocks
 
-- What is a constructor in Java, and how is it different from a method?
-- How do you define a constructor in a class?
-- What is a default constructor, and when is it provided by the compiler?
-- Can you explain the use of initialization blocks in Java?
-- How do initialization blocks differ from constructors?
-- What is a copy constructor, and how do you implement it in Java?
-- Can constructors be overloaded? Provide examples.
-- How does constructor chaining work in Java?
+#### 1.2.1. What is a constructor in Java, and how is it different from a method?
+
+A constructor is a special type of method that is called when an object is created. Unlike regular methods, constructors
+do not have a return type, and their name must match the class name.
+
+#### 1.2.2. How do you define a constructor in a class?
+
+A constructor is defined with the same name as the class and no return type:
+
+```java
+public class Car {
+  public Car() {
+    // Initialization code
+  }
+}
+```
+
+#### 1.2.3. What is a default constructor, and when is it provided by the compiler?
+
+A default constructor is a no-argument constructor that is automatically provided by the compiler if no constructors are
+explicitly defined in the class.
+
+#### 1.2.4. Can you explain the use of initialization blocks in Java?
+
+Initialization blocks are blocks of code that are executed when an object is created. They are used for common
+initialization code that needs to be executed regardless of which constructor is used.
+
+#### 1.2.5. How do initialization blocks differ from constructors?
+
+Initialization blocks are executed before the constructor and can be used to share common initialization logic across
+all constructors. Constructors, on the other hand, are specific to the object creation process.
+
+#### 1.2.6. What is a copy constructor, and how do you implement it in Java?
+
+A copy constructor creates a new object as a copy of an existing object. It can be implemented by passing an object of
+the same class as a parameter:
+
+```java
+public Car(Car otherCar) {
+  this.model = otherCar.model;
+}
+```
+
+#### 1.2.7. Can constructors be overloaded? Provide examples.
+
+Yes, constructors can be overloaded by defining multiple constructors with different parameter lists:
+
+```java
+public Car() {
+}
+
+public Car(String model) {
+  this.model = model;
+}
+```
+
+#### 1.2.8. How does constructor chaining work in Java?
+
+Constructor chaining is the process of calling one constructor from another using `this()` for constructors within the
+same class or `super()` for constructors in the superclass.
 
 ### 1.3 this Keyword
 
