@@ -1137,11 +1137,50 @@ same class or `super()` for constructors in the superclass.
 
 ### 1.3 this Keyword
 
-- What is the `this` keyword in Java, and when would you use it?
-- How does `this` help in resolving naming conflicts within a class?
-- Can you explain how `this` can be used to call another constructor within the same class?
-- How would you pass the current object as an argument to a method using `this`?
-- Can `this` be used in a static method? Why or why not?
+#### 1.3.1. What is the `this` keyword in Java, and when would you use it?
+
+The `this` keyword refers to the current instance of the class. It is used to avoid naming conflicts, to pass the
+current object as a parameter, or to call constructors within the same class.
+
+#### 1.3.2. How does `this` help in resolving naming conflicts within a class?
+
+When a method parameter has the same name as a class field, `this` is used to differentiate between the field and the
+parameter:
+
+```java
+public Car(String model) {
+  this.model = model;  // 'this.model' refers to the class field
+}
+```
+
+#### 1.3.3. Can you explain how `this` can be used to call another constructor within the same class?
+
+The `this()` keyword can be used to call another constructor from within a constructor:
+
+```java
+public Car() {
+  this("defaultModel");  // Calls another constructor with a parameter
+}
+```
+
+#### 1.3.4. How would you pass the current object as an argument to a method using `this`?
+
+You can pass the current object as an argument using `this`:
+
+```java
+public void showDetails(Car car) {
+  car.print();
+}
+
+public void display() {
+  showDetails(this);  // Passing the current object
+}
+```
+
+#### 1.3.5. Can `this` be used in a static method? Why or why not?
+
+No, `this` cannot be used in a static method because `this` refers to the current object, and static methods belong to
+the class, not to any specific object.
 
 ### 1.4 Static Context in OOP
 
