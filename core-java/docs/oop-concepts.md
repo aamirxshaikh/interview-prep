@@ -1022,7 +1022,7 @@ static method that can be called on the `Vehicle` interface itself.
 
 ### 1.1 Defining a Class and Creating Objects
 
-#### 1.1.1. What is a class in Java, and how is it different from an object?**
+#### 1.1.1. What is a class in Java, and how is it different from an object?
 
 A class in Java is a blueprint for creating objects. It defines properties (fields) and behaviors (methods) that the
 objects created from the class will have. An object is an instance of a class, representing a concrete entity with state
@@ -1317,17 +1317,17 @@ require an instance of the outer class to be instantiated, which could be restri
 
 ### 1.5.2 Static Nested Classes
 
-##### 1.5.2.1. What is a static nested class in Java?
+#### 1.5.2.1. What is a static nested class in Java?
 
 A static nested class is a nested class declared with the `static` modifier. It can access the outer class's static
 members but cannot directly access the instance members of the outer class.
 
-##### 1.5.2.2. How does a static nested class differ from an inner class?
+#### 1.5.2.2. How does a static nested class differ from an inner class?
 
 Unlike inner classes, static nested classes are not tied to an instance of the outer class and can be instantiated
 independently.
 
-##### 1.5.2.3. Can you provide an example of a static nested class?
+#### 1.5.2.3. Can you provide an example of a static nested class?
 
 ```java
 class OuterClass {
@@ -1339,17 +1339,17 @@ class OuterClass {
 }
 ```
 
-##### 1.5.2.4. How do static nested classes interact with the outer class's static members?
+#### 1.5.2.4. How do static nested classes interact with the outer class's static members?
 
 Static nested classes can access the outer class's static members directly without needing an instance of the outer
 class.
 
-##### 1.5.2.5. What are the benefits of using a static nested class?
+#### 1.5.2.5. What are the benefits of using a static nested class?
 
 Static nested classes reduce memory overhead since they do not require an instance of the outer class. They are useful
 for grouping related classes that are only used within the outer class.
 
-##### 1.5.2.6. When would you choose a static nested class over an inner class?
+#### 1.5.2.6. When would you choose a static nested class over an inner class?
 
 You would use a static nested class when the nested class does not require access to instance members of the outer
 class, especially in scenarios where the nested class is utility-based.
@@ -1358,49 +1358,49 @@ class, especially in scenarios where the nested class is utility-based.
 
 ### 1.6.1 equals() and hashCode()
 
-##### 1.6.1.1. What is the purpose of the `equals()` method in Java?
+#### 1.6.1.1. What is the purpose of the `equals()` method in Java?
 
 The `equals()` method is used to check whether two objects are meaningfully equivalent, comparing their values instead
 of their memory references.
 
-##### 1.6.1.2. How does the `equals()` method differ from the `==` operator?
+#### 1.6.1.2. How does the `equals()` method differ from the `==` operator?
 
 The `==` operator checks for reference equality, meaning whether two object references point to the same memory
 location, while `equals()` checks for value equality.
 
-##### 1.6.1.3. Why is it important to override `hashCode()` when overriding `equals()`?
+#### 1.6.1.3. Why is it important to override `hashCode()` when overriding `equals()`?
 
 The `hashCode()` method ensures that equal objects must have the same hash code for them to work correctly in hash-based
 collections like `HashMap` and `HashSet`.
 
-##### 1.6.1.4. Can you explain the contract between `equals()` and `hashCode()`?
+#### 1.6.1.4. Can you explain the contract between `equals()` and `hashCode()`?
 
 If two objects are equal according to the `equals()` method, then their hash codes must also be equal. However, two
 objects having the same hash code does not necessarily imply that they are equal.
 
-##### 1.6.1.5. What are the potential issues if `equals()` and `hashCode()` are not overridden properly?
+#### 1.6.1.5. What are the potential issues if `equals()` and `hashCode()` are not overridden properly?
 
 If not overridden properly, objects may behave unexpectedly in collections such as `HashMap`, leading to incorrect
 results when comparing or storing objects.
 
-##### 1.6.1.6. How would you implement a custom `equals()` and `hashCode()` method for a complex object?
+#### 1.6.1.6. How would you implement a custom `equals()` and `hashCode()` method for a complex object?
 
 A custom implementation should ensure that all significant fields that contribute to equality are checked in both
 methods. You can use `Objects.equals()` and `Objects.hash()` for simplicity.
 
 ### 1.6.2 toString()
 
-##### 1.6.2.1. What is the purpose of the `toString()` method in Java?
+#### 1.6.2.1. What is the purpose of the `toString()` method in Java?
 
 The `toString()` method returns a string representation of an object, which can be used for debugging, logging, or
 displaying meaningful information about the object.
 
-##### 1.6.2.2. How does overriding `toString()` benefit your code?
+#### 1.6.2.2. How does overriding `toString()` benefit your code?
 
 Overriding `toString()` allows you to provide a more readable and useful string representation of your object’s state,
 which can assist in debugging and logging.
 
-##### 1.6.2.3. Provide an example of how `toString()` is used in logging and debugging.
+#### 1.6.2.3. Provide an example of how `toString()` is used in logging and debugging.
 
 In logging frameworks, `toString()` is often called to include object details in log entries. For example:
 
@@ -1408,45 +1408,45 @@ In logging frameworks, `toString()` is often called to include object details in
   System.out.println("Object details: "+obj);
 ```
 
-##### 1.6.2.4. How does the default `toString()` implementation work for an object?
+#### 1.6.2.4. How does the default `toString()` implementation work for an object?
 
 The default implementation returns the class name followed by the object’s hash code in hexadecimal form, which is often
 not very informative.
 
-##### 1.6.2.5. How would you design a `toString()` method to avoid exposing sensitive information?
+#### 1.6.2.5. How would you design a `toString()` method to avoid exposing sensitive information?
 
 When overriding `toString()`, be cautious about including fields that may contain sensitive data like passwords or
 security tokens. Only include non-sensitive fields that provide meaningful insight.
 
 ### 1.6.3 clone() and Cloning in Java
 
-##### 1.6.3.1. What is cloning in Java, and how do you achieve it?
+#### 1.6.3.1. What is cloning in Java, and how do you achieve it?
 
 Cloning creates a new instance of an object that is a copy of the original. This is typically achieved using the
 `clone()` method from the `Object` class.
 
-##### 1.6.3.2. What is the difference between a shallow copy and a deep copy?
+#### 1.6.3.2. What is the difference between a shallow copy and a deep copy?
 
 - A shallow copy copies an object’s reference types as references, meaning both the original and the copy will point to
   the same objects.
 - A deep copy creates completely independent copies of reference types, so changes to one object do not affect the
   other.
 
-##### 1.6.3.3. What is the purpose of the `Cloneable` interface?
+#### 1.6.3.3. What is the purpose of the `Cloneable` interface?
 
 The `Cloneable` interface serves as a marker interface indicating that a class can be cloned using the `clone()` method.
 
-##### 1.6.3.4. Can you explain the `clone()` method and when to override it?
+#### 1.6.3.4. Can you explain the `clone()` method and when to override it?
 
 The `clone()` method creates a shallow copy of an object by default. You should override it if you need custom cloning
 behavior, such as implementing a deep copy.
 
-##### 1.6.3.5. What are the challenges and pitfalls of implementing the `clone()` method?
+#### 1.6.3.5. What are the challenges and pitfalls of implementing the `clone()` method?
 
 Cloning can be complex due to the need to handle mutable fields correctly, especially when dealing with deep copies,
 inheritance hierarchies, and classes without `Cloneable`.
 
-##### 1.6.3.6. How would you implement deep cloning in Java without using the `Cloneable` interface?
+#### 1.6.3.6. How would you implement deep cloning in Java without using the `Cloneable` interface?
 
 To implement deep cloning in Java without using the `Cloneable` interface, you can utilize a copy constructor or
 serialization. A copy constructor allows you to create a new instance of a class by passing an existing instance,
@@ -1458,27 +1458,27 @@ serialization process.
 
 ### 1.6.4 finalize() Method
 
-##### 1.6.4.1. What is the `finalize()` method in Java?
+#### 1.6.4.1. What is the `finalize()` method in Java?
 
 The `finalize()` method is called by the garbage collector before an object is removed from memory, allowing resource
 cleanup, such as closing files or releasing system resources.
 
-##### 1.6.4.2. Why is the `finalize()` method considered deprecated or unreliable in modern Java?
+#### 1.6.4.2. Why is the `finalize()` method considered deprecated or unreliable in modern Java?
 
 The `finalize()` method is unreliable because it may not be called at all or may be called too late, leading to resource
 leaks. Java 9 introduced alternatives such as `AutoCloseable` and `try-with-resources`.
 
-##### 1.6.4.3. How does garbage collection work in relation to `finalize()`?
+#### 1.6.4.3. How does garbage collection work in relation to `finalize()`?
 
 When the garbage collector determines that an object is no longer reachable, it calls the `finalize()` method, but there
 is no guarantee on when or if it will be called.
 
-##### 1.6.4.4. Can you manually call the `finalize()` method? What are the implications?
+#### 1.6.4.4. Can you manually call the `finalize()` method? What are the implications?
 
 You can call `finalize()` manually, but this is not recommended because it bypasses the garbage collector’s normal
 process and can lead to unpredictable behavior.
 
-##### 1.6.4.5. What are alternatives to using the `finalize()` method for resource cleanup?
+#### 1.6.4.5. What are alternatives to using the `finalize()` method for resource cleanup?
 
 Modern alternatives include implementing the `AutoCloseable` interface and using the `try-with-resources` statement,
 which ensures that resources are closed automatically.
@@ -1487,43 +1487,170 @@ which ensures that resources are closed automatically.
 
 ### 2.1 Access Modifiers (private, public, protected, default)
 
-- What are access modifiers in Java, and why are they important?
-- Can you explain the difference between `private`, `public`, `protected`, and default access?
-- How do access modifiers contribute to encapsulation in OOP?
-- What are the limitations of using access modifiers in inheritance?
-- How does Java handle access control for classes in different packages?
+#### 2.1.1. What are access modifiers in Java, and why are they important?
+
+Access modifiers in Java control the visibility of classes, methods, and variables. They are important as they enforce
+encapsulation, restricting access to the internal workings of a class, thus protecting data integrity and promoting
+maintainability.
+
+#### 2.1.1. Can you explain the difference between `private`, `public`, `protected`, and default access?
+
+- `private`: The member is accessible only within the same class.
+- `public`: The member is accessible from any class.
+- `protected`: The member is accessible within the same package and subclasses.
+- Default (no modifier): The member is accessible within the same package.
+
+#### 2.1.1. How do access modifiers contribute to encapsulation in OOP?
+
+Access modifiers restrict access to class members, allowing control over who can modify or view data. This ensures that
+the internal representation of an object is hidden, preserving data integrity.
+
+#### 2.1.1. What are the limitations of using access modifiers in inheritance?
+
+- `private` members cannot be inherited directly.
+- `protected` members can be inherited but may not be accessible outside the package unless via subclassing.
+- Public members are accessible everywhere.
+
+#### 2.1.1. How does Java handle access control for classes in different packages?
+
+Java restricts access across packages unless the member is public or protected with inheritance. Members with default
+access are not visible outside their package.
 
 ### 2.2 Getters and Setters
 
-- What are getters and setters in Java, and why are they used?
-- How do getters and setters help in encapsulating data?
-- Can you explain how to implement a getter and setter for a private variable?
-- How can you enforce validation in setters to ensure data integrity?
-- What is the use of read-only and write-only properties in a class?
+#### 2.2.1. What are getters and setters in Java, and why are they used?
+
+Getters and setters are methods used to access and update private variables. They allow controlled access to an object's
+attributes, ensuring encapsulation.
+
+#### 2.2.1. How do getters and setters help in encapsulating data?
+
+By using getters and setters, you can enforce validation, modify data before returning it, or trigger other operations
+when the data is changed, thus maintaining control over how an object's state is accessed or modified.
+
+#### 2.2.1. Can you explain how to implement a getter and setter for a private variable?
+
+A getter returns the value of a private variable, while a setter assigns a new value to the variable. Example:
+
+```java
+public class Person {
+  private String name;
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+}
+```
+
+#### 2.2.1. How can you enforce validation in setters to ensure data integrity?
+
+You can add logic inside the setter method to validate the input before assigning it to the variable.
+
+```java
+public void setAge(int age) {
+  if (age > 0) {
+    this.age = age;
+  } else {
+    throw new IllegalArgumentException("Age cannot be negative.");
+  }
+}
+```
+
+#### 2.2.1. What is the use of read-only and write-only properties in a class?
+
+- Read-only properties provide a getter but no setter.
+- Write-only properties provide a setter but no getter.
+  These properties can restrict or limit how an object’s data is accessed or modified.
 
 ### 2.3 Data Hiding
 
-- What is data hiding in Java, and how does it relate to encapsulation?
-- How do private fields contribute to data hiding?
-- Can you provide an example of how data hiding improves security in your code?
-- How does data hiding differ from data abstraction?
+#### 2.3.1. What is data hiding in Java, and how does it relate to encapsulation?
+
+Data hiding refers to restricting access to an object's internal state, usually by making fields private. This is a key
+principle of encapsulation, preventing external code from directly modifying an object’s state.
+
+#### 2.3.1. How do private fields contribute to data hiding?
+
+Private fields ensure that only methods inside the class can access or modify the data, keeping the object's state
+hidden from outside interference.
+
+#### 2.3.1. Can you provide an example of how data hiding improves security in your code?
+
+By restricting direct access to sensitive information, data hiding prevents unintended or malicious manipulation. For
+example, a banking application might hide the account balance from direct access and instead provide controlled access
+through methods.
+
+#### 2.3.1. How does data hiding differ from data abstraction?
+
+Data hiding focuses on restricting access to an object's internal state, while abstraction focuses on exposing only the
+essential features of an object while hiding the complex implementation details.
 
 ### 2.4 Immutable Classes
 
-#### 2.4.1 Creating Immutable Classes
+### 2.4.1 Creating Immutable Classes
 
-- What is an immutable class in Java?
-- How do you create an immutable class, and what are the necessary conditions?
-- Why are immutable objects considered thread-safe?
-- What are the common practices to ensure immutability in a class?
-- Can you explain the advantages and disadvantages of immutability?
+#### 2.4.1.1. What is an immutable class in Java?
 
-#### 2.4.2 Benefits of Immutability
+An immutable class is a class whose objects cannot be modified after creation. Once all fields are set in the
+constructor, they cannot be changed.
 
-- What are the advantages of using immutable classes in Java?
-- How does immutability help in creating a simpler and more robust codebase?
-- Can you explain how immutability can prevent common bugs related to shared mutable state?
-- How does immutability relate to functional programming principles?
+#### 2.4.1.2. How do you create an immutable class, and what are the necessary conditions?
+
+To create an immutable class:
+
+- Declare all fields private and final.
+- Do not provide setters.
+- Ensure that methods do not modify the object.
+- Return deep copies of mutable fields (if any) to prevent external modification.
+
+#### 2.4.1.3. Why are immutable objects considered thread-safe?
+
+Immutable objects cannot be modified after creation, making them inherently thread-safe. Multiple threads can access
+them without synchronization because no thread can change their state.
+
+#### 2.4.1.4. What are the common practices to ensure immutability in a class?
+
+- Use final fields.
+- Avoid exposing mutable fields.
+- Provide only getters, not setters.
+
+#### 2.4.1.5. Can you explain the advantages and disadvantages of immutability?
+
+Advantages:
+
+- Simplicity: Objects remain consistent after creation.
+- Thread-safety: No need for synchronization.
+
+Disadvantages:
+
+- Performance: Creating new objects for each modification can be costly.
+- Memory usage: Requires more memory due to the creation of new objects.
+
+### 2.4.2 Benefits of Immutability
+
+#### 2.4.2.1. What are the advantages of using immutable classes in Java?
+
+Immutable classes provide simplicity, thread safety, and guarantee that the object's state remains consistent throughout
+its lifecycle.
+
+#### 2.4.2.2. How does immutability help in creating a simpler and more robust codebase?
+
+Immutable objects remove the complexity of managing state changes and synchronization, reducing bugs and making the code
+easier to reason about.
+
+#### 2.4.2.3. Can you explain how immutability can prevent common bugs related to shared mutable state?
+
+Shared mutable state can lead to race conditions and inconsistent data. Immutability ensures that objects cannot be
+modified once created, eliminating such issues.
+
+#### 2.4.2.4. How does immutability relate to functional programming principles?
+
+Functional programming encourages the use of immutable data structures. Immutability aligns with the principle of
+avoiding side effects and promoting predictable, stateless functions.
 
 ## 3. Inheritance
 
