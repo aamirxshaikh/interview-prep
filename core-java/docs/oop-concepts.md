@@ -1184,91 +1184,304 @@ the class, not to any specific object.
 
 ### 1.4 Static Context in OOP
 
-#### 1.4.1 Accessing Static Members
+### 1.4.1 Accessing Static Members
 
-- What are static members in Java, and how do they differ from instance members?
-- How do you access static variables and methods within a class?
-- Can static methods be overridden in Java? Why or why not?
-- How are static blocks different from static methods?
+##### 1.4.1.1. What are static members in Java, and how do they differ from instance members?
 
-#### 1.4.2 Restrictions in Static Context
+Static members (variables and methods) belong to the class itself rather than any particular instance of the class. This
+means all instances of the class share the same static members. In contrast, instance members are tied to individual
+objects and every instance has its own copy.
 
-- What are the restrictions of using static methods in Java?
-- Why can't you use `this` or `super` in a static context?
-- Can a static method access instance variables? Explain your answer.
-- Why can't you declare abstract static methods in Java?
+##### 1.4.1.2. How do you access static variables and methods within a class?
 
-#### 1.4.3 Static vs. Instance Context
+Static variables and methods can be accessed using the class name itself (e.g., `ClassName.staticMethod()`), and they
+can also be accessed directly within the class without needing to instantiate an object.
 
-- What is the difference between a static context and an instance context in Java?
-- How does memory allocation differ for static and instance members?
-- When would you prefer to use static methods over instance methods?
-- What are some common use cases for static methods in utility classes?
+##### 1.4.1.3. Can static methods be overridden in Java? Why or why not?
 
-#### 1.4.4 Method Hiding
+No, static methods cannot be overridden in Java. They are bound to the class, not instances, and overriding applies to
+instance methods. Instead, static methods can be hidden by redefining them in a subclass.
 
-- Explain the concept of method hiding and how it differs from method overriding.
-- Explain how Java resolves method calls when both superclass and subclass have static methods with the same name.
-- Discuss whether polymorphism applies to method hiding and why.
-- Suggest best practices to differentiate between when to use overriding versus hiding, particularly for developers new
-  to Java.
+##### 1.4.1.4. How are static blocks different from static methods?
+
+Static blocks are executed when the class is loaded, and they are used to initialize static variables. Static methods,
+on the other hand, are invoked explicitly to perform actions and are not tied to class loading.
+
+### 1.4.2 Restrictions in Static Context
+
+##### 1.4.2.1. What are the restrictions of using static methods in Java?
+
+- Static methods cannot access instance variables or instance methods directly.
+- They cannot use `this` or `super` keywords.
+- They can only directly access other static members (variables, methods).
+
+##### 1.4.2.2. Why can't you use `this` or `super` in a static context?
+
+`this` refers to the current object, and `super` refers to the parent class’s object. Since static methods are not tied
+to any specific instance of the class, using `this` or `super` is meaningless and thus not allowed.
+
+##### 1.4.2.3. Can a static method access instance variables? Explain your answer.
+
+No, a static method cannot directly access instance variables because they belong to a specific instance of the class,
+and static methods do not operate on any instance.
+
+##### 1.4.2.4. Why can't you declare abstract static methods in Java?
+
+Abstract methods are meant to be overridden by subclasses, and static methods cannot be overridden, only hidden. Hence,
+a method cannot be both abstract and static.
+
+### 1.4.3 Static vs. Instance Context
+
+##### 1.4.3.1. What is the difference between a static context and an instance context in Java?
+
+A static context relates to the class itself, whereas an instance context refers to a specific object of that class.
+Static members are shared across all instances, while instance members are unique to each object.
+
+##### 1.4.3.2. How does memory allocation differ for static and instance members?
+
+Static members are stored in the static memory area and are loaded once when the class is loaded. Instance members are
+stored in the heap memory, and every object gets its own copy.
+
+##### 1.4.3.3. When would you prefer to use static methods over instance methods?
+
+Static methods are preferred when you don’t need to work with object-specific data, such as utility or helper methods
+that perform general tasks (e.g., `Math.sqrt()` or `Arrays.sort()`).
+
+##### 1.4.3.4. What are some common use cases for static methods in utility classes?
+
+- Utility classes like `Math`, `Collections`, `Arrays`, and `Objects` often use static methods.
+- Factory methods are often static.
+- Methods that do not modify class or instance state, such as conversions or validations.
+
+### 1.4.4 Method Hiding
+
+##### 1.4.4.1. Explain the concept of method hiding and how it differs from method overriding.
+
+Method hiding occurs when a static method in a subclass has the same signature as a static method in its superclass.
+Unlike overriding, the method to be executed is determined by the class reference, not the object.
+
+##### 1.4.4.2. Explain how Java resolves method calls when both superclass and subclass have static methods with the same name.
+
+Java resolves the method call based on the reference type. If the reference is of the superclass, the superclass’s
+static method is called, even if the object is of the subclass.
+
+##### 1.4.4.3. Discuss whether polymorphism applies to method hiding and why.
+
+Polymorphism does not apply to static methods because they are not tied to object instances but to classes. Method
+hiding is resolved at compile time, while polymorphism (overriding) is resolved at runtime.
+
+##### 1.4.4.4. Suggest best practices to differentiate between when to use overriding versus hiding, particularly for developers new to Java.
+
+- Use overriding for instance methods when the behavior needs to be different for subclasses.
+- Avoid hiding static methods unless there's a specific need to redefine a static method in a subclass.
+- Use static methods in classes where behavior is general and does not depend on object state.
 
 ### 1.5 Nested Classes and Static Classes
 
-#### 1.5.1 Inner Classes (Non-static Nested Classes)
+### 1.5.1 Inner Classes (Non-static Nested Classes)
 
-- What is an inner class in Java, and how does it differ from a static nested class?
-- How do you define an inner class in Java?
-- What are the different types of inner classes in Java?
-- Can you explain the difference between member inner classes, local inner classes, and anonymous inner classes?
-- How does an inner class access the members of its outer class?
-- Provide an example of when to use an inner class.
-- What are the limitations or challenges of using inner classes?
+##### 1.5.1.1. What is an inner class in Java, and how does it differ from a static nested class?
 
-#### 1.5.2 Static Nested Classes
+An inner class is a class defined within another class without using the `static` modifier, allowing it to access the
+outer class's instance members. A static nested class, on the other hand, cannot access instance members of the outer
+class without an explicit reference.
 
-- What is a static nested class in Java?
-- How does a static nested class differ from an inner class?
-- Can you provide an example of a static nested class?
-- How do static nested classes interact with the outer class's static members?
-- What are the benefits of using a static nested class?
-- When would you choose a static nested class over an inner class?
+##### 1.5.1.2. How do you define an inner class in Java?
+
+An inner class is defined inside another class using the `class` keyword, but without the `static` modifier.
+
+##### 1.5.1.3. What are the different types of inner classes in Java?
+
+The four types of inner classes in Java are: member inner classes, local inner classes, anonymous inner classes, and
+static nested classes.
+
+##### 1.5.1.4. Can you explain the difference between member inner classes, local inner classes, and anonymous inner classes?
+
+- Member inner classes are non-static classes defined at the member level of the outer class.
+- Local inner classes are defined within a method or block.
+- Anonymous inner classes are inner classes without a class name, defined and instantiated at the same time.
+
+##### 1.5.1.5. How does an inner class access the members of its outer class?
+
+An inner class can directly access both the static and non-static members of the outer class, including private members.
+
+##### 1.5.1.6. Provide an example of when to use an inner class.
+
+Inner classes are useful when they logically belong to the outer class and are tightly coupled with the outer class’s
+members, such as for event handling or encapsulating helper logic.
+
+##### 1.5.1.7. What are the limitations or challenges of using inner classes?
+
+Inner classes can lead to increased complexity and tightly coupled code, which may be harder to maintain. They also
+require an instance of the outer class to be instantiated, which could be restrictive.
+
+### 1.5.2 Static Nested Classes
+
+##### 1.5.2.1. What is a static nested class in Java?
+
+A static nested class is a nested class declared with the `static` modifier. It can access the outer class's static
+members but cannot directly access the instance members of the outer class.
+
+##### 1.5.2.2. How does a static nested class differ from an inner class?
+
+Unlike inner classes, static nested classes are not tied to an instance of the outer class and can be instantiated
+independently.
+
+##### 1.5.2.3. Can you provide an example of a static nested class?
+
+```java
+class OuterClass {
+  static class StaticNestedClass {
+    void display() {
+      System.out.println("Inside static nested class");
+    }
+  }
+}
+```
+
+##### 1.5.2.4. How do static nested classes interact with the outer class's static members?
+
+Static nested classes can access the outer class's static members directly without needing an instance of the outer
+class.
+
+##### 1.5.2.5. What are the benefits of using a static nested class?
+
+Static nested classes reduce memory overhead since they do not require an instance of the outer class. They are useful
+for grouping related classes that are only used within the outer class.
+
+##### 1.5.2.6. When would you choose a static nested class over an inner class?
+
+You would use a static nested class when the nested class does not require access to instance members of the outer
+class, especially in scenarios where the nested class is utility-based.
 
 ### 1.6 Object Class and Its Methods
 
-#### 1.6.1 equals() and hashCode()
+### 1.6.1 equals() and hashCode()
 
-- What is the purpose of the `equals()` method in Java?
-- How does the `equals()` method differ from the `==` operator?
-- Why is it important to override `hashCode()` when overriding `equals()`?
-- Can you explain the contract between `equals()` and `hashCode()`?
-- What are the potential issues if `equals()` and `hashCode()` are not overridden properly?
-- How would you implement a custom `equals()` and `hashCode()` method for a complex object?
+##### 1.6.1.1. What is the purpose of the `equals()` method in Java?
 
-#### 1.6.2 toString()
+The `equals()` method is used to check whether two objects are meaningfully equivalent, comparing their values instead
+of their memory references.
 
-- What is the purpose of the `toString()` method in Java?
-- How does overriding `toString()` benefit your code?
-- Provide an example of how `toString()` is used in logging and debugging.
-- How does the default `toString()` implementation work for an object?
-- How would you design a `toString()` method to avoid exposing sensitive information?
+##### 1.6.1.2. How does the `equals()` method differ from the `==` operator?
 
-#### 1.6.3 clone() and Cloning in Java
+The `==` operator checks for reference equality, meaning whether two object references point to the same memory
+location, while `equals()` checks for value equality.
 
-- What is cloning in Java, and how do you achieve it?
-- What is the difference between a shallow copy and a deep copy?
-- What is the purpose of the `Cloneable` interface?
-- Can you explain the `clone()` method and when to override it?
-- What are the challenges and pitfalls of implementing the `clone()` method?
-- How would you implement deep cloning in Java without using the `Cloneable` interface?
+##### 1.6.1.3. Why is it important to override `hashCode()` when overriding `equals()`?
 
-#### 1.6.4 finalize() Method
+The `hashCode()` method ensures that equal objects must have the same hash code for them to work correctly in hash-based
+collections like `HashMap` and `HashSet`.
 
-- What is the `finalize()` method in Java?
-- Why is the `finalize()` method considered deprecated or unreliable in modern Java?
-- How does garbage collection work in relation to `finalize()`?
-- Can you manually call the `finalize()` method? What are the implications?
-- What are alternatives to using the `finalize()` method for resource cleanup?
+##### 1.6.1.4. Can you explain the contract between `equals()` and `hashCode()`?
+
+If two objects are equal according to the `equals()` method, then their hash codes must also be equal. However, two
+objects having the same hash code does not necessarily imply that they are equal.
+
+##### 1.6.1.5. What are the potential issues if `equals()` and `hashCode()` are not overridden properly?
+
+If not overridden properly, objects may behave unexpectedly in collections such as `HashMap`, leading to incorrect
+results when comparing or storing objects.
+
+##### 1.6.1.6. How would you implement a custom `equals()` and `hashCode()` method for a complex object?
+
+A custom implementation should ensure that all significant fields that contribute to equality are checked in both
+methods. You can use `Objects.equals()` and `Objects.hash()` for simplicity.
+
+### 1.6.2 toString()
+
+##### 1.6.2.1. What is the purpose of the `toString()` method in Java?
+
+The `toString()` method returns a string representation of an object, which can be used for debugging, logging, or
+displaying meaningful information about the object.
+
+##### 1.6.2.2. How does overriding `toString()` benefit your code?
+
+Overriding `toString()` allows you to provide a more readable and useful string representation of your object’s state,
+which can assist in debugging and logging.
+
+##### 1.6.2.3. Provide an example of how `toString()` is used in logging and debugging.
+
+In logging frameworks, `toString()` is often called to include object details in log entries. For example:
+
+```java
+  System.out.println("Object details: "+obj);
+```
+
+##### 1.6.2.4. How does the default `toString()` implementation work for an object?
+
+The default implementation returns the class name followed by the object’s hash code in hexadecimal form, which is often
+not very informative.
+
+##### 1.6.2.5. How would you design a `toString()` method to avoid exposing sensitive information?
+
+When overriding `toString()`, be cautious about including fields that may contain sensitive data like passwords or
+security tokens. Only include non-sensitive fields that provide meaningful insight.
+
+### 1.6.3 clone() and Cloning in Java
+
+##### 1.6.3.1. What is cloning in Java, and how do you achieve it?
+
+Cloning creates a new instance of an object that is a copy of the original. This is typically achieved using the
+`clone()` method from the `Object` class.
+
+##### 1.6.3.2. What is the difference between a shallow copy and a deep copy?
+
+- A shallow copy copies an object’s reference types as references, meaning both the original and the copy will point to
+  the same objects.
+- A deep copy creates completely independent copies of reference types, so changes to one object do not affect the
+  other.
+
+##### 1.6.3.3. What is the purpose of the `Cloneable` interface?
+
+The `Cloneable` interface serves as a marker interface indicating that a class can be cloned using the `clone()` method.
+
+##### 1.6.3.4. Can you explain the `clone()` method and when to override it?
+
+The `clone()` method creates a shallow copy of an object by default. You should override it if you need custom cloning
+behavior, such as implementing a deep copy.
+
+##### 1.6.3.5. What are the challenges and pitfalls of implementing the `clone()` method?
+
+Cloning can be complex due to the need to handle mutable fields correctly, especially when dealing with deep copies,
+inheritance hierarchies, and classes without `Cloneable`.
+
+##### 1.6.3.6. How would you implement deep cloning in Java without using the `Cloneable` interface?
+
+To implement deep cloning in Java without using the `Cloneable` interface, you can utilize a copy constructor or
+serialization. A copy constructor allows you to create a new instance of a class by passing an existing instance,
+copying all mutable fields manually. For example, in an `Employee` class, you would define a constructor that takes
+another `Employee` object and initializes the new object's fields accordingly. Alternatively, if your class implements
+`Serializable`, you can achieve deep cloning by serializing the object to a byte stream and then deserializing it back
+to create a completely independent copy. This method is straightforward but may incur performance overhead due to the
+serialization process.
+
+### 1.6.4 finalize() Method
+
+##### 1.6.4.1. What is the `finalize()` method in Java?
+
+The `finalize()` method is called by the garbage collector before an object is removed from memory, allowing resource
+cleanup, such as closing files or releasing system resources.
+
+##### 1.6.4.2. Why is the `finalize()` method considered deprecated or unreliable in modern Java?
+
+The `finalize()` method is unreliable because it may not be called at all or may be called too late, leading to resource
+leaks. Java 9 introduced alternatives such as `AutoCloseable` and `try-with-resources`.
+
+##### 1.6.4.3. How does garbage collection work in relation to `finalize()`?
+
+When the garbage collector determines that an object is no longer reachable, it calls the `finalize()` method, but there
+is no guarantee on when or if it will be called.
+
+##### 1.6.4.4. Can you manually call the `finalize()` method? What are the implications?
+
+You can call `finalize()` manually, but this is not recommended because it bypasses the garbage collector’s normal
+process and can lead to unpredictable behavior.
+
+##### 1.6.4.5. What are alternatives to using the `finalize()` method for resource cleanup?
+
+Modern alternatives include implementing the `AutoCloseable` interface and using the `try-with-resources` statement,
+which ensures that resources are closed automatically.
 
 ## 2. Encapsulation
 
