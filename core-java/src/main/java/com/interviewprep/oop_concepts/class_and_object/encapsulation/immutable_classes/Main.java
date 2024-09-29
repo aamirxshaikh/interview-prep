@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Main {
   public static void main(String[] args) {
-// Mutable list of friends
+    // Mutable list of friends
     List<String> friendsList = new ArrayList<>();
     friendsList.add("Alice");
     friendsList.add("Bob");
