@@ -83,8 +83,13 @@ you should prepare:
             - Method Overriding with Covariant Return Types
     - Abstraction
         - Abstract Classes and Methods
+        - Characteristics of an Abstract Class
+        - What You Can and Cannot Do with Abstract Classes
         - Interfaces and Multiple Inheritance
-        - **Default and Static Methods in Interfaces** (Java 8+)
+        - Characteristics of an Interface
+        - What You Can and Cannot Do with Interfaces
+        - Comparison: Abstract Class vs Interface
+        - When to Use Abstract Classes vs Interfaces
 
 - **Java Collections Framework**
     - Overview of Collections Framework

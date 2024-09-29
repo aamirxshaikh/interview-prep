@@ -925,7 +925,8 @@ In this example, `Dog.reproduce()` returns a `Dog` instead of an `Animal`, which
 
 ### Abstract Classes and Methods
 
-- **Abstract Class**: Cannot be instantiated and may contain abstract methods.
+- **Abstract Class**: An abstract class in Java is a class that cannot be instantiated on its own and may contain
+  abstract methods (methods without implementation) and/or concrete methods (methods with implementation).
 - **Abstract Method**: A method without implementation.
 
 **Example:**
@@ -947,9 +948,86 @@ class Dog extends Animal {
 }
 ```
 
+### Characteristics of an Abstract Class
+
+1. **Cannot be instantiated:**
+    - You cannot create an instance of an abstract class using the `new` keyword. Abstract classes are meant to be
+      inherited by other classes.
+    - Example:
+      ```java
+      public abstract class Animal {
+          public abstract void makeSound(); // Abstract method
+          public void sleep() {
+              System.out.println("Sleeping..."); // Concrete method
+          }
+      }
+      ```
+
+2. **May have abstract methods:**
+    - Abstract methods don’t have an implementation in the abstract class. The concrete (non-abstract) subclasses are
+      required to implement these methods.
+    - Example:
+      ```java
+      public abstract void makeSound(); // No implementation
+      ```
+
+3. **Can have concrete methods:**
+    - Abstract classes can have fully implemented methods (concrete methods), and subclasses can optionally override
+      them.
+    - Example:
+      ```java
+      public void sleep() {
+          System.out.println("Sleeping...");
+      }
+      ```
+
+4. **Can have constructors:**
+    - Abstract classes can have constructors, but these constructors are called when a subclass is instantiated, not the
+      abstract class itself.
+    - Example:
+      ```java
+      public abstract class Animal {
+          public Animal() {
+              System.out.println("Animal constructor called");
+          }
+      }
+      ```
+
+5. **Can have member variables:**
+    - Unlike interfaces (before Java 8), abstract classes can have instance variables and static fields. These variables
+      can be private, protected, or public.
+    - Example:
+      ```java
+      public abstract class Animal {
+          protected String name;
+      }
+      ```
+
+6. **Can have access modifiers:**
+    - Abstract classes can define methods and variables with any access modifier (private, protected, public, etc.).
+      This provides more flexibility in controlling access to its members.
+
+7. **Single inheritance:**
+    - In Java, a class can inherit only one abstract class. This is due to Java’s single inheritance model. However, an
+      abstract class can implement multiple interfaces.
+
+### What You Can and Cannot Do with Abstract Classes
+
+- **You Can:**
+    - Extend an abstract class.
+    - Define both abstract and non-abstract methods.
+    - Have fields, constructors, and access modifiers (private, protected, public).
+    - Use static methods and fields.
+
+- **You Cannot:**
+    - Instantiate an abstract class directly.
+    - Have abstract methods without marking the class as `abstract`.
+
 ### Interfaces and Multiple Inheritance
 
-- **Interface**: A reference type that can contain abstract methods and constants.
+- **Interface**: An interface in Java is a completely abstract class (before Java 8) that defines a contract or
+  blueprint for behavior that implementing classes must follow. Since Java 8, interfaces can contain default methods (
+  with implementation) and static methods.
 - Java supports multiple inheritance through interfaces.
 
 **Example:**
@@ -976,45 +1054,118 @@ class Dog implements Animal, Pet {
 }
 ```
 
-### Default and Static Methods in Interfaces (Java 8+)
+### Characteristics of an Interface
 
-- Default methods provide concrete implementations in interfaces.
-- Static methods can be called on the interface itself.
+1. **Cannot be instantiated:**
+    - Like abstract classes, interfaces cannot be instantiated. They must be implemented by concrete classes.
 
-**Example:**
+2. **All methods were abstract (before Java 8):**
+    - Before Java 8, all methods in an interface were abstract and public by default. Implementing classes were required
+      to provide implementations for all interface methods.
+    - Example (pre-Java 8):
+      ```java
+      public interface Animal {
+          void makeSound(); // Abstract by default
+      }
+      ```
 
-```java
-interface Vehicle {
-  void start();
+3. **Default methods (since Java 8):**
+    - Java 8 introduced default methods in interfaces, allowing interfaces to have method implementations. This provided
+      more flexibility and backward compatibility without breaking existing code.
+    - Example:
+      ```java
+      public interface Animal {
+          default void sleep() {
+              System.out.println("Sleeping...");
+          }
+      }
+      ```
 
-  default void honk() {
-    System.out.println("Honk honk!");
-  }
+4. **Static methods (since Java 8):**
+    - Interfaces can also have static methods that can be called independently of any instance of the class implementing
+      the interface.
+    - Example:
+      ```java
+      public interface Animal {
+          static void showInfo() {
+              System.out.println("This is an animal interface.");
+          }
+      }
+      ```
 
-  static int getWheelCount() {
-    return 4;
-  }
-}
+5. **No constructors:**
+    - Interfaces cannot have constructors because they cannot be instantiated. All methods within an interface are
+      essentially "blueprints" for behavior.
 
-class Car implements Vehicle {
-  @Override
-  public void start() {
-    System.out.println("Car starting");
-  }
-}
+6. **Can contain constants:**
+    - All fields in an interface are `public`, `static`, and `final` by default, meaning that any variable declared in
+      an interface is essentially a constant.
+    - Example:
+      ```java
+      public interface Animal {
+          int LIFESPAN = 10; // Public, static, and final by default
+      }
+      ```
 
-public class Main {
-  public static void main(String[] args) {
-    Car car = new Car();
-    car.start();
-    car.honk();  // Using default method
-    System.out.println("Wheel count: " + Vehicle.getWheelCount());  // Using static method
-  }
-}
-```
+7. **Multiple inheritance (through interfaces):**
+    - Unlike abstract classes, interfaces support multiple inheritance. A class can implement multiple interfaces,
+      enabling the use of polymorphism in Java.
+    - Example:
+      ```java
+      public class Dog implements Animal, Mammal {
+          // Implement methods from both interfaces
+      }
+      ```
 
-In this example, `honk()` is a default method that provides a default implementation, while `getWheelCount()` is a
-static method that can be called on the `Vehicle` interface itself.
+8. **No instance variables:**
+    - Interfaces cannot have instance variables. Any fields are implicitly `public`, `static`, and `final`, meaning they
+      must be constants.
+
+### What You Can and Cannot Do with Interfaces
+
+- **You Can:**
+    - Implement multiple interfaces in a class.
+    - Define abstract methods (implicitly public and abstract).
+    - Use default and static methods (since Java 8).
+    - Have constant fields (implicitly public, static, and final).
+
+- **You Cannot:**
+    - Have instance variables or constructors.
+    - Have methods with any access modifier other than `public` (for abstract methods).
+    - Directly instantiate an interface.
+
+### Comparison: Abstract Class vs Interface
+
+| Feature          | Abstract Class                                                    | Interface                                                                   |
+|------------------|-------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| Instantiation    | Cannot be instantiated                                            | Cannot be instantiated                                                      |
+| Method Types     | Can have both abstract and concrete methods                       | Can have abstract, default, and static methods                              |
+| Variables        | Can have instance variables                                       | Can only have constants (public, static, final)                             |
+| Constructors     | Can have constructors                                             | Cannot have constructors                                                    |
+| Inheritance      | Can extend only one class (single inheritance)                    | Can implement multiple interfaces (multiple inheritance)                    |
+| Access Modifiers | Can have any access modifier (private, protected, public)         | Methods are public by default                                               |
+| Usage            | Best for classes that are closely related and share some behavior | Best for defining a contract for unrelated classes                          |
+| State (Fields)   | Can maintain state through instance variables                     | Cannot maintain state; only defines behavior                                |
+| Default Methods  | Not allowed (methods need explicit implementation)                | Allowed (since Java 8)                                                      |
+| Static Methods   | Can have static methods                                           | Can have static methods (since Java 8)                                      |
+| Performance      | Slightly faster than interfaces (direct inheritance)              | Interfaces might have a small performance overhead due to method resolution |
+
+### When to Use Abstract Classes vs Interfaces
+
+- **Use an abstract class**:
+    - When you want to share code among closely related classes.
+    - When you want to provide default behavior that subclasses can inherit or override.
+    - When you want to define state (instance variables).
+    - When you expect to add more methods in the future and do not want to break existing classes (since adding new
+      methods to interfaces can break classes implementing them).
+
+- **Use an interface**:
+    - When you want to define a contract for unrelated classes.
+    - When you want to take advantage of multiple inheritance.
+    - When you only need to define behavior and not state.
+    - When you want to ensure that a class implements specific methods (e.g., `Comparable`, `Runnable`).
+
+---
 
 # Interview Questions
 
@@ -1509,7 +1660,7 @@ the internal representation of an object is hidden, preserving data integrity.
 
 - `private` members cannot be inherited directly.
 - `protected` members can be inherited but may not be accessible outside the package unless via subclassing.
-- Public members are accessible everywhere.
+- `public` members are accessible everywhere.
 
 #### 2.1.1. How does Java handle access control for classes in different packages?
 
