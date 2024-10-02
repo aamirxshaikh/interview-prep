@@ -1807,50 +1807,256 @@ avoiding side effects and promoting predictable, stateless functions.
 
 ### 3.1 Single Inheritance
 
-- What is single inheritance in Java, and how does it work?
-- How do you use the `extends` keyword to implement single inheritance?
-- Can you explain the benefits and drawbacks of single inheritance?
-- What are the implications of the "IS-A" relationship in inheritance?
+#### 3.1.1. What is single inheritance in Java, and how does it work?
+
+Single inheritance in Java is when a class inherits from one parent class. This allows the child class to reuse methods
+and fields of the parent class. It works by using the `extends` keyword, creating an "IS-A" relationship between the
+parent and child classes.
+
+#### 3.1.2. How do you use the `extends` keyword to implement single inheritance?
+
+The `extends` keyword is used to indicate that a class is inheriting from a superclass. For example:
+
+```java
+class Parent {
+  void display() {
+    System.out.println("This is the parent class.");
+  }
+}
+
+class Child extends Parent {
+  // Child class inherits methods and fields from Parent class
+}
+ ```
+
+#### 3.1.3. Can you explain the benefits and drawbacks of single inheritance?
+
+**Benefits**:
+
+- Reusability: Code written in the parent class can be reused by the child class.
+- Extensibility: Child classes can add new features on top of existing ones.
+
+**Drawbacks**:
+
+- Limited reuse: A class can only inherit from one parent class in Java.
+- Increased coupling: The child class is dependent on the implementation of the parent class.
+
+#### 3.1.4. What are the implications of the "IS-A" relationship in inheritance?
+
+The "IS-A" relationship means that the subclass can be treated as an instance of the parent class. This allows
+polymorphism, where objects of the child class can be used wherever the parent class objects are expected.
 
 ### 3.2 Multilevel Inheritance
 
-- What is multilevel inheritance, and how does it differ from single inheritance?
-- Provide an example of multilevel inheritance in Java.
-- How do constructors behave in multilevel inheritance scenarios?
-- What are the challenges associated with multilevel inheritance in large applications?
+#### 3.2.1. What is multilevel inheritance, and how does it differ from single inheritance?
+
+Multilevel inheritance refers to a chain of inheritance where a class can inherit from a child class of another class.
+For example, Class C can inherit from Class B, which inherits from Class A.
+
+#### 3.2.2. Provide an example of multilevel inheritance in Java.
+
+```java
+class A {
+  void methodA() {
+    System.out.println("Method of class A.");
+  }
+}
+
+class B extends A {
+  void methodB() {
+    System.out.println("Method of class B.");
+  }
+}
+
+class C extends B {
+  void methodC() {
+    System.out.println("Method of class C.");
+  }
+}
+```
+
+#### 3.2.3. How do constructors behave in multilevel inheritance scenarios?
+
+Constructors of the parent classes are called first, in a top-down approach. The constructor of the superclass gets
+executed before the subclass constructors, ensuring that the parent class's part of the object is initialized first.
+
+#### 3.2.4. What are the challenges associated with multilevel inheritance in large applications?
+
+Multilevel inheritance can make debugging and understanding code difficult as it increases the complexity. Changes in
+the base classes may propagate unexpectedly, causing unintended side effects in derived classes.
 
 ### 3.3 Method Overriding
 
-- What is method overriding in Java, and how does it differ from method overloading?
-- How do you override a method in a subclass?
-- Can you explain the role of the `@Override` annotation in method overriding?
-- What are the rules for method overriding in Java?
-- How does method overriding relate to runtime polymorphism?
+#### 3.3.1. What is method overriding in Java, and how does it differ from method overloading?
+
+Method overriding occurs when a subclass provides a specific implementation for a method already defined in its parent
+class. In contrast, method overloading occurs when multiple methods with the same name exist in a class but with
+different parameters.
+
+#### 3.3.2. How do you override a method in a subclass?
+
+You override a method by redefining it in the subclass with the same signature (method name, parameters, and return
+type):
+
+```java
+class Parent {
+  void show() {
+    System.out.println("Parent's show method.");
+  }
+}
+
+class Child extends Parent {
+  @Override
+  void show() {
+    System.out.println("Child's show method.");
+  }
+}
+```
+
+#### 3.3.3. Can you explain the role of the `@Override` annotation in method overriding?
+
+The `@Override` annotation ensures that the method is correctly overriding a method from the parent class. It helps
+avoid errors if the method signature does not exactly match the parent class's method.
+
+#### 3.3.4. What are the rules for method overriding in Java?
+
+- The method must have the same name, return type, and parameters.
+- The access level cannot be more restrictive than the overridden method.
+- The method cannot throw new or broader checked exceptions.
+
+#### 3.3.5. How does method overriding relate to runtime polymorphism?
+
+Method overriding is essential for achieving runtime polymorphism. At runtime, the JVM calls the overridden method based
+on the actual object's type, not the reference's type.
 
 ### 3.4 super Keyword
 
-- What is the `super` keyword in Java, and when would you use it?
-- How does `super` help in accessing superclass methods and constructors?
-- Provide an example of using `super` to call a superclass constructor.
-- What are the differences between `super` and `this` in Java?
+#### 3.4.1. What is the `super` keyword in Java, and when would you use it?
+
+The `super` keyword refers to the parent class's object. It is used to call the parent class's methods or constructors,
+especially when the subclass overrides the methods.
+
+#### 3.4.2. How does `super` help in accessing superclass methods and constructors?
+
+You can use `super` to explicitly call a superclass's method or constructor. For example:
+
+```java
+  class Parent {
+  Parent() {
+    System.out.println("Parent constructor");
+  }
+}
+
+class Child extends Parent {
+  Child() {
+    super(); // Calls Parent's constructor
+    System.out.println("Child constructor");
+  }
+}
+```
+
+#### 3.4.3. Provide an example of using `super` to call a superclass constructor.
+
+```java
+class A {
+  A() {
+    System.out.println("Constructor of A");
+  }
+}
+
+class B extends A {
+  B() {
+    super();
+    System.out.println("Constructor of B");
+  }
+}
+```
+
+#### 3.4.4. What are the differences between `super` and `this` in Java?
+
+- `this` refers to the current object's instance.
+- `super` refers to the parent class's instance.
+- `this` is used to access members of the current class, while `super` is used to access members of the parent class.
 
 ### 3.5 Hierarchical Inheritance
 
-#### 3.5.1 Inheritance with Multiple Subclasses
+### 3.5.1 Inheritance with Multiple Subclasses
 
-- What is hierarchical inheritance in Java?
-- How do multiple subclasses inherit from a single parent class?
-- Can you explain the advantages and potential issues with hierarchical inheritance?
-- How does method resolution work in hierarchical inheritance?
+#### 3.5.1.1. What is hierarchical inheritance in Java?
+
+Hierarchical inheritance occurs when multiple subclasses inherit from a single superclass. This allows different child
+classes to reuse the methods and fields of the same parent class.
+
+#### 3.5.1.2. How do multiple subclasses inherit from a single parent class?
+
+Each subclass uses the `extends` keyword to inherit from the same parent class. For example:
+
+```java
+class Parent {
+  void method() {
+    System.out.println("Method in Parent class");
+  }
+}
+
+class Child1 extends Parent {
+}
+
+class Child2 extends Parent {
+}
+```
+
+#### 3.5.1.3. Can you explain the advantages and potential issues with hierarchical inheritance?
+
+**Advantages**:
+
+- Code reuse: Subclasses can share the common functionality from the parent class.
+
+**Potential Issues**:
+
+- Tight coupling between child classes and parent class may introduce rigidity.
+- Changes in the parent class can impact all child classes.
+
+#### 3.5.1.4. How does method resolution work in hierarchical inheritance?
+
+Method resolution starts with the child class. If the method is not found, it moves up the inheritance hierarchy,
+checking the parent class and so on.
 
 ### 3.6 Composition vs. Inheritance
 
-#### 3.6.1 When to Use Composition Over Inheritance
+### 3.6.1 When to Use Composition Over Inheritance
 
-- What is the difference between composition and inheritance in OOP?
-- When should you prefer composition over inheritance in your design?
-- Provide an example of using composition to achieve code reuse.
-- How does composition help in creating more flexible and maintainable code?
+#### 3.6.1.1. What is the difference between composition and inheritance in OOP?
+
+Inheritance creates an "IS-A" relationship between parent and child classes, while composition creates a "HAS-A"
+relationship where one class contains an instance of another class.
+
+#### 3.6.1.2. When should you prefer composition over inheritance in your design?
+
+Composition is preferable when the relationship between classes is more flexible and represents behavior rather than
+identity. For example, use composition to reuse code without the tight coupling that comes with inheritance.
+
+#### 3.6.1.3. Provide an example of using composition to achieve code reuse.
+
+```java
+class Engine {
+  void start() {
+    System.out.println("Engine started.");
+  }
+}
+
+class Car {
+  private Engine engine = new Engine(); // Composition
+
+  void startCar() {
+    engine.start(); // Using Engine through composition
+  }
+}
+```
+
+#### 3.6.1.4. How does composition help in creating more flexible and maintainable code?
+
+Composition is more flexible than inheritance because it allows changing behavior at runtime by swapping out components.
+This reduces coupling and increases the modularity and maintainability of the code.
 
 ## 4. Polymorphism
 
