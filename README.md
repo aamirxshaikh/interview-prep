@@ -60,6 +60,13 @@ you should prepare:
             - toString()
             - clone() and Cloning in Java
             - finalize() Method
+    - Enum Types
+        - Defining an Enum
+        - Enum with Constructors, Fields, and Methods
+        - Using Enums in Switch Statements
+        - Enum Constants as Static Final Fields
+        - Iterating Over Enum Values
+        - Enum with Overridden Methods
     - Encapsulation
         - Access Modifiers (private, public, protected, default)
         - Getters and Setters
@@ -92,6 +99,16 @@ you should prepare:
         - When to Use Abstract Classes vs Interfaces
 
     - **Java Collections Framework**
+        - Generics in Java
+            - Introduction to Generics
+            - Type Parameters and Wildcards
+            - Generic Classes and Interfaces
+            - Generic Methods
+            - Bounded Types in Generics
+            - Wildcards: `? extends` and `? super`
+            - Erasure and Limitations of Generics
+            - Benefits of Using Generics
+            - Generics and Collections
         - Overview of Collections Framework
         - Collection Interfaces: List, Set, Queue, Map
         - Implementations of Collection Interfaces
@@ -147,6 +164,7 @@ you should prepare:
         - Default and Static Methods in Interfaces
             - Extending Interfaces with Default Methods
             - Defining Static Methods in Interfaces
+        - Type Inference with `var`
 
     - **Memory Management**
         - Understanding Heap and Stack Memory
