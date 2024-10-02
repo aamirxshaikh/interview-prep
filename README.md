@@ -91,75 +91,75 @@ you should prepare:
         - Comparison: Abstract Class vs Interface
         - When to Use Abstract Classes vs Interfaces
 
-- **Java Collections Framework**
-    - Overview of Collections Framework
-    - Collection Interfaces: List, Set, Queue, Map
-    - Implementations of Collection Interfaces
-        - List: ArrayList, LinkedList, Vector, Stack
-        - Set: HashSet, LinkedHashSet, TreeSet
-        - Map: HashMap, LinkedHashMap, TreeMap, Hashtable
-        - Queue: PriorityQueue, LinkedList
-    - ArrayList vs. LinkedList
-    - HashMap vs. TreeMap
-    - HashSet vs. TreeSet
-    - Collections Utility Class
-        - Sorting, Searching, and Shuffling Collections
-        - Synchronized Collections
-        - Unmodifiable Collections
+    - **Java Collections Framework**
+        - Overview of Collections Framework
+        - Collection Interfaces: List, Set, Queue, Map
+        - Implementations of Collection Interfaces
+            - List: ArrayList, LinkedList, Vector, Stack
+            - Set: HashSet, LinkedHashSet, TreeSet
+            - Map: HashMap, LinkedHashMap, TreeMap, Hashtable
+            - Queue: PriorityQueue, LinkedList
+        - ArrayList vs. LinkedList
+        - HashMap vs. TreeMap
+        - HashSet vs. TreeSet
+        - Collections Utility Class
+            - Sorting, Searching, and Shuffling Collections
+            - Synchronized Collections
+            - Unmodifiable Collections
 
-- **Concurrency**
-    - Introduction to Multithreading
-    - Creating Threads: Thread Class vs. Runnable Interface
-    - Thread Lifecycle and States
-    - Synchronization and Locks
-        - Synchronized Methods and Blocks
-        - Intrinsic Locks and Reentrant Locks
-        - Deadlock, Starvation, and Livelock
-    - Inter-Thread Communication (wait, notify, notifyAll)
-    - Executor Framework
-        - ExecutorService and ThreadPoolExecutor
-        - ScheduledExecutorService
-    - Callable and Future
-        - Creating Asynchronous Tasks with Callable
-        - Retrieving Results with Future
-    - Concurrent Collections
-        - BlockingQueue, ConcurrentHashMap, CopyOnWriteArrayList
-        - ConcurrentLinkedQueue, ConcurrentSkipListMap
+    - **Concurrency**
+        - Introduction to Multithreading
+        - Creating Threads: Thread Class vs. Runnable Interface
+        - Thread Lifecycle and States
+        - Synchronization and Locks
+            - Synchronized Methods and Blocks
+            - Intrinsic Locks and Reentrant Locks
+            - Deadlock, Starvation, and Livelock
+        - Inter-Thread Communication (wait, notify, notifyAll)
+        - Executor Framework
+            - ExecutorService and ThreadPoolExecutor
+            - ScheduledExecutorService
+        - Callable and Future
+            - Creating Asynchronous Tasks with Callable
+            - Retrieving Results with Future
+        - Concurrent Collections
+            - BlockingQueue, ConcurrentHashMap, CopyOnWriteArrayList
+            - ConcurrentLinkedQueue, ConcurrentSkipListMap
 
-- **Java 8+ Features**
-    - Lambda Expressions
-        - Syntax and Usage
-        - Functional Programming with Lambdas
-    - Streams API
-        - Creating and Using Streams
-        - Stream Operations: filter, map, reduce, collect
-        - Parallel Streams
-    - Optional Class
-        - Avoiding NullPointerExceptions with Optional
-        - Working with Optional Methods
-    - Functional Interfaces
-        - Predefined Functional Interfaces: Predicate, Function, Consumer, Supplier
-        - Creating Custom Functional Interfaces
-    - Method References
-        - Static Method References
-        - Instance Method References
-        - Constructor References
-    - Default and Static Methods in Interfaces
-        - Extending Interfaces with Default Methods
-        - Defining Static Methods in Interfaces
+    - **Java 8+ Features**
+        - Lambda Expressions
+            - Syntax and Usage
+            - Functional Programming with Lambdas
+        - Streams API
+            - Creating and Using Streams
+            - Stream Operations: filter, map, reduce, collect
+            - Parallel Streams
+        - Optional Class
+            - Avoiding NullPointerExceptions with Optional
+            - Working with Optional Methods
+        - Functional Interfaces
+            - Predefined Functional Interfaces: Predicate, Function, Consumer, Supplier
+            - Creating Custom Functional Interfaces
+        - Method References
+            - Static Method References
+            - Instance Method References
+            - Constructor References
+        - Default and Static Methods in Interfaces
+            - Extending Interfaces with Default Methods
+            - Defining Static Methods in Interfaces
 
-- **Memory Management**
-    - Understanding Heap and Stack Memory
-    - Object Creation and Memory Allocation
-    - Garbage Collection
-        - How Garbage Collection Works
-        - Types of Garbage Collectors
-        - Manual vs. Automatic Garbage Collection
-        - finalize() Method and Its Uses
-    - Java Memory Model
-        - Memory Visibility and Ordering
-        - Happens-Before Relationship
-        - Volatile Variables and Atomic Variables
+    - **Memory Management**
+        - Understanding Heap and Stack Memory
+        - Object Creation and Memory Allocation
+        - Garbage Collection
+            - How Garbage Collection Works
+            - Types of Garbage Collectors
+            - Manual vs. Automatic Garbage Collection
+            - finalize() Method and Its Uses
+        - Java Memory Model
+            - Memory Visibility and Ordering
+            - Happens-Before Relationship
+            - Volatile Variables and Atomic Variables
 
 ## 2. **Advanced Java**
 
