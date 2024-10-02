@@ -1213,9 +1213,7 @@ An anonymous object is an object that is created but not assigned to a reference
 object is needed for a single operation:
 
 ```java
-new Car().
-
-start();
+new Car().start();
 ```
 
 #### 1.1.7. Can a class be defined inside another class in Java? What are inner classes?
@@ -1556,7 +1554,7 @@ which can assist in debugging and logging.
 In logging frameworks, `toString()` is often called to include object details in log entries. For example:
 
 ```java
-  System.out.println("Object details: "+obj);
+System.out.println("Object details: "+obj);
 ```
 
 #### 1.6.2.4. How does the default `toString()` implementation work for an object?
@@ -2062,52 +2060,210 @@ This reduces coupling and increases the modularity and maintainability of the co
 
 ### 4.1 Compile-Time Polymorphism (Method Overloading)
 
-- What is compile-time polymorphism, and how is it achieved in Java?
-- How do you implement method overloading in a class?
-- Can you explain the rules for method overloading in Java?
-- How does method overloading improve code readability and usability?
+#### 4.1.1. What is compile-time polymorphism, and how is it achieved in Java?
+
+Compile-time polymorphism, also known as method overloading, occurs when multiple methods in the same class have the
+same name but different parameters (different type, number, or both). It is resolved during compile-time.
+
+#### 4.1.2. How do you implement method overloading in a class?
+
+Method overloading is implemented by defining multiple methods in a class with the same name but with different
+signatures. Example:
+
+```java
+class Calculator {
+  public int add(int a, int b) {
+    return a + b;
+  }
+
+  public double add(double a, double b) {
+    return a + b;
+  }
+}
+```
+
+#### 4.1.3. Can you explain the rules for method overloading in Java?
+
+1. The method names must be the same.
+2. The parameter list must differ in either type, number, or both.
+3. Return type does not play a role in method overloading.
+
+#### 4.1.4. How does method overloading improve code readability and usability?
+
+Method overloading allows a class to have multiple methods that perform similar functions but with different input
+parameters. This simplifies method names and enhances readability.
 
 ### 4.2 Runtime Polymorphism (Method Overriding)
 
-- What is runtime polymorphism, and how does it differ from compile-time polymorphism?
-- How do you achieve runtime polymorphism through method overriding?
-- Can you explain how polymorphism enhances flexibility and reusability in OOP?
-- How does the JVM determine which method to invoke in runtime polymorphism?
+#### 4.2.1. What is runtime polymorphism, and how does it differ from compile-time polymorphism?
+
+Runtime polymorphism occurs when a subclass overrides a method of the superclass, and the method to be called is
+determined during runtime. Unlike compile-time polymorphism, runtime polymorphism relies on inheritance and method
+overriding.
+
+#### 4.2.2. How do you achieve runtime polymorphism through method overriding?
+
+Runtime polymorphism is achieved by overriding a method in a subclass. The method in the subclass must have the same
+signature as the one in the superclass. The decision about which method to execute is made at runtime based on the
+object type.
+
+#### 4.2.3. Can you explain how polymorphism enhances flexibility and reusability in OOP?
+
+Polymorphism allows objects to be treated as instances of their parent class. This enhances code flexibility because a
+single interface can represent different object types. It also improves reusability by allowing subclasses to share
+behavior.
+
+#### 4.2.4. How does the JVM determine which method to invoke in runtime polymorphism?
+
+The JVM uses dynamic method dispatch to determine which method to invoke based on the actual object type at runtime, not
+the reference type. This allows the same method to exhibit different behavior based on the object type.
 
 ### 4.3 Covariant Return Types
 
-#### 4.3.1 Method Overriding with Covariant Return Types
+### 4.3.1 Method Overriding with Covariant Return Types
 
-- What are covariant return types in Java?
-- How do covariant return types support method overriding?
-- Can you provide an example of method overriding with covariant return types?
-- What are the benefits and limitations of using covariant return types?
+#### 4.3.1.1. What are covariant return types in Java?
+
+Covariant return types allow a subclass method to return a more specific type (subtype) than the return type declared by
+the method in the superclass.
+
+#### 4.3.1.2. How do covariant return types support method overriding?
+
+Covariant return types allow method overriding with a return type that is a subclass of the original return type, which
+can make the overridden method more specific.
+
+#### 4.3.1.3. Can you provide an example of method overriding with covariant return types?
+
+```java
+class Animal {
+  Animal getAnimal() {
+    return this;
+  }
+}
+
+class Dog extends Animal {
+  @Override
+  Dog getAnimal() {
+    return this;
+  }
+}
+```
+
+#### 4.3.1.4. What are the benefits and limitations of using covariant return types?
+
+Benefits:
+
+- It provides more flexibility in overriding methods by allowing more specific return types.
+
+Limitations:
+
+- Care must be taken to ensure that the overridden method complies with the original method's contract.
 
 ## 5. Abstraction
 
 ### 5.1 Abstract Classes and Methods
 
-- What is an abstract class in Java, and when would you use it?
-- How do you declare an abstract method in an abstract class?
-- Can you explain the difference between an abstract class and an interface?
-- How does abstraction contribute to the flexibility and extensibility of your code?
-- What are the key design principles that guide the use of abstract classes?
+#### 5.1.1. What is an abstract class in Java, and when would you use it?
+
+An abstract class in Java is a class that cannot be instantiated and may contain abstract methods. It is used when you
+want to define a common base class with default behavior that can be shared by multiple subclasses.
+
+#### 5.1.2. How do you declare an abstract method in an abstract class?
+
+An abstract method is declared using the `abstract` keyword, and it does not have a body. Example:
+
+```java
+abstract class Animal {
+  abstract void sound();
+}
+```
+
+#### 5.1.3. Can you explain the difference between an abstract class and an interface?
+
+- Abstract classes can have both abstract and non-abstract methods, while interfaces can only have abstract methods (
+  prior to Java 8).
+- A class can extend only one abstract class but can implement multiple interfaces.
+
+#### 5.1.4. How does abstraction contribute to the flexibility and extensibility of your code?
+
+Abstraction allows you to define methods that must be implemented by subclasses, enforcing a contract while allowing
+flexibility in how the behavior is implemented.
+
+#### 5.1.5. What are the key design principles that guide the use of abstract classes?
+
+- There is shared code that subclasses should inherit.
+- You want to define methods that all subclasses must implement.
 
 ### 5.2 Interfaces and Multiple Inheritance
 
-- What is an interface in Java, and how does it differ from an abstract class?
-- How do interfaces support multiple inheritance in Java?
-- Can you provide an example of a class implementing multiple interfaces?
-- How does the diamond problem arise in multiple inheritance, and how does Java resolve it?
-- How do interfaces enhance modularity and testability in your code?
+#### 5.2.1. What is an interface in Java, and how does it differ from an abstract class?
+
+An interface is a contract that classes can implement. Unlike abstract classes, interfaces do not have fields and can be
+implemented by any class. In Java 8+, interfaces can also have default and static methods.
+
+#### 5.2.2. How do interfaces support multiple inheritance in Java?
+
+Java allows a class to implement multiple interfaces, which means that a class can inherit behavior from multiple
+sources, avoiding the diamond problem.
+
+#### 5.2.3. Can you provide an example of a class implementing multiple interfaces?
+
+```java
+interface A {
+  void methodA();
+}
+
+interface B {
+  void methodB();
+}
+
+class C implements A, B {
+  public void methodA() {
+    System.out.println("Method A");
+  }
+
+  public void methodB() {
+    System.out.println("Method B");
+  }
+}
+```
+
+#### 5.2.4. How does the diamond problem arise in multiple inheritance, and how does Java resolve it?
+
+The diamond problem occurs when a class inherits from multiple classes that have a common ancestor, causing ambiguity.
+Java resolves this by allowing multiple interfaces, not classes, to be implemented.
+
+#### 5.2.5. How do interfaces enhance modularity and testability in your code?
+
+Interfaces provide a layer of abstraction that decouples implementation from behavior, making it easier to write modular
+code and mock interfaces for testing purposes.
 
 ### 5.3 Default and Static Methods in Interfaces (Java 8+)
 
-- What are default methods in Java interfaces, and why were they introduced?
-- How do static methods in interfaces differ from default methods?
-- Can you explain how default and static methods in interfaces provide backward compatibility?
-- How do default methods in interfaces help in evolving APIs without breaking existing implementations?
-- What are the potential pitfalls of using default and static methods in interfaces?
+#### 5.3.1. What are default methods in Java interfaces, and why were they introduced?
+
+Default methods are methods in interfaces with a default implementation. They were introduced in Java 8 to allow
+interface evolution without breaking existing implementations.
+
+#### 5.3.2. How do static methods in interfaces differ from default methods?
+
+Static methods in interfaces are not tied to instance objects. They belong to the interface itself and can be invoked
+directly using the interface name.
+
+#### 5.3.3. Can you explain how default and static methods in interfaces provide backward compatibility?
+
+Default methods allow developers to add new functionality to interfaces without forcing all implementing classes to
+provide an implementation.
+
+#### 5.3.4. How do default methods in interfaces help in evolving APIs without breaking existing implementations?
+
+By providing default methods, you can introduce new methods to an interface without requiring all existing implementers
+to modify their code.
+
+#### 5.3.5. What are the potential pitfalls of using default and static methods in interfaces?
+
+- Default methods may introduce ambiguity in cases where multiple interfaces define methods with the same signature.
+- Overuse of default methods can lead to poorly designed interfaces.
 
 ## Summary
 
