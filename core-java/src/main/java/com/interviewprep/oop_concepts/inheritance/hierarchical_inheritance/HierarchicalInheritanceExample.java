@@ -1,4 +1,4 @@
-package com.interviewprep.oop_concepts.class_and_object.inheritance.hierarchical_inheritance;
+package com.interviewprep.oop_concepts.inheritance.hierarchical_inheritance;
 
 // Superclass
 class Animal {

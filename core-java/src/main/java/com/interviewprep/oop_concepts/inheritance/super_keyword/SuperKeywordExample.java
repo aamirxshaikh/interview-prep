@@ -1,4 +1,4 @@
-package com.interviewprep.oop_concepts.class_and_object.inheritance.super_keyword;
+package com.interviewprep.oop_concepts.inheritance.super_keyword;
 
 // Superclass
 class Animal {

@@ -1,4 +1,4 @@
-package com.interviewprep.oop_concepts.class_and_object.encapsulation.access_modifiers_getter_and_setters;
+package com.interviewprep.oop_concepts.encapsulation.access_modifiers_getter_and_setters;
 
 public class Person {
   private String name;         // Private: accessible only within this class. Hidden data.

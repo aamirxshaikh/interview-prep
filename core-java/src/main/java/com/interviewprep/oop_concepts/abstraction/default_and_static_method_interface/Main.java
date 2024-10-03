@@ -1,4 +1,4 @@
-package com.interviewprep.oop_concepts.class_and_object.abstraction.default_and_static_method_interface;
+package com.interviewprep.oop_concepts.abstraction.default_and_static_method_interface;
 
 interface Vehicle {
   void start();  // Abstract method

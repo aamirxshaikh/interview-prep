@@ -1,4 +1,4 @@
-package com.interviewprep.oop_concepts.class_and_object.inheritance.composition;
+package com.interviewprep.oop_concepts.inheritance.composition;
 
 class Engine {
   void start() {

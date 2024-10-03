@@ -1,4 +1,4 @@
-package com.interviewprep.oop_concepts.class_and_object.encapsulation.immutable_classes;
+package com.interviewprep.oop_concepts.encapsulation.immutable_classes;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

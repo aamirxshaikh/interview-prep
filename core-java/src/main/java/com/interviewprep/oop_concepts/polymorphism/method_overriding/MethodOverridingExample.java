@@ -1,4 +1,4 @@
-package com.interviewprep.oop_concepts.class_and_object.polymorphism.method_overriding;
+package com.interviewprep.oop_concepts.polymorphism.method_overriding;
 
 class Animal {
   // Base method to be overridden

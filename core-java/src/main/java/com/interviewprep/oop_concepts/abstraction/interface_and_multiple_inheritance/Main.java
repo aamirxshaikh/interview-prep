@@ -1,4 +1,4 @@
-package com.interviewprep.oop_concepts.class_and_object.abstraction.interface_and_multiple_inheritance;
+package com.interviewprep.oop_concepts.abstraction.interface_and_multiple_inheritance;
 
 interface Printable {
   void print();

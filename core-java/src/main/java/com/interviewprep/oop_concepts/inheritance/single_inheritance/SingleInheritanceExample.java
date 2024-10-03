@@ -1,4 +1,4 @@
-package com.interviewprep.oop_concepts.class_and_object.inheritance.single_inheritance;
+package com.interviewprep.oop_concepts.inheritance.single_inheritance;
 
 // Superclass
 class Animal {

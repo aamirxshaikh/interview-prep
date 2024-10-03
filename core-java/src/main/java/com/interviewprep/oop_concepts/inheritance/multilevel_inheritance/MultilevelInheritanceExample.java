@@ -1,4 +1,4 @@
-package com.interviewprep.oop_concepts.class_and_object.inheritance.multilevel_inheritance;
+package com.interviewprep.oop_concepts.inheritance.multilevel_inheritance;
 
 // Base Class
 class Animal {

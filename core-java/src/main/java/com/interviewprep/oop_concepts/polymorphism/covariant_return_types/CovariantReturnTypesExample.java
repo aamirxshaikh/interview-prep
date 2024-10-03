@@ -1,4 +1,4 @@
-package com.interviewprep.oop_concepts.class_and_object.polymorphism.covariant_return_types;
+package com.interviewprep.oop_concepts.polymorphism.covariant_return_types;
 
 class Vehicle {
   public Vehicle getVehicle() {

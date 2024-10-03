@@ -1,4 +1,4 @@
-package com.interviewprep.oop_concepts.class_and_object.abstraction.abstract_class_and_method;
+package com.interviewprep.oop_concepts.abstraction.abstract_class_and_method;
 
 abstract class Animal {
   // Abstract method (no implementation)

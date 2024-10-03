@@ -1,4 +1,4 @@
-package com.interviewprep.oop_concepts.class_and_object.polymorphism.method_overloading;
+package com.interviewprep.oop_concepts.polymorphism.method_overloading;
 
 class Calculator {
   // Method overloading with different parameter types

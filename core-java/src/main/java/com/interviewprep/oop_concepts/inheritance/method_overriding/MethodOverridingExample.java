@@ -1,4 +1,4 @@
-package com.interviewprep.oop_concepts.class_and_object.inheritance.method_overriding;
+package com.interviewprep.oop_concepts.inheritance.method_overriding;
 
 // Superclass
 class Animal {
