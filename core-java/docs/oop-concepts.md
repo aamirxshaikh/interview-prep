@@ -545,6 +545,139 @@ public class HashCodeExample {
   }
   ```
 
+## 2. Enum Types
+
+Enums in Java are special data types that represent a collection of constants. They are implicitly `final` and `static`,
+providing a way to group related values under one type.
+
+### Defining an Enum
+
+An `enum` is defined using the `enum` keyword. Each constant in an enum is a public static final instance of the enum
+type.
+
+```java
+public enum Day {
+  SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY
+}
+```
+
+### Enum with Constructors, Fields, and Methods
+
+Enums can have constructors, fields, and methods, making them more powerful than basic constants. The constructors are
+always `private` or `default`.
+
+```java
+public enum Planet {
+  MERCURY(3.303e+23, 2.4397e6),
+  VENUS(4.869e+24, 6.0518e6),
+  EARTH(5.976e+24, 6.37814e6);
+
+  private final double mass;    // in kilograms
+  private final double radius;  // in meters
+
+  // Enum constructor
+  Planet(double mass, double radius) {
+    this.mass = mass;
+    this.radius = radius;
+  }
+
+  public double getMass() {
+    return mass;
+  }
+
+  public double getRadius() {
+    return radius;
+  }
+}
+```
+
+### Using Enums in Switch Statements
+
+Enums can be used in `switch` statements to control program flow based on specific enum values.
+
+```java
+Day day = Day.MONDAY;
+
+switch (day) {
+  case MONDAY:
+    System.out.println("Start of the work week!");
+    break;
+    
+  case FRIDAY:
+    System.out.println("Almost weekend!");
+    break;
+    
+  case SUNDAY:
+    System.out.println("It's a rest day!");
+    break;
+  
+  default:
+    System.out.println("Midweek day.");
+}
+```
+
+### Enum Constants as Static Final Fields
+
+Each constant in an enum is implicitly `public`, `static`, and `final`. Therefore, enum constants are instances of the
+enum type itself, and their values cannot be changed after being created.
+
+```java
+public enum TrafficSignal {
+  RED, GREEN, YELLOW
+}
+```
+
+Here, `TrafficSignal.RED`, `TrafficSignal.GREEN`, and `TrafficSignal.YELLOW` are static final fields.
+
+### Iterating Over Enum Values
+
+You can use the `values()` method to iterate over all the constants in an enum.
+
+```java
+for(Day day :Day.values()) {
+  System.out.println(day);
+}
+```
+
+### Enum with Overridden Methods
+
+Enums can have methods, and you can override them for specific enum constants. This can be useful when different
+behavior is needed for each constant.
+
+```java
+public enum Operation {
+  PLUS {
+    @Override
+    public double apply(double x, double y) {
+      return x + y;
+    }
+  },
+  MINUS {
+    @Override
+    public double apply(double x, double y) {
+      return x - y;
+    }
+  },
+  MULTIPLY {
+    @Override
+    public double apply(double x, double y) {
+      return x * y;
+    }
+  },
+  DIVIDE {
+    @Override
+    public double apply(double x, double y) {
+      return x / y;
+    }
+  };
+
+  // Abstract method to be overridden
+  public abstract double apply(double x, double y);
+}
+```
+
+In this example, each enum constant overrides the `apply` method to perform different arithmetic operations.
+
 ## 3. Encapsulation
 
 ### Access Modifiers (private, public, protected, default)
@@ -1801,17 +1934,190 @@ modified once created, eliminating such issues.
 Functional programming encourages the use of immutable data structures. Immutability aligns with the principle of
 avoiding side effects and promoting predictable, stateless functions.
 
-## 3. Inheritance
+## 3. Enum Types
 
-### 3.1 Single Inheritance
+### 3.1. Defining an Enum
 
-#### 3.1.1. What is single inheritance in Java, and how does it work?
+#### 3.1.1. What is an enum in Java, and how do you define it?
+
+An enum in Java is a special data type that represents a collection of constants. Enums are defined using the `enum`
+keyword and are used when we need to represent a fixed set of known values (like days of the week, directions, etc.).
+
+#### 3.1.2. How does an enum differ from a class in Java?
+
+Unlike classes, enums are implicitly `final` and cannot be extended. Enums provide a predefined set of instances (
+constants) that are immutable. Also, enum values are automatically created as `public static final` constants.
+
+#### 3.1.3. Can you provide an example of a basic enum definition?
+
+```java
+public enum Gender {
+  MALE, FEMALE
+}
+```
+
+#### 3.1.4. Why are enums used instead of integer constants?
+
+Enums improve code readability and type safety. Unlike integers, enums are strongly typed and cannot be assigned
+arbitrary values, reducing bugs caused by invalid values.
+
+### 3.2. Enum with Constructors, Fields, and Methods
+
+#### 3.2.1. Can an enum in Java have constructors and fields?
+
+Yes, enums can have constructors, fields, and methods just like regular classes. Enum constructors are implicitly
+private and cannot be called explicitly.
+
+#### 3.2.2. How do you define a constructor for an enum?
+
+You define a constructor in an enum just like a regular class, except it must be `private`. Enums can have fields, and
+you can pass values to the constructor when defining the enum constants.
+
+#### 3.2.3. What are some use cases for enums with fields and methods?
+
+Enums with fields and methods can be used to associate additional data with constants, such as assigning different
+values for each enum instance.
+
+#### 3.2.4. Provide an example of an enum with constructors, fields, and methods.
+
+```java
+public enum Day {
+  MONDAY("Weekday"),
+  SATURDAY("Weekend");
+
+  private String type;
+
+  Day(String type) {
+    this.type = type;
+  }
+
+  public String getType() {
+    return type;
+  }
+}
+```
+
+#### 3.2.5. Can an enum in Java have private or public constructors?
+
+Enum constructors can only be `private` in Java. `public` constructors are not allowed since enum constants are
+predefined and created at the time of class loading.
+
+### 3.3. Using Enums in Switch Statements
+
+#### 3.3.1. How do you use an enum in a switch statement?
+
+You can use enums in switch statements just like primitive values (e.g., `int`, `char`). The switch statement evaluates
+the enum constant, making the code more readable and type-safe.
+
+#### 3.3.2. What are the advantages of using enums in switch cases instead of string or integer literals?
+
+Using enums ensures that only valid values can be passed in a switch case, reducing the risk of errors and improving
+maintainability. Enums also prevent arbitrary values, unlike strings or integers.
+
+#### 3.3.3. Can you show an example of a switch statement using enums?
+
+```java
+public void printDay(Day day) {
+  switch (day) {
+    case MONDAY:
+      System.out.println("Start of the week");
+      break;
+    case SATURDAY:
+      System.out.println("Weekend!");
+      break;
+    default:
+      System.out.println("Mid-week day");
+      break;
+  }
+}
+```
+
+### 3.4. Enum Constants as Static Final Fields
+
+#### 3.4.1. Why are enum constants treated as static final fields in Java?
+
+Enum constants are `static` because they belong to the enum class itself and are shared by all instances. They are
+`final` because enum values are constant and cannot be changed after creation.
+
+#### 3.4.2. How does the static and final nature of enum constants impact memory management?
+
+Enum constants are created once when the enum class is loaded and are not recreated, saving memory and ensuring that
+only a single instance of each constant exists.
+
+#### 3.4.3. Can you explain the significance of the ordinal value of enum constants?
+
+The ordinal value is the position of an enum constant in the list, starting from 0. For example, `MONDAY.ordinal()` will
+return `0`. Ordinals are rarely used in modern code since they can lead to maintenance issues if the order of enum
+constants changes.
+
+### 3.5. Iterating Over Enum Values
+
+#### 3.5.1. How can you iterate over the values of an enum in Java?
+
+You can use the `values()` method, which returns an array of the enum constants, to iterate over them.
+
+#### 3.5.2. Provide an example of iterating through an enum using the `values()` method.
+
+```java
+for(Day day :Day.
+
+values()){
+        System.out.
+
+println(day);
+}
+```
+
+#### 3.5.3. What is the difference between `name()` and `toString()` methods when iterating over enums?
+
+The `name()` method returns the exact name of the enum constant as it was declared. The `toString()` method can be
+overridden to provide a custom string representation of the enum constant.
+
+### 3.6. Enum with Overridden Methods
+
+#### 3.6.1. Can you override methods in an enum?
+
+Yes, you can override methods in an enum for individual constants by defining methods within the enum constant body.
+
+#### 3.6.2. How do you define an enum with overridden methods for specific constants?
+
+You can override methods by providing a method implementation within an enum constant.
+
+#### 3.6.3. Provide an example where you override methods for specific enum constants.
+
+```java
+public enum Operation {
+  ADD {
+    public int apply(int x, int y) {
+      return x + y;
+    }
+  },
+  SUBTRACT {
+    public int apply(int x, int y) {
+      return x - y;
+    }
+  };
+
+  public abstract int apply(int x, int y);
+}
+```
+
+#### 3.6.4. What are some practical use cases for enums with overridden methods?
+
+Enums with overridden methods are useful when the behavior of constants varies. For example, an enum for mathematical
+operations like `ADD`, `SUBTRACT`, etc., can have different implementations for each operation.
+
+## 4. Inheritance
+
+### 4.1 Single Inheritance
+
+#### 4.1.1. What is single inheritance in Java, and how does it work?
 
 Single inheritance in Java is when a class inherits from one parent class. This allows the child class to reuse methods
 and fields of the parent class. It works by using the `extends` keyword, creating an "IS-A" relationship between the
 parent and child classes.
 
-#### 3.1.2. How do you use the `extends` keyword to implement single inheritance?
+#### 4.1.2. How do you use the `extends` keyword to implement single inheritance?
 
 The `extends` keyword is used to indicate that a class is inheriting from a superclass. For example:
 
@@ -1827,7 +2133,7 @@ class Child extends Parent {
 }
  ```
 
-#### 3.1.3. Can you explain the benefits and drawbacks of single inheritance?
+#### 4.1.3. Can you explain the benefits and drawbacks of single inheritance?
 
 **Benefits**:
 
@@ -1839,19 +2145,19 @@ class Child extends Parent {
 - Limited reuse: A class can only inherit from one parent class in Java.
 - Increased coupling: The child class is dependent on the implementation of the parent class.
 
-#### 3.1.4. What are the implications of the "IS-A" relationship in inheritance?
+#### 4.1.4. What are the implications of the "IS-A" relationship in inheritance?
 
 The "IS-A" relationship means that the subclass can be treated as an instance of the parent class. This allows
 polymorphism, where objects of the child class can be used wherever the parent class objects are expected.
 
-### 3.2 Multilevel Inheritance
+### 4.2 Multilevel Inheritance
 
-#### 3.2.1. What is multilevel inheritance, and how does it differ from single inheritance?
+#### 4.2.1. What is multilevel inheritance, and how does it differ from single inheritance?
 
 Multilevel inheritance refers to a chain of inheritance where a class can inherit from a child class of another class.
 For example, Class C can inherit from Class B, which inherits from Class A.
 
-#### 3.2.2. Provide an example of multilevel inheritance in Java.
+#### 4.2.2. Provide an example of multilevel inheritance in Java.
 
 ```java
 class A {
@@ -1873,25 +2179,25 @@ class C extends B {
 }
 ```
 
-#### 3.2.3. How do constructors behave in multilevel inheritance scenarios?
+#### 4.2.3. How do constructors behave in multilevel inheritance scenarios?
 
 Constructors of the parent classes are called first, in a top-down approach. The constructor of the superclass gets
 executed before the subclass constructors, ensuring that the parent class's part of the object is initialized first.
 
-#### 3.2.4. What are the challenges associated with multilevel inheritance in large applications?
+#### 4.2.4. What are the challenges associated with multilevel inheritance in large applications?
 
 Multilevel inheritance can make debugging and understanding code difficult as it increases the complexity. Changes in
 the base classes may propagate unexpectedly, causing unintended side effects in derived classes.
 
-### 3.3 Method Overriding
+### 4.3 Method Overriding
 
-#### 3.3.1. What is method overriding in Java, and how does it differ from method overloading?
+#### 4.3.1. What is method overriding in Java, and how does it differ from method overloading?
 
 Method overriding occurs when a subclass provides a specific implementation for a method already defined in its parent
 class. In contrast, method overloading occurs when multiple methods with the same name exist in a class but with
 different parameters.
 
-#### 3.3.2. How do you override a method in a subclass?
+#### 4.3.2. How do you override a method in a subclass?
 
 You override a method by redefining it in the subclass with the same signature (method name, parameters, and return
 type):
@@ -1911,30 +2217,30 @@ class Child extends Parent {
 }
 ```
 
-#### 3.3.3. Can you explain the role of the `@Override` annotation in method overriding?
+#### 4.3.3. Can you explain the role of the `@Override` annotation in method overriding?
 
 The `@Override` annotation ensures that the method is correctly overriding a method from the parent class. It helps
 avoid errors if the method signature does not exactly match the parent class's method.
 
-#### 3.3.4. What are the rules for method overriding in Java?
+#### 4.3.4. What are the rules for method overriding in Java?
 
 - The method must have the same name, return type, and parameters.
 - The access level cannot be more restrictive than the overridden method.
 - The method cannot throw new or broader checked exceptions.
 
-#### 3.3.5. How does method overriding relate to runtime polymorphism?
+#### 4.3.5. How does method overriding relate to runtime polymorphism?
 
 Method overriding is essential for achieving runtime polymorphism. At runtime, the JVM calls the overridden method based
 on the actual object's type, not the reference's type.
 
-### 3.4 super Keyword
+### 4.4 super Keyword
 
-#### 3.4.1. What is the `super` keyword in Java, and when would you use it?
+#### 4.4.1. What is the `super` keyword in Java, and when would you use it?
 
 The `super` keyword refers to the parent class's object. It is used to call the parent class's methods or constructors,
 especially when the subclass overrides the methods.
 
-#### 3.4.2. How does `super` help in accessing superclass methods and constructors?
+#### 4.4.2. How does `super` help in accessing superclass methods and constructors?
 
 You can use `super` to explicitly call a superclass's method or constructor. For example:
 
@@ -1953,7 +2259,7 @@ class Child extends Parent {
 }
 ```
 
-#### 3.4.3. Provide an example of using `super` to call a superclass constructor.
+#### 4.4.3. Provide an example of using `super` to call a superclass constructor.
 
 ```java
 class A {
@@ -1970,22 +2276,22 @@ class B extends A {
 }
 ```
 
-#### 3.4.4. What are the differences between `super` and `this` in Java?
+#### 4.4.4. What are the differences between `super` and `this` in Java?
 
 - `this` refers to the current object's instance.
 - `super` refers to the parent class's instance.
 - `this` is used to access members of the current class, while `super` is used to access members of the parent class.
 
-### 3.5 Hierarchical Inheritance
+### 4.5 Hierarchical Inheritance
 
-### 3.5.1 Inheritance with Multiple Subclasses
+### 4.5.1 Inheritance with Multiple Subclasses
 
-#### 3.5.1.1. What is hierarchical inheritance in Java?
+#### 4.5.1.1. What is hierarchical inheritance in Java?
 
 Hierarchical inheritance occurs when multiple subclasses inherit from a single superclass. This allows different child
 classes to reuse the methods and fields of the same parent class.
 
-#### 3.5.1.2. How do multiple subclasses inherit from a single parent class?
+#### 4.5.1.2. How do multiple subclasses inherit from a single parent class?
 
 Each subclass uses the `extends` keyword to inherit from the same parent class. For example:
 
@@ -2003,7 +2309,7 @@ class Child2 extends Parent {
 }
 ```
 
-#### 3.5.1.3. Can you explain the advantages and potential issues with hierarchical inheritance?
+#### 4.5.1.3. Can you explain the advantages and potential issues with hierarchical inheritance?
 
 **Advantages**:
 
@@ -2014,26 +2320,26 @@ class Child2 extends Parent {
 - Tight coupling between child classes and parent class may introduce rigidity.
 - Changes in the parent class can impact all child classes.
 
-#### 3.5.1.4. How does method resolution work in hierarchical inheritance?
+#### 4.5.1.4. How does method resolution work in hierarchical inheritance?
 
 Method resolution starts with the child class. If the method is not found, it moves up the inheritance hierarchy,
 checking the parent class and so on.
 
-### 3.6 Composition vs. Inheritance
+### 4.6 Composition vs. Inheritance
 
-### 3.6.1 When to Use Composition Over Inheritance
+### 4.6.1 When to Use Composition Over Inheritance
 
-#### 3.6.1.1. What is the difference between composition and inheritance in OOP?
+#### 4.6.1.1. What is the difference between composition and inheritance in OOP?
 
 Inheritance creates an "IS-A" relationship between parent and child classes, while composition creates a "HAS-A"
 relationship where one class contains an instance of another class.
 
-#### 3.6.1.2. When should you prefer composition over inheritance in your design?
+#### 4.6.1.2. When should you prefer composition over inheritance in your design?
 
 Composition is preferable when the relationship between classes is more flexible and represents behavior rather than
 identity. For example, use composition to reuse code without the tight coupling that comes with inheritance.
 
-#### 3.6.1.3. Provide an example of using composition to achieve code reuse.
+#### 4.6.1.3. Provide an example of using composition to achieve code reuse.
 
 ```java
 class Engine {
@@ -2051,21 +2357,21 @@ class Car {
 }
 ```
 
-#### 3.6.1.4. How does composition help in creating more flexible and maintainable code?
+#### 4.6.1.4. How does composition help in creating more flexible and maintainable code?
 
 Composition is more flexible than inheritance because it allows changing behavior at runtime by swapping out components.
 This reduces coupling and increases the modularity and maintainability of the code.
 
-## 4. Polymorphism
+## 5. Polymorphism
 
-### 4.1 Compile-Time Polymorphism (Method Overloading)
+### 5.1 Compile-Time Polymorphism (Method Overloading)
 
-#### 4.1.1. What is compile-time polymorphism, and how is it achieved in Java?
+#### 5.1.1. What is compile-time polymorphism, and how is it achieved in Java?
 
 Compile-time polymorphism, also known as method overloading, occurs when multiple methods in the same class have the
 same name but different parameters (different type, number, or both). It is resolved during compile-time.
 
-#### 4.1.2. How do you implement method overloading in a class?
+#### 5.1.2. How do you implement method overloading in a class?
 
 Method overloading is implemented by defining multiple methods in a class with the same name but with different
 signatures. Example:
@@ -2082,57 +2388,57 @@ class Calculator {
 }
 ```
 
-#### 4.1.3. Can you explain the rules for method overloading in Java?
+#### 5.1.3. Can you explain the rules for method overloading in Java?
 
 1. The method names must be the same.
 2. The parameter list must differ in either type, number, or both.
 3. Return type does not play a role in method overloading.
 
-#### 4.1.4. How does method overloading improve code readability and usability?
+#### 5.1.4. How does method overloading improve code readability and usability?
 
 Method overloading allows a class to have multiple methods that perform similar functions but with different input
 parameters. This simplifies method names and enhances readability.
 
-### 4.2 Runtime Polymorphism (Method Overriding)
+### 5.2 Runtime Polymorphism (Method Overriding)
 
-#### 4.2.1. What is runtime polymorphism, and how does it differ from compile-time polymorphism?
+#### 5.2.1. What is runtime polymorphism, and how does it differ from compile-time polymorphism?
 
 Runtime polymorphism occurs when a subclass overrides a method of the superclass, and the method to be called is
 determined during runtime. Unlike compile-time polymorphism, runtime polymorphism relies on inheritance and method
 overriding.
 
-#### 4.2.2. How do you achieve runtime polymorphism through method overriding?
+#### 5.2.2. How do you achieve runtime polymorphism through method overriding?
 
 Runtime polymorphism is achieved by overriding a method in a subclass. The method in the subclass must have the same
 signature as the one in the superclass. The decision about which method to execute is made at runtime based on the
 object type.
 
-#### 4.2.3. Can you explain how polymorphism enhances flexibility and reusability in OOP?
+#### 5.2.3. Can you explain how polymorphism enhances flexibility and reusability in OOP?
 
 Polymorphism allows objects to be treated as instances of their parent class. This enhances code flexibility because a
 single interface can represent different object types. It also improves reusability by allowing subclasses to share
 behavior.
 
-#### 4.2.4. How does the JVM determine which method to invoke in runtime polymorphism?
+#### 5.2.4. How does the JVM determine which method to invoke in runtime polymorphism?
 
 The JVM uses dynamic method dispatch to determine which method to invoke based on the actual object type at runtime, not
 the reference type. This allows the same method to exhibit different behavior based on the object type.
 
-### 4.3 Covariant Return Types
+### 5.3 Covariant Return Types
 
-### 4.3.1 Method Overriding with Covariant Return Types
+### 5.3.1 Method Overriding with Covariant Return Types
 
-#### 4.3.1.1. What are covariant return types in Java?
+#### 5.3.1.1. What are covariant return types in Java?
 
 Covariant return types allow a subclass method to return a more specific type (subtype) than the return type declared by
 the method in the superclass.
 
-#### 4.3.1.2. How do covariant return types support method overriding?
+#### 5.3.1.2. How do covariant return types support method overriding?
 
 Covariant return types allow method overriding with a return type that is a subclass of the original return type, which
 can make the overridden method more specific.
 
-#### 4.3.1.3. Can you provide an example of method overriding with covariant return types?
+#### 5.3.1.3. Can you provide an example of method overriding with covariant return types?
 
 ```java
 class Animal {
@@ -2149,7 +2455,7 @@ class Dog extends Animal {
 }
 ```
 
-#### 4.3.1.4. What are the benefits and limitations of using covariant return types?
+#### 5.3.1.4. What are the benefits and limitations of using covariant return types?
 
 Benefits:
 
@@ -2159,16 +2465,16 @@ Limitations:
 
 - Care must be taken to ensure that the overridden method complies with the original method's contract.
 
-## 5. Abstraction
+## 6. Abstraction
 
-### 5.1 Abstract Classes and Methods
+### 6.1 Abstract Classes and Methods
 
-#### 5.1.1. What is an abstract class in Java, and when would you use it?
+#### 6.1.1. What is an abstract class in Java, and when would you use it?
 
 An abstract class in Java is a class that cannot be instantiated and may contain abstract methods. It is used when you
 want to define a common base class with default behavior that can be shared by multiple subclasses.
 
-#### 5.1.2. How do you declare an abstract method in an abstract class?
+#### 6.1.2. How do you declare an abstract method in an abstract class?
 
 An abstract method is declared using the `abstract` keyword, and it does not have a body. Example:
 
@@ -2178,35 +2484,35 @@ abstract class Animal {
 }
 ```
 
-#### 5.1.3. Can you explain the difference between an abstract class and an interface?
+#### 6.1.3. Can you explain the difference between an abstract class and an interface?
 
 - Abstract classes can have both abstract and non-abstract methods, while interfaces can only have abstract methods (
   prior to Java 8).
 - A class can extend only one abstract class but can implement multiple interfaces.
 
-#### 5.1.4. How does abstraction contribute to the flexibility and extensibility of your code?
+#### 6.1.4. How does abstraction contribute to the flexibility and extensibility of your code?
 
 Abstraction allows you to define methods that must be implemented by subclasses, enforcing a contract while allowing
 flexibility in how the behavior is implemented.
 
-#### 5.1.5. What are the key design principles that guide the use of abstract classes?
+#### 6.1.5. What are the key design principles that guide the use of abstract classes?
 
 - There is shared code that subclasses should inherit.
 - You want to define methods that all subclasses must implement.
 
-### 5.2 Interfaces and Multiple Inheritance
+### 6.2 Interfaces and Multiple Inheritance
 
-#### 5.2.1. What is an interface in Java, and how does it differ from an abstract class?
+#### 6.2.1. What is an interface in Java, and how does it differ from an abstract class?
 
 An interface is a contract that classes can implement. Unlike abstract classes, interfaces do not have fields and can be
 implemented by any class. In Java 8+, interfaces can also have default and static methods.
 
-#### 5.2.2. How do interfaces support multiple inheritance in Java?
+#### 6.2.2. How do interfaces support multiple inheritance in Java?
 
 Java allows a class to implement multiple interfaces, which means that a class can inherit behavior from multiple
 sources, avoiding the diamond problem.
 
-#### 5.2.3. Can you provide an example of a class implementing multiple interfaces?
+#### 6.2.3. Can you provide an example of a class implementing multiple interfaces?
 
 ```java
 interface A {
@@ -2228,39 +2534,39 @@ class C implements A, B {
 }
 ```
 
-#### 5.2.4. How does the diamond problem arise in multiple inheritance, and how does Java resolve it?
+#### 6.2.4. How does the diamond problem arise in multiple inheritance, and how does Java resolve it?
 
 The diamond problem occurs when a class inherits from multiple classes that have a common ancestor, causing ambiguity.
 Java resolves this by allowing multiple interfaces, not classes, to be implemented.
 
-#### 5.2.5. How do interfaces enhance modularity and testability in your code?
+#### 6.2.5. How do interfaces enhance modularity and testability in your code?
 
 Interfaces provide a layer of abstraction that decouples implementation from behavior, making it easier to write modular
 code and mock interfaces for testing purposes.
 
-### 5.3 Default and Static Methods in Interfaces (Java 8+)
+### 6.3 Default and Static Methods in Interfaces (Java 8+)
 
-#### 5.3.1. What are default methods in Java interfaces, and why were they introduced?
+#### 6.3.1. What are default methods in Java interfaces, and why were they introduced?
 
 Default methods are methods in interfaces with a default implementation. They were introduced in Java 8 to allow
 interface evolution without breaking existing implementations.
 
-#### 5.3.2. How do static methods in interfaces differ from default methods?
+#### 6.3.2. How do static methods in interfaces differ from default methods?
 
 Static methods in interfaces are not tied to instance objects. They belong to the interface itself and can be invoked
 directly using the interface name.
 
-#### 5.3.3. Can you explain how default and static methods in interfaces provide backward compatibility?
+#### 6.3.3. Can you explain how default and static methods in interfaces provide backward compatibility?
 
 Default methods allow developers to add new functionality to interfaces without forcing all implementing classes to
 provide an implementation.
 
-#### 5.3.4. How do default methods in interfaces help in evolving APIs without breaking existing implementations?
+#### 6.3.4. How do default methods in interfaces help in evolving APIs without breaking existing implementations?
 
 By providing default methods, you can introduce new methods to an interface without requiring all existing implementers
 to modify their code.
 
-#### 5.3.5. What are the potential pitfalls of using default and static methods in interfaces?
+#### 6.3.5. What are the potential pitfalls of using default and static methods in interfaces?
 
 - Default methods may introduce ambiguity in cases where multiple interfaces define methods with the same signature.
 - Overuse of default methods can lead to poorly designed interfaces.
