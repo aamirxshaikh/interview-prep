@@ -27,6 +27,10 @@ you should prepare:
     - Variable Declaration and Initialization
     - Type Casting (Implicit and Explicit)
     - Constants (final keyword)
+    - **Wrapper Classes**
+        - List of Wrapper Classes
+        - Autoboxing and Unboxing
+        - Usage in Collections
 
 - **[Exception Handling](core-java/docs/exception-handling.md)**
     - Introduction to Exceptions
