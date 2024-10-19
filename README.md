@@ -102,7 +102,7 @@ you should prepare:
         - Comparison: Abstract Class vs Interface
         - When to Use Abstract Classes vs Interfaces
 
-- **Java Collections Framework**
+- **[Java Collections Framework](core-java/docs/java-collections-framework.md)**
     - Generics in Java
         - Introduction to Generics
         - Type Parameters and Wildcards
