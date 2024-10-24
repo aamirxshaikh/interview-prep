@@ -292,10 +292,77 @@ be unique. `Set` is implemented by various classes in the Java Collections Frame
 
 #### Internal Working:
 
-- Uses a **hash table** where each element is hashed to determine its position.
-- When a new element is added, its **hashCode()** is calculated, and it is stored in a **bucket**.
-- If multiple elements have the same hash code (hash collision), they are stored in a **linked list** or a **tree
-  structure** (in case of Java 8+).
+#### Underlying Data Structure
+
+Internally, `HashSet` uses a `HashMap` instance to store elements. The `HashSet` class is essentially a wrapper around
+`HashMap` with only keys being stored (in a conceptual sense). The values are all identical and use a constant object.
+
+```java
+private transient HashMap<E, Object> map;
+
+// A dummy value to associate with an Object in the backing Map
+private static final Object PRESENT = new Object();
+```
+
+- **Keys in HashMap**: Every element in the HashSet is stored as a key in the HashMap.
+- **Values in HashMap**: The value for all keys in the HashMap is the same constant placeholder object, typically named
+  PRESENT.
+
+#### Adding an Element
+
+When an element is added to a `HashSet`, the following steps are performed:
+
+1. **Hashing**: The hash code of the element is calculated using its `hashCode()` method.
+2. **Index Calculation**: The hash code is used to find an appropriate bucket (index) in the underlying `HashMap` array.
+3. **Checking for Duplicates**: The `equals()` method is used to check if the element already exists in the bucket. If
+   an equal element is found, the new element is not added (since duplicates are not allowed).
+4. **Storing**: If no duplicate is found, the element is added to the bucket at the calculated index in the `HashMap`.
+
+**Example:**
+
+```java
+HashSet<String> set = new HashSet<>();
+set.add("apple"); // "apple" is hashed, and if not present, it's stored in HashMap
+```
+
+**Behind the scenes:**
+
+```java
+private transient HashMap<E, Object> map; // internal HashMap instance
+private static final Object PRESENT = new Object();
+
+public boolean add(E e) {
+  return map.put(e, PRESENT) == null;
+}
+```
+
+#### Retrieving an Element
+
+Since a `HashSet` does not allow direct access to elements (as it does not maintain ordering), elements can only be
+accessed using iteration, not by index.
+
+#### Removing an Element
+
+When an element is removed:
+
+1. **Hashing**: The hash code of the element is calculated to find the corresponding bucket.
+2. **Equality Check**: The bucket is traversed using the `equals()` method to find the element.
+3. **Deletion**: If the element is found, it is removed from the underlying `HashMap`.
+
+#### Handling Collisions
+
+- **Collisions** occur when multiple elements hash to the same index. In such cases, `HashSet` uses a linked list or a
+  balanced tree structure (in case of many collisions) within the bucket to store multiple entries.
+- If the number of elements in a single bucket grows beyond a certain threshold, the bucket is transformed into a
+  balanced binary tree (red-black tree) to improve lookup performance.
+
+#### Resizing
+
+If the number of elements exceeds the product of the load factor (default 0.75) and the current capacity, the underlying
+`HashMap` automatically resizes, which involves:
+
+1. **Doubling** the size of the internal array.
+2. **Rehashing** all existing elements into the new array.
 
 #### Example
 
@@ -316,6 +383,11 @@ public class HashSetExample {
 }
 ```
 
+- **Time Complexity**:
+    - Access: O(1) (not applicable for sets, as they don't allow accessing elements by index)
+    - Insert: O(1) (amortized, but can degrade to O(n) if many elements hash to the same bucket)
+    - Remove: O(1) (amortized, similar conditions as insert)
+
 #### `LinkedHashSet`
 
 - `LinkedHashSet` extends `HashSet` and **maintains insertion order**.
@@ -325,9 +397,89 @@ public class HashSetExample {
 
 #### Internal Working:
 
-- Uses a **hash table** similar to `HashSet` but maintains a **doubly-linked list** to remember the insertion order of
-  elements.
-- When iterating over a `LinkedHashSet`, elements are returned in the order they were inserted.
+#### Underlying Data Structure
+
+Internally, `LinkedHashSet` uses a combination of `HashMap` and a doubly-linked list. This allows it to maintain the
+insertion order of elements while providing the set functionalities.
+
+`LinkedHashSet` extends `HashSet` and relies on a `LinkedHashMap` to store elements. This combination provides both the
+benefits of fast lookup times due to hashing and the ability to iterate in insertion order.
+
+```java
+public class LinkedHashSet<E> extends HashSet<E> implements Set<E>, Cloneable, java.io.Serializable {
+  private transient LinkedHashMap<E, Object> map;
+  // Other methods and constructor implementations
+}
+```
+
+- **Keys in LinkedHashMap**: Every element in the `LinkedHashSet` is stored as a key in a `LinkedHashMap`.
+- **Values in LinkedHashMap**: The value for all keys in `LinkedHashMap` is a constant placeholder object named
+  `PRESENT` (similar to `HashSet`).
+
+#### Adding an Element
+
+When an element is added to a `LinkedHashSet`, the following steps are performed:
+
+1. **Hashing**: The hash code of the element is calculated using its `hashCode()` method.
+2. **Index Calculation**: The hash code is used to find an appropriate bucket (index) in the underlying `LinkedHashMap`
+   array.
+3. **Checking for Duplicates**: The `equals()` method is used to check if the element already exists in the bucket. If
+   an equal element is found, the new element is not added (since duplicates are not allowed).
+4. **Storing and Maintaining Order**: If no duplicate is found, the element is added to the bucket at the calculated
+   index in the `LinkedHashMap`, and its position in the linked list is recorded to maintain insertion order.
+
+#### Example:
+
+```java
+LinkedHashSet<String> linkedSet = new LinkedHashSet<>();
+linkedSet.add("apple"); // "apple" is hashed, checked for uniqueness, and stored in LinkedHashMap.
+```
+
+#### Behind the Scenes:
+
+```java
+private transient LinkedHashMap<E, Object> map; // internal LinkedHashMap instance
+private static final Object PRESENT = new Object();
+
+public boolean add(E e) {
+  return map.put(e, PRESENT) == null;
+}
+```
+
+#### Maintaining Insertion Order
+
+`LinkedHashMap`, which `LinkedHashSet` uses internally, maintains a doubly-linked list to keep track of the order of
+insertion. This ensures that the iteration order of `LinkedHashSet` is the same as the order in which elements were
+inserted.
+
+#### Retrieving an Element
+
+Elements in a `LinkedHashSet` can be accessed by iterating through the set. Unlike a `HashSet`, a
+`LinkedHashSet` guarantees that elements are iterated in their insertion order.
+
+#### Removing an Element
+
+When an element is removed:
+
+1. **Hashing**: The hash code of the element is calculated to find the corresponding bucket.
+2. **Equality Check**: The bucket is traversed using the `equals()` method to find the element.
+3. **Deletion**: If the element is found, it is removed from the underlying `LinkedHashMap`, and its links in the
+   doubly-linked list are updated to maintain order.
+
+#### Handling Collisions
+
+- **Collisions** occur when multiple elements hash to the same index. In such cases, `LinkedHashMap` (and consequently
+  `LinkedHashSet`) uses a linked list or a balanced tree structure within the bucket to store multiple entries.
+- If the number of elements in a single bucket grows beyond a certain threshold, the bucket is transformed into a
+  balanced binary tree (red-black tree) to improve lookup performance.
+
+#### Resizing
+
+If the number of elements exceeds the product of the load factor (default 0.75) and the current capacity, the underlying
+`LinkedHashMap` automatically resizes, which involves:
+
+1. **Doubling** the size of the internal array.
+2. **Rehashing** all existing elements into the new array.
 
 #### Example
 
@@ -348,6 +500,12 @@ public class LinkedHashSetExample {
 }
 ```
 
+- **Time Complexity**:
+    - Access: O(1) (not applicable for sets, as they don't allow accessing elements by index)
+    - Insert: O(1) (amortized, maintains insertion order)
+    - Remove: O(1) (amortized, similar conditions as insert)
+    - Iteration: O(n) (preserves insertion order)
+
 #### `TreeSet`
 
 - `TreeSet` is an implementation of the `SortedSet` interface and stores elements in **sorted order**.
@@ -357,9 +515,81 @@ public class LinkedHashSetExample {
 
 #### Internal Working:
 
-- Uses a **self-balancing binary search tree (Red-Black tree)** for storing elements.
-- Elements are sorted in their **natural order** (or by a custom comparator if provided).
-- It provides methods like `headSet()`, `tailSet()`, and `subSet()` to get subsets of the `TreeSet`.
+#### Underlying Data Structure
+
+Internally, `TreeSet` uses a `TreeMap` instance to store elements. The `TreeSet` class is essentially a wrapper around
+`TreeMap` with only keys being stored (in a conceptual sense). `TreeSet` maintains a sorted order of elements using the
+natural ordering of elements or a provided comparator.
+
+```java
+private transient NavigableMap<E, Object> m;
+private static final Object PRESENT = new Object();
+```
+
+- **Keys in TreeMap**: Every element in the `TreeSet` is stored as a key in the underlying `TreeMap`.
+- **Values in TreeMap**: The value for all keys in the `TreeMap` is the same constant placeholder object, typically
+  named `PRESENT`.
+
+#### Adding an Element
+
+When an element is added to a `TreeSet`, the following steps are performed:
+
+1. **Comparison**: The element to be added is compared with existing elements using either its `compareTo()` method or a
+   provided `Comparator`.
+2. **Checking for Duplicates**: If an equal element is found using the comparison, the new element is not added (since
+   duplicates are not allowed).
+3. **Inserting**: If no duplicate is found, the element is inserted into the underlying `TreeMap` as a key, maintaining
+   the sorted order.
+
+**Example:**
+
+```java
+TreeSet<String> set = new TreeSet<>();
+set.add("banana");
+set.add("apple");
+set.add("cherry");
+```
+
+**Behind the scenes:**
+
+```java
+private transient NavigableMap<E, Object> m;
+private static final Object PRESENT = new Object();
+
+public boolean add(E e) {
+  return m.put(e, PRESENT) == null;
+}
+```
+
+#### Retrieving an Element
+
+Since a `TreeSet` maintains a sorted order of elements, it provides methods to retrieve elements like `first()`,
+`last()`, `ceiling()`, `floor()`, `higher()`, and `lower()`, based on specific criteria. Direct access to elements by
+index is not allowed.
+
+#### Removing an Element
+
+When an element is removed:
+
+1. **Comparison**: The element to be removed is compared with existing elements using either the natural order or a
+   provided `Comparator`.
+2. **Equality Check**: If an equal element is found in the underlying `TreeMap`, it is removed.
+3. **Deletion**: If the element is found, it is removed from the underlying `TreeMap`.
+
+#### Sorting Mechanism
+
+- `TreeSet` uses a red-black tree internally, which is a self-balancing binary search tree. This ensures that all
+  operations such as insertion, deletion, and lookup are performed in `O(log n)` time.
+
+#### Handling Duplicates
+
+- Duplicates are not allowed in a `TreeSet`. If an attempt is made to add an element that is already present (based on
+  comparison), the new element is not added, and the set remains unchanged.
+
+#### Resizing
+
+- Unlike a `HashSet`, there is no concept of resizing in a `TreeSet` since the underlying `TreeMap` does not rely on an
+  array but rather on a balanced binary tree.
 
 #### Example
 
@@ -379,6 +609,12 @@ public class TreeSetExample {
   }
 }
 ```
+
+- **Time Complexity**:
+    - Access: O(log n) (for operations like first(), last(), etc.)
+    - Insert: O(log n) (for maintaining sorted order)
+    - Remove: O(log n)
+    - Iteration: O(n) (in sorted order)
 
 ### When to Use Which Set Implementation?
 
@@ -425,8 +661,74 @@ The `Map` interface represents a collection of key-value pairs, with unique keys
 
 ### ArrayList vs. LinkedList
 
-- **ArrayList**: Better for frequent access operations due to its array-based structure.
-- **LinkedList**: Better for frequent insertions and deletions.
+### Overview
+
+| Feature              | `ArrayList`                                   | `LinkedList`                                                                            |
+|----------------------|-----------------------------------------------|-----------------------------------------------------------------------------------------|
+| **Implementation**   | Uses a dynamic array internally.              | Uses a doubly linked list internally.                                                   |
+| **Memory Structure** | Stores elements in a contiguous memory block. | Stores elements as nodes, each containing data and pointers to previous and next nodes. |
+
+### Performance Comparison
+
+#### 1. Access Time
+
+- **ArrayList**: `O(1)`
+    - Explanation: Direct access is possible using the index since elements are stored in a contiguous memory block.
+- **LinkedList**: `O(n)`
+    - Explanation: To access an element, it needs to traverse from the head or tail to the specified index.
+
+#### 2. Insertion
+
+- **At End**:
+    - **ArrayList**: `O(1)` (amortized)
+        - Explanation: Adding an element at the end is usually quick unless resizing is needed. When the array is full,
+          it resizes (typically 1.5 times its size), which takes `O(n)`.
+    - **LinkedList**: `O(1)`
+        - Explanation: Since there's a reference to the tail, adding an element at the end is straightforward.
+- **At Start**:
+    - **ArrayList**: `O(n)`
+        - Explanation: Insertion at the start requires shifting all elements to the right.
+    - **LinkedList**: `O(1)`
+        - Explanation: Inserting at the start is quick as it updates the head reference.
+- **At Index**:
+    - **ArrayList**: `O(n)`
+        - Explanation: Requires shifting elements to make space for the new element.
+    - **LinkedList**: `O(n)`
+        - Explanation: Needs to traverse to the specified index and then update pointers.
+
+#### 3. Deletion
+
+- **At End**:
+    - **ArrayList**: `O(1)`
+        - Explanation: Removing the last element is quick as no shifting is required.
+    - **LinkedList**: `O(1)`
+        - Explanation: Deleting the last element is fast due to the tail reference.
+- **At Start**:
+    - **ArrayList**: `O(n)`
+        - Explanation: Removing the first element requires shifting all elements to the left.
+    - **LinkedList**: `O(1)`
+        - Explanation: Removing the first element is quick as it updates the head reference.
+- **At Index**:
+    - **ArrayList**: `O(n)`
+        - Explanation: Requires shifting elements to fill the gap left by the removed element.
+    - **LinkedList**: `O(n)`
+        - Explanation: Needs to traverse to the specified index before removing and updating pointers.
+
+#### 4. Memory Usage
+
+- **ArrayList**:
+    - More memory-efficient when storing simple data types as it doesn't require extra memory for pointers.
+- **LinkedList**:
+    - Uses more memory as each node stores additional pointers (references to the previous and next nodes).
+
+### Use Cases
+
+| **Scenario**                                | **Better Option**            | **Reason**                                                                    |
+|---------------------------------------------|------------------------------|-------------------------------------------------------------------------------|
+| **Frequent read operations**                | `ArrayList`                  | Provides faster random access (`O(1)` for accessing elements).                |
+| **Frequent insertions/deletions at ends**   | `LinkedList`                 | No shifting of elements required, making operations `O(1)`.                   |
+| **Memory-sensitive application**            | `ArrayList`                  | More space-efficient due to lack of additional pointers.                      |
+| **Frequent insertions/deletions at middle** | `LinkedList` (if traversing) | Better if you need to avoid shifting elements, though traversal cost applies. |
 
 ### HashMap vs. TreeMap
 
