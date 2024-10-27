@@ -6,7 +6,7 @@ The Java Collections Framework (JCF) is a unified architecture for representing 
 developers to work with data more efficiently and effectively. It provides a set of interfaces, implementations, and
 algorithms to handle groups of objects.
 
-![img_2.png](img_2.png)
+![img_2.png](images/img_2.png)
 
 ## 2. Collection Interfaces: List, Set, Queue, Map
 
