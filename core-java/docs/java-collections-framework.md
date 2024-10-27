@@ -34,6 +34,7 @@ The `Queue` interface represents a collection designed for holding elements prio
 are:
 
 - **PriorityQueue**: A queue that orders its elements based on their natural ordering or a specified comparator.
+- **ArrayDeque**: Resizable-array implementation of the `Deque` interface, allowing fast insertion and removal operations.
 - **LinkedList**: Also implements the `Queue` interface, providing flexibility for queue operations.
 
 ### Map
@@ -642,11 +643,164 @@ public class TreeSetExample {
 
 ### 3. Queue
 
-The `Queue` interface represents a collection designed for holding elements prior to processing. Common implementations
-are:
+The **`Queue` interface** in Java is a part of the Java Collections Framework. It represents a collection designed for
+holding elements before processing, following the First-In-First-Out (FIFO) principle. Queues are typically used to
+order elements for processing in the same order they were added.
 
-- **PriorityQueue**: A queue that orders its elements based on their natural ordering or a specified comparator.
-- **LinkedList**: Also implements the `Queue` interface, providing flexibility for queue operations.
+- **FIFO (First-In-First-Out) Order**: Elements in a `Queue` are processed in the order they are added. The element
+  inserted first is the one removed first. Some implementations might not strictly adhere to this, such as priority
+  queues.
+- **Insertion at the Tail, Removal from the Head**: By default, elements are added at the end (tail) and removed from
+  the start (head) of the queue.
+- **Extends Collection Interface**: `Queue` extends the `Collection` interface, meaning it inherits its basic collection
+  methods like `add`, `remove`, `size`, and more.
+- **Two Types of Queue Operations**: There are two sets of methods in the `Queue` interface:
+    - **Throws Exception**: `add()` (for adding) and `remove()` (for removing) throw exceptions on failure.
+    - **Returns Special Value**: `offer()` (for adding) and `poll()` (for removing) return special values (`false` or
+      `null`) on failure.
+- **Various Implementations**: `Queue` has various implementations like `PriorityQueue`, `ArrayDeque`, `LinkedList`,
+  each with specific characteristics and uses.
+- **Does Not Allow `null`**: In most implementations, inserting `null` elements is not allowed and can throw exceptions.
+
+### Commonly Used Queue Implementations
+
+#### `PriorityQueue`
+
+- `PriorityQueue` is an implementation of the `Queue` interface that orders its elements based on their natural ordering
+  or using a specified comparator.
+- **Maintains elements in a priority order**, where the element with the highest priority is at the head of the queue.
+- **Does not permit `null` elements**.
+- **Not thread-safe**; requires external synchronization if accessed by multiple threads.
+- **Does not guarantee ordering** of elements with equal priority.
+
+#### Internal Working:
+
+#### Underlying Data Structure
+
+Internally, `PriorityQueue` uses a **resizable array** (similar to a heap) to store elements. The internal array grows
+as needed.
+
+```java
+private transient Object[] queue; // Array to store elements
+```
+
+- **Binary Heap**: The elements are organized using a binary heap structure. In a binary heap:
+    - The **root node** represents the element with the highest priority (or smallest/largest based on the comparator).
+    - New elements are added at the end of the array and then sifted up to maintain the heap order.
+
+#### Adding an Element
+
+1. **Adding to the end**: A new element is added at the end of the internal array.
+2. **Sifting Up**: The element is then sifted up to restore the heap order, ensuring that the highest priority element
+   is at the head.
+
+#### Example:
+
+```java
+PriorityQueue<Integer> queue = new PriorityQueue<>();
+queue.add(10);
+queue.add(5);
+queue.add(20);
+System.out.println(queue); // Output: [5, 10, 20] (order may vary based on natural ordering)
+```
+
+#### Removing an Element
+
+When an element is removed, the following steps are performed:
+
+1. **Replacing with the last element**: The element at the head is replaced with the last element in the array.
+2. **Sifting Down**: The new head is sifted down to maintain the heap order.
+
+- **Time Complexity**:
+    - Insertion: O(log n) *(Uses a binary heap to maintain order while adding elements)*
+    - Deletion (removal of the head): O(log n) *(Reorders the heap structure when removing elements)*
+    - Access (peek/element): O(1) *(Directly accesses the head element)*
+    - Search: O(n) *(Sequentially searches through unsorted heap elements)*
+
+#### `ArrayDeque`
+
+- `ArrayDeque` is a **resizable array implementation** of the `Deque` interface.
+- It allows **fast insertion and removal operations** from both ends (head and tail).
+- **No capacity restrictions** by default, and **null elements are not permitted**.
+
+#### Internal Working:
+
+#### Underlying Data Structure
+
+Internally, `ArrayDeque` uses a **circular array** to store elements. The circular array allows wrapping around the ends
+for efficient space utilization.
+
+```java
+transient Object[] elements; // Circular array to store elements
+```
+
+#### Adding an Element
+
+1. **Adding at head**: Elements can be added at the beginning of the deque.
+2. **Adding at tail**: Elements can also be added at the end.
+
+#### Example:
+
+```java
+ArrayDeque<String> deque = new ArrayDeque<>();
+deque.addFirst("First");
+deque.addLast("Last");
+System.out.println(deque); // Output: [First, Last]
+```
+
+#### Removing an Element
+
+1. **Removing from head**: Elements can be removed from the beginning.
+2. **Removing from tail**: Elements can be removed from the end.
+
+- **Time Complexity**:
+    - Insertion (enqueue) and Deletion (dequeue): O(1) (amortized) *(Efficiently resizes and maintains a circular
+      buffer, reducing the need for element shifting)*
+    - Access (peek/element): O(1) *(Accesses elements from the front or end without any traversal)*
+    - Search: O(n) *(Sequential search through an array)*
+
+#### `LinkedList`
+
+LinkedList was already covered in the `List` section.
+
+- **Flexibility**: LinkedList can also be used as a `Queue` due to its implementation of the `Deque` interface.
+- Provides **efficient insertion and removal operations** at both ends (head and tail).
+- As a queue, it can serve as a **FIFO (First-In-First-Out)** structure.
+
+**Additional Information for Queue Perspective**:
+
+1. **Adding Elements**: Elements can be added using methods like `add()`, `offer()`, `addLast()`.
+2. **Retrieving Elements**: Use methods like `poll()`, `peek()`, or `removeFirst()` to retrieve or remove elements from
+   the head.
+
+### When to Use Which Queue Implementation
+
+- **Use `PriorityQueue`**: When you need to prioritize elements in a natural or custom order. Priority queues are
+  suitable when elements need to be processed based on their priority.
+- **Use `ArrayDeque`**: When you need a resizable, circular buffer with efficient additions and removals from both ends.
+  It is ideal for implementing stacks and queues.
+- **Use `LinkedList`**: When you need a queue with efficient insertions and deletions, and ordering is not a primary
+  concern. Additionally, if you require both `List` and `Deque` features, LinkedList is versatile enough to serve both
+  purposes.
+
+### Important Methods of the Queue Interface
+
+- **add(E e)**: Inserts the specified element into the queue if possible. Throws an exception if the operation fails.
+- **offer(E e)**: Inserts the specified element into the queue if possible. Returns `false` if the operation fails.
+- **remove()**: Retrieves and removes the head of the queue. Throws an exception if the queue is empty.
+- **poll()**: Retrieves and removes the head of the queue, or returns `null` if the queue is empty.
+- **element()**: Retrieves, but does not remove, the head of the queue. Throws an exception if the queue is empty.
+- **peek()**: Retrieves, but does not remove, the head of the queue, or returns `null` if the queue is empty.
+
+### Differences Between `Queue` Implementations
+
+| **Feature**              | **PriorityQueue**                    | **ArrayDeque**                   | **LinkedList**                  |
+|--------------------------|--------------------------------------|----------------------------------|---------------------------------|
+| **Ordering**             | Based on natural order or comparator | Insertion order                  | Insertion order                 |
+| **Thread-Safe**          | No (use `PriorityBlockingQueue`)     | No                               | No                              |
+| **Null Elements**        | Not Allowed                          | Not Allowed                      | Allowed                         |
+| **Underlying Structure** | Binary Heap                          | Resizable Circular Array         | Doubly Linked List              |
+| **Use Case**             | Priority-based processing            | Efficient Stack/Queue operations | General-purpose, flexible queue |
 
 ### 4. Map
 
