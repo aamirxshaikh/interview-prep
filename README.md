@@ -113,6 +113,17 @@ you should prepare:
         - Erasure and Limitations of Generics
         - Benefits of Using Generics
         - Generics and Collections
+    - Iterable and Iterator
+        - Iterable Interface
+            - Using Iterable
+        - Iterator Interface
+            - Using Iterator
+            - Common Methods of Iterator
+        - ListIterator Interface
+            - Using ListIterator
+            - Common Methods of ListIterator
+        - forEach Loop and Iterable
+        - Fail-Fast vs. Fail-Safe Iterators
     - Overview of Collections Framework
     - Collection Interfaces: List, Set, Queue, Map
     - Implementations of Collection Interfaces
