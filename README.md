@@ -131,9 +131,10 @@ you should prepare:
         - Set: HashSet, LinkedHashSet, TreeSet
         - Map: HashMap, LinkedHashMap, TreeMap, Hashtable
         - Queue: PriorityQueue, LinkedList
-    - ArrayList vs. LinkedList
-    - HashMap vs. TreeMap
-    - HashSet vs. TreeSet
+    - Comparisons 
+      - ArrayList vs. LinkedList
+      - HashMap vs. TreeMap
+      - HashSet vs. TreeSet
     - Collections Utility Class
         - Sorting, Searching, and Shuffling Collections
         - Synchronized Collections
