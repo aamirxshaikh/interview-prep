@@ -154,6 +154,25 @@ Java Collections Framework and offers three main methods.
 An `Iterator` can be used to iterate over any `Collection`. It provides control over the iteration process and allows
 element removal.
 
+#### Key Features of Iterator
+
+1. **Unidirectional Traversal**:
+    - `Iterator` allows you to traverse a collection in a single direction only (forward). Unlike `ListIterator`, it
+      cannot go backward.
+
+2. **Element Removal**:
+    - The `Iterator` interface allows you to remove elements during iteration using its `remove()` method. Direct
+      removal from the underlying collection (e.g., `List.remove()`) while iterating will cause a
+      `ConcurrentModificationException`.
+
+3. **Applicable to All Collections**:
+    - `Iterator` is applicable to all classes that implement the `Collection` interface, making it versatile across
+      different collection types (`List`, `Set`, `Queue`, etc.).
+
+4. **Fail-Fast Behavior**:
+    - `Iterator` is a fail-fast iterator. If the structure of the collection is modified after creating an iterator (
+      except through `iterator.remove()`), it throws `ConcurrentModificationException`.
+
 **Example:**
 
 ```java
@@ -185,6 +204,28 @@ public class IteratorExample {
 - `hasNext()`: Returns `true` if the iterator has more elements.
 - `next()`: Returns the next element in the iteration.
 - `remove()`: Removes the last element returned by the iterator.
+
+#### What You Can and Cannot Do with Iterator
+
+Allowed Operations
+
+1. **Iterate Over Collection Elements**:
+    - `Iterator` allows controlled traversal over elements of a collection in forward direction only.
+2. **Conditionally Remove Elements**:
+    - Use `iterator.remove()` to remove an element safely during iteration. This is particularly useful for filtering
+      out elements based on a condition.
+
+Restricted Operations
+
+1. **Adding Elements During Iteration**:
+    - You cannot add elements to the collection directly during iteration. Doing so will cause a
+      `ConcurrentModificationException`.
+2. **Direct Collection Modifications**:
+    - Modifying the collection outside the `Iterator` methods (like using `collection.remove()`) while iterating results
+      in `ConcurrentModificationException`.
+3. **Backward Traversal**:
+    - `Iterator` does not support backward traversal. For bidirectional traversal in lists, `ListIterator` should be
+      used.
 
 ### ListIterator Interface
 
@@ -237,9 +278,7 @@ to iterate over elements.
 
 ```java
 for(String item :items){
-        System.out.
-
-println(item);
+  System.out.println(item);
 }
 ```
 
@@ -249,6 +288,116 @@ println(item);
   the iterator is created. Examples include iterators for `ArrayList`, `HashSet`, etc.
 - **Fail-Safe Iterators**: These iterators operate on a copy of the collection, allowing modifications without throwing
   an exception. Examples include iterators for `CopyOnWriteArrayList` and `ConcurrentHashMap`.
+
+### Understanding ConcurrentModificationException and Safe Modification Approaches
+
+In Java, modifying a collection while iterating over it can lead to a `ConcurrentModificationException` if not done
+properly. This document explains why direct modifications cause this exception, how `iterator.remove()` safely removes
+elements, and why collections like `CopyOnWriteArrayList` and `ConcurrentHashMap` do not throw this exception.
+
+#### Why Direct Modification Causes ConcurrentModificationException
+
+1. **Structural Modifications**:
+    - A "structural modification" refers to any change that alters the size of a collection (e.g., adding or removing
+      elements).
+    - When an iterator is created on a collection, it takes a snapshot of the collection's state. Direct modifications
+      disrupt this state, causing the iterator to detect an inconsistency.
+
+2. **Fail-Fast Iterators**:
+    - Standard collections in Java (like `ArrayList`, `HashSet`, `HashMap`) use fail-fast iterators. These iterators
+      throw `ConcurrentModificationException` if they detect a structural modification from outside the iterator while
+      iterating.
+    - The exception is triggered because the iterator internally tracks modifications via a "modification count" (
+      modCount). If the modCount does not match the expected count during iteration, it detects external changes and
+      throws an exception.
+
+**Example**:
+```java
+List<String> list = new ArrayList<>();
+list.add("A");
+list.add("B");
+list.add("C");
+
+for (String item : list) {
+    list.remove(item); // Throws ConcurrentModificationException
+}
+```
+
+In this example, modifying the list directly during iteration leads to `ConcurrentModificationException` since the
+list’s modCount is altered unexpectedly for the iterator.
+
+#### Why Iterator.remove() Does Not Cause ConcurrentModificationException
+
+1. **Safe Removal through Iterator**:
+    - The `remove()` method in `Iterator` is designed to work with the iterator's internal state, safely adjusting the
+      modification count.
+    - When `iterator.remove()` is called, it removes the element and updates the iterator’s internal modCount to prevent
+      `ConcurrentModificationException`.
+
+**Example**:
+```java
+List<String> list = new ArrayList<>();
+list.add("A");
+list.add("B");
+list.add("C");
+
+Iterator<String> iterator = list.iterator();
+while (iterator.hasNext()) {
+    String item = iterator.next();
+    if ("A".equals(item)) {
+        iterator.remove(); // Safe removal, does not throw ConcurrentModificationException
+    }
+}
+```
+
+In this example, `iterator.remove()` safely removes the element by synchronizing the iterator's state with the
+collection's structure.
+
+#### Why `CopyOnWriteArrayList` and `ConcurrentHashMap` Do Not Cause `ConcurrentModificationException`
+
+1. **CopyOnWriteArrayList**:
+    - `CopyOnWriteArrayList` is designed for safe concurrent access. When modified (e.g., add, remove), it creates a new
+      copy of the underlying array, leaving the iterator’s snapshot unaffected.
+    - Since each modification results in a new array, the original iterator can continue iterating over the old snapshot
+      without detecting structural changes.
+
+**Example**:
+```java
+CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<>();
+list.add("A");
+list.add("B");
+list.add("C");
+
+for (String item : list) {
+    list.remove(item); // No ConcurrentModificationException
+}
+```
+
+- In this example, `CopyOnWriteArrayList` avoids the exception by creating a new copy on each modification, which
+  isolates the iteration snapshot from any changes.
+
+2. **ConcurrentHashMap**:
+    - `ConcurrentHashMap` allows concurrent modification by multiple threads without throwing
+      `ConcurrentModificationException`.
+    - It achieves thread safety by dividing the map into segments, allowing multiple threads to read and write in
+      different segments simultaneously without affecting each other's operations.
+    - Iterators for `ConcurrentHashMap` are fail-safe, meaning they do not throw `ConcurrentModificationException`
+      because they do not rely on modCount. Instead, they reflect the state of the map at the moment of iteration but
+      may not show subsequent modifications.
+
+**Example**:
+```java
+ConcurrentHashMap<String, String> map = new ConcurrentHashMap<>();
+map.put("1", "A");
+map.put("2", "B");
+
+for (String key : map.keySet()) {
+    map.remove(key); // No ConcurrentModificationException
+}
+```
+
+- In this example, `ConcurrentHashMap` permits safe removal during iteration without throwing
+  `ConcurrentModificationException`.
 
 ## 3. Overview of Collections Framework
 

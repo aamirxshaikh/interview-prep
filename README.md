@@ -118,12 +118,18 @@ you should prepare:
             - Using Iterable
         - Iterator Interface
             - Using Iterator
+            - Key Features of Iterator
             - Common Methods of Iterator
+            - What You Can and Cannot Do with Iterator
         - ListIterator Interface
             - Using ListIterator
             - Common Methods of ListIterator
         - forEach Loop and Iterable
         - Fail-Fast vs. Fail-Safe Iterators
+        - Understanding ConcurrentModificationException and Safe Modification Approaches
+            - Why Direct Modification Causes ConcurrentModificationException
+            - Why Iterator.remove() Does Not Cause ConcurrentModificationException
+            - Why CopyOnWriteArrayList and ConcurrentHashMap Do Not Cause ConcurrentModificationException
     - Overview of Collections Framework
     - Collection Interfaces: List, Set, Queue, Map
     - Implementations of Collection Interfaces
@@ -131,10 +137,10 @@ you should prepare:
         - Set: HashSet, LinkedHashSet, TreeSet
         - Map: HashMap, LinkedHashMap, TreeMap, Hashtable
         - Queue: PriorityQueue, LinkedList
-    - Comparisons 
-      - ArrayList vs. LinkedList
-      - HashMap vs. TreeMap
-      - HashSet vs. TreeSet
+    - Comparisons
+        - ArrayList vs. LinkedList
+        - HashMap vs. TreeMap
+        - HashSet vs. TreeSet
     - Collections Utility Class
         - Sorting, Searching, and Shuffling Collections
         - Synchronized Collections
