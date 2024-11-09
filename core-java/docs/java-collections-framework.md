@@ -1504,10 +1504,169 @@ map.put("Banana", 2);
 - **HashMap**: Provides constant time complexity for basic operations but does not maintain order.
 - **TreeMap**: Provides log(n) time complexity for basic operations while maintaining sorted order.
 
+### Overview
+
+| Feature              | `HashMap`                                        | `TreeMap`                                                                             |
+|----------------------|--------------------------------------------------|---------------------------------------------------------------------------------------|
+| **Implementation**   | Uses a hash table for internal data structure    | Uses a Red-Black tree (self-balancing binary search tree) for internal data structure |
+| **Ordering**         | Does not maintain any order of elements          | Maintains elements in natural order (ascending) or custom order with comparator       |
+| **Null Values/Keys** | Allows one `null` key and multiple `null` values | Does not allow `null` keys but allows multiple `null` values                          |
+
+### Performance Comparison
+
+#### 1. Access Time
+
+- **HashMap**: `O(1)` (average), `O(n)` (worst case if hash collisions are numerous)
+    - **Explanation**: Direct access is possible in ideal cases, as it uses a hash function for constant-time access. In
+      cases with many hash collisions, performance degrades as it turns into a linked list at worst.
+- **TreeMap**: `O(log n)`
+    - **Explanation**: The Red-Black tree structure ensures that the height of the tree remains balanced, leading to
+      logarithmic time for access operations.
+
+#### 2. Insertion
+
+- **HashMap**: `O(1)` (average), `O(n)` (worst case due to hash collisions)
+    - **Explanation**: Inserting elements in a `HashMap` is generally quick; however, when multiple elements collide at
+      the same hash location, they are stored as linked lists (or balanced trees if large enough), which can increase
+      time complexity.
+- **TreeMap**: `O(log n)`
+    - **Explanation**: Each insertion in a `TreeMap` requires finding the correct position within the Red-Black tree,
+      taking logarithmic time as it maintains order by self-balancing.
+
+#### 3. Deletion
+
+- **HashMap**: `O(1)` (average), `O(n)` (worst case if many collisions occur)
+    - **Explanation**: Deletion in `HashMap` involves finding the key using its hash code, which is generally quick
+      unless many hash collisions occur.
+- **TreeMap**: `O(log n)`
+    - **Explanation**: Deletion in `TreeMap` also requires logarithmic time as it involves restructuring the Red-Black
+      tree after removing the node.
+
+#### 4. Memory Usage
+
+- **HashMap**:
+    - More memory-efficient as it only requires space for storing key-value pairs and uses extra memory for managing
+      hash buckets and linked lists/trees for collisions.
+- **TreeMap**:
+    - Less memory-efficient due to the additional space needed for tree nodes, as each node stores references to its
+      left, right, and parent nodes to maintain order.
+
+### Internal Working
+
+#### HashMap
+
+- **Underlying Data Structure**: Array of linked lists or balanced trees (based on load factor and number of entries).
+- **Adding an Element**: Uses hash code of the key to determine the bucket location. If collision occurs, elements are
+  added as linked lists or balanced trees if bucket size surpasses a threshold.
+- **Removing an Element**: Finds the element by hash and removes it, updating links within the bucket list or
+  rebalancing trees if necessary.
+- **Handling Collisions**: Manages collisions by storing elements in linked lists within the same bucket; converts to
+  balanced tree structure if a bucket contains too many elements.
+- **Resizing**: Automatically resizes (typically doubles) when the load factor threshold is reached, rehashing existing
+  entries.
+
+#### TreeMap
+
+- **Underlying Data Structure**: Red-Black tree (self-balancing binary search tree).
+- **Adding an Element**: Inserts elements based on their natural or comparator-provided order; tree remains balanced due
+  to Red-Black properties.
+- **Removing an Element**: Locates the element, removes it, and rebalances the tree to maintain order.
+- **Handling Collisions**: Does not experience hash collisions as it maintains a sorted order through tree structure.
+- **Resizing**: No resizing is needed as it relies on the self-balancing property of the Red-Black tree.
+
+### Use Cases
+
+| **Scenario**                              | **Better Option** | **Reason**                                                              |
+|-------------------------------------------|-------------------|-------------------------------------------------------------------------|
+| **Frequent access by key**                | `HashMap`         | Provides constant time `O(1)` access on average.                        |
+| **Need for natural ordering of elements** | `TreeMap`         | Maintains elements in ascending order by default.                       |
+| **Null key required**                     | `HashMap`         | Allows one `null` key, unlike `TreeMap`.                                |
+| **Memory-sensitive application**          | `HashMap`         | More space-efficient due to lack of additional pointers for tree nodes. |
+| **Sorted view of data**                   | `TreeMap`         | Automatically sorts entries, ideal for ordered data representation.     |
+
 ### HashSet vs. TreeSet
 
 - **HashSet**: Fast operations with no order.
 - **TreeSet**: Slower but maintains a sorted order of elements.
+
+### Overview
+
+| Feature            | `HashSet`                                     | `TreeSet`                                                                             |
+|--------------------|-----------------------------------------------|---------------------------------------------------------------------------------------|
+| **Implementation** | Uses a hash table for internal data structure | Uses a Red-Black tree (self-balancing binary search tree) for internal data structure |
+| **Ordering**       | Does not maintain any order of elements       | Maintains elements in natural order (ascending) or custom order with comparator       |
+| **Null Elements**  | Allows a single `null` element                | Does not allow `null` elements as it relies on comparisons for ordering               |
+
+### Performance Comparison
+
+#### 1. Access Time
+
+- **HashSet**: `O(1)` (average), `O(n)` (worst case if hash collisions are numerous)
+    - **Explanation**: HashSet offers constant time complexity for access, on average, due to hash-based indexing.
+      However, in cases of severe hash collisions, performance degrades as it falls back to a linked list or balanced
+      tree.
+- **TreeSet**: `O(log n)`
+    - **Explanation**: TreeSet uses a Red-Black tree, which keeps the set ordered and balanced, resulting in logarithmic
+      time complexity for access.
+
+#### 2. Insertion
+
+- **HashSet**: `O(1)` (average), `O(n)` (worst case due to hash collisions)
+    - **Explanation**: Generally, insertion in a `HashSet` is constant time. However, hash collisions can make it slower
+      as the set handles multiple elements in the same bucket.
+- **TreeSet**: `O(log n)`
+    - **Explanation**: Insertion in a `TreeSet` takes logarithmic time as it maintains order by inserting elements in a
+      balanced Red-Black tree.
+
+#### 3. Deletion
+
+- **HashSet**: `O(1)` (average), `O(n)` (worst case if collisions occur)
+    - **Explanation**: Deletion in a `HashSet` is efficient but can degrade with a large number of hash collisions.
+- **TreeSet**: `O(log n)`
+    - **Explanation**: Deletion in a `TreeSet` requires logarithmic time to locate and remove elements, maintaining
+      balance within the Red-Black tree.
+
+#### 4. Memory Usage
+
+- **HashSet**:
+    - More memory-efficient as it only needs to store the hash table entries without additional structure for ordering.
+- **TreeSet**:
+    - Less memory-efficient since it requires extra space for tree nodes, each storing pointers to their children and
+      parent nodes to maintain the tree structure.
+
+### Internal Working
+
+#### HashSet
+
+- **Underlying Data Structure**: Hash table with linked lists or balanced trees for collisions.
+- **Adding an Element**: Uses the element's hash code to determine the bucket; if a collision occurs, the element is
+  added in the bucket's linked list or balanced tree.
+- **Removing an Element**: Locates the element by hash code and removes it directly from the bucket.
+- **Handling Collisions**: Manages hash collisions using linked lists in buckets; if a bucket exceeds a threshold, it
+  converts to a balanced tree.
+- **Resizing**: Resizes the hash table (typically doubles its size) when the load factor threshold is reached, rehashing
+  entries to accommodate growth.
+
+#### TreeSet
+
+- **Underlying Data Structure**: Red-Black tree (self-balancing binary search tree).
+- **Adding an Element**: Inserts elements according to their natural order or comparator-provided order while
+  maintaining tree balance.
+- **Removing an Element**: Locates the element, removes it, and restructures the tree to preserve order.
+- **Handling Collisions**: Does not experience hash collisions as elements are stored based on natural/comparator order.
+- **Resizing**: Resizing is not necessary, as the Red-Black tree manages growth through balancing rather than expanding
+  storage capacity.
+
+### Use Cases
+
+| **Scenario**                                | **Better Option** | **Reason**                                                                   |
+|---------------------------------------------|-------------------|------------------------------------------------------------------------------|
+| **Frequent access by element**              | `HashSet`         | Offers constant-time `O(1)` access on average due to hash-based storage.     |
+| **Need for ordered elements**               | `TreeSet`         | Maintains elements in ascending or custom order automatically.               |
+| **Null element required**                   | `HashSet`         | Allows a single `null` element, whereas `TreeSet` does not.                  |
+| **Memory-sensitive application**            | `HashSet`         | More memory-efficient as it does not store additional pointers for ordering. |
+| **Range-based retrieval of data**           | `TreeSet`         | Supports range operations (e.g., subSet, headSet, tailSet) due to ordering.  |
+| **Insertion and deletion without ordering** | `HashSet`         | Faster insertions and deletions without the overhead of maintaining order.   |
 
 ## 7. Collections Utility Class
 
