@@ -1670,18 +1670,103 @@ map.put("Banana", 2);
 
 ## 7. Collections Utility Class
 
-The `Collections` utility class provides static methods for various operations on collections, such as:
+The `Collections` utility class in Java is part of the `java.util` package and provides a collection of static methods
+for performing common tasks on collection objects. These methods simplify and enhance collection management by offering
+operations for sorting, searching, synchronizing, and more.
 
 - Sorting (`Collections.sort()`)
 - Shuffling (`Collections.shuffle()`)
 - Searching (`Collections.binarySearch()`)
 - Synchronized wrappers for thread-safe collections (`Collections.synchronizedList()`)
 
-## Sorting, Searching, and Shuffling Collections
+### Sorting (`Collections.sort()`)
 
-- Sorting: Rearranges the elements based on natural ordering or a custom comparator.
-- Searching: Locates an element using algorithms like binary search.
-- Shuffling: Randomly permutes the elements in a collection.
+The `Collections.sort()` method is used to sort elements in a list either in natural order or based on a custom
+comparator.
+
+- **Usage**:
+  ```java
+  List<String> names = Arrays.asList("John", "Alice", "Bob");
+  Collections.sort(names);
+  // Output: [Alice, Bob, John]
+  ```
+- **Custom Sorting**: You can provide a custom comparator for sorting in a specific order.
+  ```java
+  Collections.sort(names, Comparator.reverseOrder());
+  // Output: [John, Bob, Alice]
+  ```
+- **Notes**:
+    - Sorting is efficient with an average time complexity of `O(n log n)`.
+    - Sorting is applicable only to `List` implementations.
+
+### Shuffling (`Collections.shuffle()`)
+
+The `Collections.shuffle()` method randomly shuffles the elements in a list. This is useful for scenarios where you need
+to randomize the order of elements, such as in card games.
+
+- **Usage**:
+  ```java
+  List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+  Collections.shuffle(numbers);
+  // Output: Random order, e.g., [3, 1, 5, 4, 2]
+  ```
+- **Notes**:
+    - Each shuffle produces a different order, making it suitable for use cases like creating random lists.
+    - The randomness can be controlled by providing a `Random` seed, e.g.,
+      `Collections.shuffle(list, new Random(seed));`.
+
+### Searching (`Collections.binarySearch()`)
+
+The `Collections.binarySearch()` method performs a binary search on a sorted list to find the index of a specified
+element. This method is highly efficient (`O(log n)`) but requires the list to be sorted before calling.
+
+- **Usage**:
+  ```java
+  List<String> names = Arrays.asList("Alice", "Bob", "John");
+  Collections.sort(names); // List must be sorted first
+  int index = Collections.binarySearch(names, "Bob");
+  // Output: 1 (position of "Bob" in the sorted list)
+  ```
+- **Custom Comparator**: You can specify a custom comparator to search in lists sorted by non-natural order.
+  ```java
+  Collections.sort(names, Comparator.reverseOrder());
+  int index = Collections.binarySearch(names, "Bob", Comparator.reverseOrder());
+  ```
+- **Notes**:
+    - Returns a positive index if the element is found.
+    - Returns a negative index (insertion point) if the element is not found.
+
+### Synchronized Wrappers (`Collections.synchronizedList()`, `synchronizedSet()`, `synchronizedMap()`)
+
+The `Collections.synchronizedX` methods provide thread-safe versions of collection objects, such as lists, sets, and
+maps, by creating synchronized wrappers.
+
+- **Usage**:
+  ```java
+  List<String> list = Collections.synchronizedList(new ArrayList<>());
+  ```
+- **Thread Safety**:
+    - These wrappers ensure that each method call on the collection is synchronized, making them safe for concurrent
+      access.
+    - **Example**: `Collections.synchronizedMap()` wraps a `Map` to prevent concurrent modification issues.
+    - **Important**: When iterating over a synchronized collection, it’s recommended to manually synchronize on the
+      collection to prevent `ConcurrentModificationException`.
+
+### Additional Utilities
+
+The `Collections` class also offers other useful utilities:
+
+- **Singleton Collection** (`Collections.singleton(element)`): Creates an immutable collection with a single element.
+- **Unmodifiable Collections** (`Collections.unmodifiableList()`, `unmodifiableSet()`, `unmodifiableMap()`): Returns
+  immutable versions of collections, ensuring elements cannot be added, removed, or modified.
+- **Frequency Count** (`Collections.frequency()`): Counts occurrences of a specific element in a collection.
+  ```java
+  int freq = Collections.frequency(names, "Alice");
+  ```
+- **Fill** (`Collections.fill()`): Replaces all elements in a list with a specified value.
+  ```java
+  Collections.fill(list, "default");
+  ```
 
 ## Synchronized Collections
 
