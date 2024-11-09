@@ -1752,7 +1752,7 @@ The `Collections` class also offers other useful utilities:
   Collections.fill(list, "default");
   ```
 
-## Synchronized Collections
+### Synchronized Collections
 
 Synchronized collections are thread-safe implementations that prevent concurrent modification, ensuring safe access in
 multithreaded environments. The `Collections.synchronizedX` methods provide thread-safe versions of collection objects,
@@ -1769,7 +1769,7 @@ such as lists, sets, and maps, by creating synchronized wrappers.
     - **Important**: When iterating over a synchronized collection, it’s recommended to manually synchronize on the
       collection to prevent `ConcurrentModificationException`.
 
-## Unmodifiable Collections
+### Unmodifiable Collections
 
 Unmodifiable collections are a specialized type of collection in Java that disallow any modifications after their
 creation. These collections are designed to provide a read-only view of data, making them useful in scenarios where data
@@ -1781,7 +1781,7 @@ created, it remains immutable and prevents accidental modifications.
     - Unmodifiable Set: `Collections.unmodifiableSet(Set<T> set)`
     - Unmodifiable Map: `Collections.unmodifiableMap(Map<K, V> map)`
 
-### Example
+#### Example
 
 ```java
 import java.util.ArrayList;
