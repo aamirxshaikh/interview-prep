@@ -1736,22 +1736,6 @@ element. This method is highly efficient (`O(log n)`) but requires the list to b
     - Returns a positive index if the element is found.
     - Returns a negative index (insertion point) if the element is not found.
 
-### Synchronized Wrappers (`Collections.synchronizedList()`, `synchronizedSet()`, `synchronizedMap()`)
-
-The `Collections.synchronizedX` methods provide thread-safe versions of collection objects, such as lists, sets, and
-maps, by creating synchronized wrappers.
-
-- **Usage**:
-  ```java
-  List<String> list = Collections.synchronizedList(new ArrayList<>());
-  ```
-- **Thread Safety**:
-    - These wrappers ensure that each method call on the collection is synchronized, making them safe for concurrent
-      access.
-    - **Example**: `Collections.synchronizedMap()` wraps a `Map` to prevent concurrent modification issues.
-    - **Important**: When iterating over a synchronized collection, it’s recommended to manually synchronize on the
-      collection to prevent `ConcurrentModificationException`.
-
 ### Additional Utilities
 
 The `Collections` class also offers other useful utilities:
@@ -1771,9 +1755,72 @@ The `Collections` class also offers other useful utilities:
 ## Synchronized Collections
 
 Synchronized collections are thread-safe implementations that prevent concurrent modification, ensuring safe access in
-multithreaded environments.
+multithreaded environments. The `Collections.synchronizedX` methods provide thread-safe versions of collection objects,
+such as lists, sets, and maps, by creating synchronized wrappers.
+
+- **Usage**:
+  ```java
+  List<String> list = Collections.synchronizedList(new ArrayList<>());
+  ```
+- **Thread Safety**:
+    - These wrappers ensure that each method call on the collection is synchronized, making them safe for concurrent
+      access.
+    - **Example**: `Collections.synchronizedMap()` wraps a `Map` to prevent concurrent modification issues.
+    - **Important**: When iterating over a synchronized collection, it’s recommended to manually synchronize on the
+      collection to prevent `ConcurrentModificationException`.
 
 ## Unmodifiable Collections
 
-Unmodifiable collections prevent modifications after their creation. They are useful for protecting data from changes
-and can be created using methods like `Collections.unmodifiableList()`.
+Unmodifiable collections are a specialized type of collection in Java that disallow any modifications after their
+creation. These collections are designed to provide a read-only view of data, making them useful in scenarios where data
+integrity is crucial, and changes to the collection should be restricted. This ensures that once the collection is
+created, it remains immutable and prevents accidental modifications.
+
+- **Usage**:
+    - Unmodifiable List: `Collections.unmodifiableList(List<T> list)`
+    - Unmodifiable Set: `Collections.unmodifiableSet(Set<T> set)`
+    - Unmodifiable Map: `Collections.unmodifiableMap(Map<K, V> map)`
+
+### Example
+
+```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class UnmodifiableExample {
+  public static void main(String[] args) {
+    List<String> list = new ArrayList<>();
+    list.add("apple");
+    list.add("banana");
+
+    // Creating an unmodifiable list
+    List<String> unmodifiableList = Collections.unmodifiableList(list);
+
+    System.out.println("Original List: " + unmodifiableList);
+
+    // Attempting to modify the list
+    unmodifiableList.add("cherry"); // This line throws UnsupportedOperationException
+  }
+}
+```
+
+In the example above, attempting to add an element to `unmodifiableList, unmodifiableSet, or unmodifiableMap` will
+result in an `UnsupportedOperationException`. Each of these methods returns a read-only view of the provided collection.
+
+### Key Characteristics
+
+- **Immutability of Structure**: While the structure itself (i.e., adding, removing, or clearing elements) of an
+  unmodifiable collection is protected, if the elements within the collection are mutable (like custom objects), their
+  internal state can still be changed.
+- **Unsupported Operations**: Any call to modification methods (`add`, `remove`, `clear`, etc.) on the unmodifiable view
+  will throw an `UnsupportedOperationException`.
+- **Reflection of Changes in Original Collection**: Since unmodifiable collections are typically wrappers around
+  modifiable collections, any changes in the original collection will be reflected in the unmodifiable collection.
+- **Immutable vs. Unmodifiable**: An unmodifiable collection is not the same as an immutable collection. Unmodifiable
+  collections are wrappers around existing collections, so if the underlying collection is changed, the unmodifiable
+  view reflects those changes. In contrast, truly immutable collections (like those from the `List.of()` in Java 9+)
+  cannot change at all.
+- **Thread Safety**: Unmodifiable collections are not inherently thread-safe. For thread safety, combine
+  `Collections.synchronized*` and `Collections.unmodifiable*` methods.
+
