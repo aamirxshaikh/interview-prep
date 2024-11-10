@@ -1762,12 +1762,51 @@ such as lists, sets, and maps, by creating synchronized wrappers.
   ```java
   List<String> list = Collections.synchronizedList(new ArrayList<>());
   ```
-- **Thread Safety**:
-    - These wrappers ensure that each method call on the collection is synchronized, making them safe for concurrent
-      access.
-    - **Example**: `Collections.synchronizedMap()` wraps a `Map` to prevent concurrent modification issues.
-    - **Important**: When iterating over a synchronized collection, it’s recommended to manually synchronize on the
-      collection to prevent `ConcurrentModificationException`.
+#### Example
+
+```java
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class SynchronizedCollectionExample {
+  public static void main(String[] args) {
+    // Creating a non-synchronized List
+    List<String> list = new ArrayList<>();
+    list.add("Apple");
+    list.add("Banana");
+    list.add("Orange");
+
+    // Wrapping the List to make it synchronized
+    List<String> synchronizedList = Collections.synchronizedList(list);
+
+    // Adding elements to the synchronized list
+    synchronizedList.add("Mango");
+
+    // Using synchronized block during iteration
+    synchronized (synchronizedList) {
+      for (String fruit : synchronizedList) {
+        System.out.println(fruit);
+      }
+    }
+  }
+}
+```
+
+In the above example, the `Collections.synchronizedList()` method wraps the `ArrayList`, making it thread-safe. Elements
+can be added to `synchronizedList`, and it will handle synchronization internally. When iterating, a `synchronized`
+block is used to lock the collection, ensuring thread safety and preventing `ConcurrentModificationException`.
+
+#### Key Characteristics
+
+- **Thread Safety**: Synchronized collections are safe for use in multi-threaded environments, ensuring that only one
+  thread can access the collection at a time for modification.
+- **Wrapper Methods**: Synchronized versions are created by wrapping the original collection using methods like
+  `Collections.synchronizedList()`, `Collections.synchronizedSet()`, and `Collections.synchronizedMap()`.
+- **Read and Write Synchronization**: All read and write operations are synchronized, but compound operations like
+  iteration still require additional synchronization to avoid `ConcurrentModificationException`.
+- **Performance**: Synchronized collections are generally slower than non-synchronized collections due to the added
+  overhead of locking and unlocking the collection during access.
 
 ### Unmodifiable Collections
 
@@ -1808,7 +1847,7 @@ public class UnmodifiableExample {
 In the example above, attempting to add an element to `unmodifiableList, unmodifiableSet, or unmodifiableMap` will
 result in an `UnsupportedOperationException`. Each of these methods returns a read-only view of the provided collection.
 
-### Key Characteristics
+#### Key Characteristics
 
 - **Immutability of Structure**: While the structure itself (i.e., adding, removing, or clearing elements) of an
   unmodifiable collection is protected, if the elements within the collection are mutable (like custom objects), their
