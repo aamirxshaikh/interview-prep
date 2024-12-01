@@ -1863,3 +1863,247 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 - **Thread Safety**: Unmodifiable collections are not inherently thread-safe. For thread safety, combine
   `Collections.synchronized*` and `Collections.unmodifiable*` methods.
 
+# Interview Questions
+
+## 1. Generics in Java
+
+### 1.1 Introduction to Generics
+
+1. What is generics in Java, and why is it used?
+2. How do generics improve type safety in Java?
+3. Can you explain type erasure in the context of generics?
+4. What are the key advantages of using generics in Java?
+
+### 1.2 Type Parameters and Wildcards
+
+1. What are type parameters in generics?
+2. What is the difference between `T`, `E`, `K`, and `V` in generic types?
+3. How are wildcards (`?`) used in generics?
+4. Explain the difference between `? extends` and `? super`.
+
+### 1.3 Generic Classes and Interfaces
+
+1. How do you define a generic class in Java?
+2. Can an interface be generic? Provide an example.
+3. Explain the significance of the diamond operator (`<>`) in generics.
+
+### 1.4 Generic Methods
+
+1. How do you define a generic method in Java?
+2. Can generic methods exist in non-generic classes? Provide an example.
+3. Explain how a generic method can handle multiple type parameters.
+
+### 1.5 Bounded Types in Generics
+
+1. What are bounded type parameters in Java generics?
+2. How do you define an upper bound for a type parameter?
+3. Explain the use of multiple bounds in generic types.
+
+### 1.6 Wildcards: `? extends` and `? super`
+
+1. What is the purpose of `? extends` in generics?
+2. When should you use `? super` in generics?
+3. How do wildcards contribute to generic method flexibility?
+
+### 1.7 Erasure and Limitations of Generics
+
+1. What is type erasure in Java generics, and why does it exist?
+2. What are some limitations of Java generics?
+3. Why can't you create an array of a generic type?
+
+### 1.8 Benefits of Using Generics
+
+1. How do generics help in reducing runtime errors?
+2. Explain how generics provide stronger type checks at compile time.
+3. How do generics eliminate the need for explicit type casting?
+
+### 1.9 Generics and Collections
+
+1. How are generics used in the Java Collections Framework?
+2. Provide examples of generic usage in `List`, `Set`, and `Map`.
+3. How do generic collections improve code readability and maintainability?
+
+## 2. Iterable and Iterator
+
+### 2.1 Iterable Interface
+
+1. What is the `Iterable` interface in Java?
+2. How does the `Iterable` interface support the enhanced for-each loop?
+3. Provide an example of implementing the `Iterable` interface in a custom class.
+
+#### 2.1.1 Using Iterable
+
+1. How can you use the `Iterable` interface with custom collections?
+2. What is the significance of the `iterator()` method in `Iterable`?
+3. Explain how `Iterable` improves code consistency.
+
+### 2.2 Iterator Interface
+
+1. What is the purpose of the `Iterator` interface in Java?
+2. How is `Iterator` different from `Enumeration`?
+3. Explain the working of the `hasNext()` and `next()` methods.
+
+#### 2.2.1 Using Iterator
+
+1. Provide an example of using `Iterator` with a collection.
+2. How can you use `Iterator` to remove elements from a collection?
+3. What are the advantages of using `Iterator` over traditional loops?
+
+#### 2.2.2 Key Features of Iterator
+
+1. How does `Iterator` help in traversing collections?
+2. What are the key limitations of `Iterator`?
+3. Explain the difference between fail-fast and fail-safe iterators.
+
+#### 2.2.3 Common Methods of Iterator
+
+1. What is the purpose of the `remove()` method in `Iterator`?
+2. How do you safely modify a collection while iterating through it?
+3. Provide an example of using `remove()` with `Iterator`.
+
+#### 2.2.4 What You Can and Cannot Do with Iterator
+
+1. Why can't you modify a collection directly while using `Iterator`?
+2. How does `ConcurrentModificationException` occur?
+3. What are safe ways to modify a collection during iteration?
+
+### 2.3 ListIterator Interface
+
+1. What is the `ListIterator` interface in Java?
+2. How does `ListIterator` differ from `Iterator`?
+3. Explain how `ListIterator` supports bidirectional traversal.
+
+#### 2.3.1 Using ListIterator
+
+1. Provide an example of using `ListIterator` with a `List`.
+2. How can you add or replace elements using `ListIterator`?
+3. What are the advantages of `ListIterator` over `Iterator`?
+
+#### 2.3.2 Common Methods of ListIterator
+
+1. Explain the `add()` and `set()` methods of `ListIterator`.
+2. How does the `previous()` method work in `ListIterator`?
+3. Provide an example of using `ListIterator` to traverse a list in reverse order.
+
+### 2.4 forEach Loop and Iterable
+
+1. How does the forEach loop utilize the `Iterable` interface?
+2. What are the advantages of the forEach loop over traditional loops?
+3. Provide an example of using the forEach loop with a custom collection.
+
+### 2.5 Fail-Fast vs. Fail-Safe Iterators
+
+1. What is the difference between fail-fast and fail-safe iterators?
+2. How do fail-safe iterators avoid `ConcurrentModificationException`?
+3. Provide examples of collections that use fail-fast and fail-safe iterators.
+
+### 2.6 Understanding ConcurrentModificationException and Safe Modification Approaches
+
+#### 2.6.1 Why Direct Modification Causes ConcurrentModificationException
+
+1. What is `ConcurrentModificationException`, and why does it occur?
+2. Provide an example of a scenario that causes `ConcurrentModificationException`.
+3. How can you avoid `ConcurrentModificationException` in Java?
+
+#### 2.6.2 Why Iterator.remove() Does Not Cause ConcurrentModificationException
+
+1. How does the `remove()` method of `Iterator` work?
+2. Why is `Iterator.remove()` considered safe for modifying collections?
+3. Provide an example of using `Iterator.remove()` to prevent `ConcurrentModificationException`.
+
+#### 2.6.3 Why CopyOnWriteArrayList and ConcurrentHashMap Do Not Cause ConcurrentModificationException
+
+1. How does `CopyOnWriteArrayList` handle concurrent modifications?
+2. Why is `ConcurrentHashMap` safe for concurrent access?
+3. Provide examples of using `CopyOnWriteArrayList` and `ConcurrentHashMap`.
+
+## 3. Overview of Collections Framework
+
+1. What is the Java Collections Framework, and why is it important?
+2. Explain the hierarchy of the Java Collections Framework.
+3. What are the primary interfaces in the Java Collections Framework?
+
+## 4. Collection Interfaces: List, Set, Queue, Map
+
+### 4.1 List
+
+1. What is the `List` interface in Java?
+2. How does `ArrayList` differ from `LinkedList`?
+3. Provide examples of common methods in the `List` interface.
+
+### 4.2 Set
+
+1. What is the `Set` interface in Java?
+2. How does `HashSet` ensure uniqueness?
+3. Explain the difference between `HashSet` and `TreeSet`.
+
+### 4.3 Queue
+
+1. What is the `Queue` interface in Java?
+2. Explain the difference between `PriorityQueue` and `LinkedList` as queue implementations.
+3. Provide examples of common methods in the `Queue` interface.
+
+### 4.4 Map
+
+1. What is the `Map` interface in Java?
+2. How does `HashMap` differ from `LinkedHashMap`?
+3. Explain the use of `TreeMap` in Java.
+
+## 5. Implementations of Collection Interfaces
+
+### 5.1 List: ArrayList, LinkedList, Vector, Stack
+
+1. How does `ArrayList` manage dynamic arrays?
+2. Explain the internal workings of `LinkedList`.
+3. How does `Vector` ensure thread safety?
+
+### 5.2 Set: HashSet, LinkedHashSet, TreeSet
+
+1. What is the difference between `HashSet` and `LinkedHashSet`?
+2. How does `TreeSet` maintain sorted order?
+3. Provide examples of use cases for each `Set` implementation.
+
+### 5.3 Map: HashMap, LinkedHashMap, TreeMap, Hashtable
+
+1. How does `HashMap` handle collisions?
+2. Explain the difference between `TreeMap` and `LinkedHashMap`.
+3. How does `Hashtable` ensure thread safety?
+
+### 5.4 Queue: PriorityQueue, LinkedList
+
+1. How does `PriorityQueue` manage elements in priority order?
+2. Explain the use of `LinkedList
+
+### 6 Comparisons
+
+#### 6.1 ArrayList vs. LinkedList
+
+1. What are the performance differences between `ArrayList` and `LinkedList`?
+2. When would you prefer `ArrayList` over `LinkedList`?
+3. How do they differ in memory usage?
+4. What are the differences in iteration performance?
+5. Provide examples of scenarios where each is suitable.
+
+#### 6.2 HashMap vs. TreeMap
+
+1. What are the differences in the internal implementation of `HashMap` and `TreeMap`?
+2. How does the performance of `HashMap` compare to `TreeMap`?
+3. When should you use `TreeMap` over `HashMap`?
+4. What are the ordering guarantees provided by `TreeMap`?
+5. Can you explain how null keys and values are handled by both?
+
+#### 6.3 HashSet vs. TreeSet
+
+1. What are the differences between `HashSet` and `TreeSet`?
+2. How do `HashSet` and `TreeSet` handle duplicates?
+3. What are the performance implications of using `TreeSet`?
+4. When would you prefer `TreeSet` over `HashSet`?
+5. Provide examples where each is the better choice.
+
+### 7 Collections Utility Class
+
+1. What is the purpose of the `Collections` utility class in Java?
+2. How do you sort a collection using the `Collections` class?
+3. What methods does the `Collections` class provide for synchronization?
+4. How can you create unmodifiable collections using `Collections`?
+5. Provide examples of using `Collections` for searching and shuffling.
