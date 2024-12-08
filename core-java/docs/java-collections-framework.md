@@ -2051,28 +2051,105 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 
 ## 5. Implementations of Collection Interfaces
 
-### 5.1 List: ArrayList, LinkedList, Vector, Stack
+### 5.1 List
 
-1. How does `ArrayList` manage dynamic arrays?
-2. Explain the internal workings of `LinkedList`.
-3. How does `Vector` ensure thread safety?
+#### 5.1.1. ArrayList
 
-### 5.2 Set: HashSet, LinkedHashSet, TreeSet
+1. What is an `ArrayList` in Java, and how does it differ from an array?
+2. How does `ArrayList` handle resizing?
+3. What is the default initial capacity of an `ArrayList`?
+4. How does the `ArrayList` ensure thread safety?
+5. Explain the time complexity of basic operations like add, remove, and get in an `ArrayList`.
+6. Can `ArrayList` store null values? How does it handle them?
+7. How does `ArrayList` internally ensure elements are contiguous?
 
-1. What is the difference between `HashSet` and `LinkedHashSet`?
-2. How does `TreeSet` maintain sorted order?
-3. Provide examples of use cases for each `Set` implementation.
+#### 5.1.2. LinkedList
 
-### 5.3 Map: HashMap, LinkedHashMap, TreeMap, Hashtable
+1. What is a `LinkedList`, and how is it different from an `ArrayList`?
+2. Describe the internal structure of a `LinkedList`.
+3. What are the performance trade-offs between `LinkedList` and `ArrayList`?
+4. Explain the time complexity of adding an element to the head or tail of a `LinkedList`.
+5. Can `LinkedList` store null elements?
+6. How does the `LinkedList` manage memory for its elements?
 
-1. How does `HashMap` handle collisions?
-2. Explain the difference between `TreeMap` and `LinkedHashMap`.
-3. How does `Hashtable` ensure thread safety?
+#### 5.1.3. Vector
+
+1. What is a `Vector`, and how is it different from an `ArrayList`?
+2. Explain how `Vector` ensures thread safety.
+3. What is the default capacity and growth strategy of a `Vector`?
+4. Is `Vector` recommended for use in modern applications? Why or why not?
+
+#### 5.1.4. Stack
+
+1. What is a `Stack`, and how is it implemented in Java?
+2. Describe the main operations of a `Stack` and their time complexities.
+3. How does `Stack` extend the `Vector` class?
+4. Provide an example of a real-world use case for `Stack`.
+
+### 5.2 Set
+
+#### 5.2.1. HashSet
+
+1. What is a `HashSet`, and how does it differ from a `HashMap`?
+2. How does `HashSet` ensure uniqueness of elements?
+3. Explain the internal working of a `HashSet` with an example.
+4. Can `HashSet` store null elements? If yes, how many?
+5. How is the load factor significant in `HashSet`?
+
+#### 5.2.2. LinkedHashSet
+
+1. What is a `LinkedHashSet`, and how is it different from a `HashSet`?
+2. How does `LinkedHashSet` maintain insertion order?
+3. What are the performance trade-offs of using `LinkedHashSet` over `HashSet`?
+
+#### 5.2.3. TreeSet
+
+1. What is a `TreeSet`, and how is it different from a `HashSet`?
+2. How does `TreeSet` ensure elements are sorted?
+3. Can a `TreeSet` store null elements? Why or why not?
+4. What is the time complexity of basic operations in a `TreeSet`?
+5. How does `TreeSet` use a comparator or comparable to define the sorting order?
+
+### 5.3 Map
+
+#### 5.3.1. HashMap
+
+1. What is a `HashMap`, and how does it work internally?
+2. How does `HashMap` handle collisions?
+3. What is the role of hashCode() and equals() in `HashMap`?
+4. Explain the significance of the load factor in `HashMap`.
+5. How does `HashMap` differ from `Hashtable`?
+
+#### 5.3.2. LinkedHashMap
+
+1. What is a `LinkedHashMap`, and how does it differ from a `HashMap`?
+2. How does `LinkedHashMap` maintain insertion or access order?
+3. What is a practical use case for `LinkedHashMap`?
+
+#### 5.3.3. TreeMap
+
+1. What is a `TreeMap`, and how is it different from a `HashMap`?
+2. How does `TreeMap` maintain the natural order of keys?
+3. What happens if you try to store null keys in a `TreeMap`?
+4. Describe how `TreeMap` uses Red-Black Trees internally.
+
+#### 5.3.4. Hashtable
+
+1. What is a `Hashtable`, and how does it ensure thread safety?
+2. How does `Hashtable` handle null keys and values?
+3. Compare the performance of `Hashtable` with `HashMap`.
+4. Why is `Hashtable` considered legacy, and what are the modern alternatives?
 
 ### 5.4 Queue: PriorityQueue, LinkedList
 
-1. How does `PriorityQueue` manage elements in priority order?
-2. Explain the use of `LinkedList
+#### 5.4.1. PriorityQueue
+
+1. What is a `PriorityQueue`, and how does it differ from a regular `Queue`?
+2. How does `PriorityQueue` determine the order of elements?
+3. Can a `PriorityQueue` store null elements? Why or why not?
+4. Describe the internal implementation of a `PriorityQueue`.
+5. Explain the time complexity of insertion and deletion in a `PriorityQueue`.
+6. What are the use cases of a `PriorityQueue` in real-world applications?
 
 ### 6 Comparisons
 
