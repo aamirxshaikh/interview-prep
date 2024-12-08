@@ -2151,6 +2151,15 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 5. Explain the time complexity of insertion and deletion in a `PriorityQueue`.
 6. What are the use cases of a `PriorityQueue` in real-world applications?
 
+
+#### 5.4.2. ArrayDeque
+
+1. What is an `ArrayDeque`, and how does it differ from other Deque implementations?
+2. How does `ArrayDeque` handle resizing when its capacity is exceeded?
+3. What are the advantages of using `ArrayDeque` over `LinkedList` as a deque?
+4. Can `ArrayDeque` store null elements? Why or why not?
+5. Describe the time complexity of adding and removing elements at both ends of an `ArrayDeque`.
+
 ### 6 Comparisons
 
 #### 6.1 ArrayList vs. LinkedList
