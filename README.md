@@ -141,6 +141,24 @@ you should prepare:
         - ArrayList vs. LinkedList
         - HashMap vs. TreeMap
         - HashSet vs. TreeSet
+    - Sorting and Ordering Collections
+      - Comparable Interface
+          - Overview of Comparable
+          - Implementing Comparable
+          - Using `compareTo` for Natural Ordering
+          - Limitations of Comparable
+      - Comparator Interface
+          - Overview of Comparator
+          - Creating Custom Comparators
+          - Using `compare` for Custom Ordering
+          - Comparing Comparator and Comparable
+          - Chaining Comparators (e.g., `thenComparing`)
+      - Sorting with Collections Utility Class
+          - `Collections.sort()` with Comparable
+          - `Collections.sort()` with Comparator
+          - Using `List.sort()`
+          - Sorting Streams with Comparators
+      - When to Use Comparable vs. Comparator
     - Collections Utility Class
         - Sorting, Searching, and Shuffling Collections
         - Synchronized Collections
