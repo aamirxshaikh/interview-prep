@@ -1871,7 +1871,7 @@ System.out.println(sortedStudents);
     - The ordering logic is external to the object.
     - Example: Sorting by name, age, or grade in different scenarios.
 
-## 7. Collections Utility Class
+## 8. Collections Utility Class
 
 The `Collections` utility class in Java is part of the `java.util` package and provides a collection of static methods
 for performing common tasks on collection objects. These methods simplify and enhance collection management by offering
@@ -2256,7 +2256,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 
 ### 5.1 List
 
-#### 5.1.1. ArrayList
+#### 5.1.1 ArrayList
 
 1. What is an `ArrayList` in Java, and how does it differ from an array?
 2. How does `ArrayList` handle resizing?
@@ -2266,7 +2266,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 6. Can `ArrayList` store null values? How does it handle them?
 7. How does `ArrayList` internally ensure elements are contiguous?
 
-#### 5.1.2. LinkedList
+#### 5.1.2 LinkedList
 
 1. What is a `LinkedList`, and how is it different from an `ArrayList`?
 2. Describe the internal structure of a `LinkedList`.
@@ -2275,14 +2275,14 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 5. Can `LinkedList` store null elements?
 6. How does the `LinkedList` manage memory for its elements?
 
-#### 5.1.3. Vector
+#### 5.1.3 Vector
 
 1. What is a `Vector`, and how is it different from an `ArrayList`?
 2. Explain how `Vector` ensures thread safety.
 3. What is the default capacity and growth strategy of a `Vector`?
 4. Is `Vector` recommended for use in modern applications? Why or why not?
 
-#### 5.1.4. Stack
+#### 5.1.4 Stack
 
 1. What is a `Stack`, and how is it implemented in Java?
 2. Describe the main operations of a `Stack` and their time complexities.
@@ -2291,7 +2291,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 
 ### 5.2 Set
 
-#### 5.2.1. HashSet
+#### 5.2.1 HashSet
 
 1. What is a `HashSet`, and how does it differ from a `HashMap`?
 2. How does `HashSet` ensure uniqueness of elements?
@@ -2299,13 +2299,13 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. Can `HashSet` store null elements? If yes, how many?
 5. How is the load factor significant in `HashSet`?
 
-#### 5.2.2. LinkedHashSet
+#### 5.2.2 LinkedHashSet
 
 1. What is a `LinkedHashSet`, and how is it different from a `HashSet`?
 2. How does `LinkedHashSet` maintain insertion order?
 3. What are the performance trade-offs of using `LinkedHashSet` over `HashSet`?
 
-#### 5.2.3. TreeSet
+#### 5.2.3 TreeSet
 
 1. What is a `TreeSet`, and how is it different from a `HashSet`?
 2. How does `TreeSet` ensure elements are sorted?
@@ -2315,7 +2315,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 
 ### 5.3 Map
 
-#### 5.3.1. HashMap
+#### 5.3.1 HashMap
 
 1. What is a `HashMap`, and how does it work internally?
 2. How does `HashMap` handle collisions?
@@ -2323,20 +2323,20 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. Explain the significance of the load factor in `HashMap`.
 5. How does `HashMap` differ from `Hashtable`?
 
-#### 5.3.2. LinkedHashMap
+#### 5.3.2 LinkedHashMap
 
 1. What is a `LinkedHashMap`, and how does it differ from a `HashMap`?
 2. How does `LinkedHashMap` maintain insertion or access order?
 3. What is a practical use case for `LinkedHashMap`?
 
-#### 5.3.3. TreeMap
+#### 5.3.3 TreeMap
 
 1. What is a `TreeMap`, and how is it different from a `HashMap`?
 2. How does `TreeMap` maintain the natural order of keys?
 3. What happens if you try to store null keys in a `TreeMap`?
 4. Describe how `TreeMap` uses Red-Black Trees internally.
 
-#### 5.3.4. Hashtable
+#### 5.3.4 Hashtable
 
 1. What is a `Hashtable`, and how does it ensure thread safety?
 2. How does `Hashtable` handle null keys and values?
@@ -2345,7 +2345,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 
 ### 5.4 Queue: PriorityQueue, LinkedList
 
-#### 5.4.1. PriorityQueue
+#### 5.4.1 PriorityQueue
 
 1. What is a `PriorityQueue`, and how does it differ from a regular `Queue`?
 2. How does `PriorityQueue` determine the order of elements?
@@ -2354,8 +2354,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 5. Explain the time complexity of insertion and deletion in a `PriorityQueue`.
 6. What are the use cases of a `PriorityQueue` in real-world applications?
 
-
-#### 5.4.2. ArrayDeque
+#### 5.4.2 ArrayDeque
 
 1. What is an `ArrayDeque`, and how does it differ from other Deque implementations?
 2. How does `ArrayDeque` handle resizing when its capacity is exceeded?
@@ -2363,7 +2362,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. Can `ArrayDeque` store null elements? Why or why not?
 5. Describe the time complexity of adding and removing elements at both ends of an `ArrayDeque`.
 
-### 6 Comparisons
+## 6. Comparisons
 
 #### 6.1 ArrayList vs. LinkedList
 
@@ -2389,7 +2388,128 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. When would you prefer `TreeSet` over `HashSet`?
 5. Provide examples where each is the better choice.
 
-### 7 Collections Utility Class
+## 7. Sorting and Ordering Collections
+
+### 7.1 Comparable Interface
+
+#### 7.1.1 Overview of Comparable
+
+1. What is the purpose of the `Comparable` interface in Java?
+2. How does the `compareTo` method work, and what does it return?
+3. Which classes in the Java standard library implement `Comparable`?
+4. Can a class implement both `Comparable` and `Comparator`? Why or why not?
+5. What happens if two objects are compared using `compareTo` but their comparison logic is not consistent with
+   `equals()`?
+
+#### 7.1.2 Implementing Comparable
+
+1. How do you implement the `Comparable` interface in a custom class?
+2. Why is the `compareTo` method used to define the natural ordering of objects?
+3. Can the `compareTo` method throw exceptions? If yes, which ones and why?
+4. How do you sort a list of objects that implement `Comparable` using `Collections.sort()`?
+5. What precautions should you take when modifying the `compareTo` logic for a class?
+
+#### 7.1.3 Using `compareTo` for Natural Ordering
+
+1. How do you define natural ordering for a class using `compareTo`?
+2. Why should the `compareTo` method return 0 if two objects are considered equal?
+3. What is the difference between natural ordering and custom ordering?
+4. Provide an example of using `compareTo` to sort objects based on multiple fields.
+5. Can the natural ordering of a class change dynamically during runtime? Why or why not?
+
+#### 7.1.4 Limitations of Comparable
+
+1. What are the key limitations of the `Comparable` interface?
+2. Why can `Comparable` define only one natural ordering for a class?
+3. How do you handle sorting based on multiple fields if `Comparable` supports only one ordering?
+4. What are some practical use cases where `Comparator` is preferred over `Comparable`?
+5. Why does implementing `Comparable` tightly couple the sorting logic with the class definition?
+
+### 7.2 Comparator Interface
+
+#### 7.2.1 Overview of Comparator
+
+1. What is the purpose of the `Comparator` interface in Java?
+2. How does `Comparator` provide more flexibility compared to `Comparable`?
+3. Can a class use multiple `Comparator` implementations for different sorting criteria?
+4. How do you use `Comparator` to sort objects that do not implement `Comparable`?
+5. What are some key differences between `Comparable` and `Comparator`?
+
+#### 7.2.2 Creating Custom Comparators
+
+1. How do you create a custom `Comparator` in Java?
+2. Can you use anonymous classes or lambda expressions to implement `Comparator`? Provide an example.
+3. What is the importance of overriding the `compare` method in a custom `Comparator`?
+4. How can you handle null values in a custom `Comparator`?
+5. How do you sort a list of objects using a custom `Comparator`?
+
+#### 7.2.3 Using `compare` for Custom Ordering
+
+1. How does the `compare` method in `Comparator` differ from `compareTo` in `Comparable`?
+2. Why is `compare` considered more flexible for custom sorting?
+3. Can `compare` be used to sort objects by multiple fields? How?
+4. What is the significance of returning negative, zero, or positive values from the `compare` method?
+5. How does `Comparator` handle primitive types differently than objects?
+
+#### 7.2.4 Comparing Comparator and Comparable
+
+1. What are the advantages and disadvantages of `Comparable` and `Comparator`?
+2. When would you choose `Comparator` over `Comparable`?
+3. Can you combine `Comparable` and `Comparator` in the same program? Why or why not?
+4. How do `Comparable` and `Comparator` differ in terms of implementation and usage?
+5. Which interface is more suitable for sorting third-party classes?
+
+#### 7.2.5 Chaining Comparators (e.g., `thenComparing`)
+
+1. What is the purpose of `thenComparing` in the `Comparator` interface?
+2. How do you chain multiple comparators to sort by multiple fields?
+3. Provide an example of chaining comparators using lambda expressions.
+4. What is the difference between `thenComparing` and writing multiple custom comparators?
+5. How does `Comparator` ensure immutability when chaining?
+
+### 7.3 Sorting with Collections Utility Class
+
+#### 7.3.1 `Collections.sort()` with Comparable
+
+1. How does `Collections.sort()` work with `Comparable` objects?
+2. What happens if a list of objects implementing `Comparable` contains null values?
+3. Can you use `Collections.sort()` on a list of primitive types? Why or why not?
+4. How do you verify that the natural ordering defined in `compareTo` is correct?
+5. Provide an example of sorting a list of `Comparable` objects using `Collections.sort()`.
+
+#### 7.3.2 `Collections.sort()` with Comparator
+
+1. How does `Collections.sort()` work with a custom `Comparator`?
+2. Can you use lambda expressions with `Collections.sort()`? Provide an example.
+3. What is the difference between passing `Comparable` and `Comparator` to `Collections.sort()`?
+4. How does `Collections.sort()` handle sorting when multiple comparators are chained?
+5. Provide an example of using `Collections.sort()` to sort objects in descending order.
+
+#### 7.3.3 Using `List.sort()`
+
+1. What is the difference between `Collections.sort()` and `List.sort()`?
+2. How do you use `List.sort()` with a custom `Comparator`?
+3. Can `List.sort()` sort objects that do not implement `Comparable`? If yes, how?
+4. How does `List.sort()` improve performance compared to `Collections.sort()`?
+5. Provide an example of sorting a list of strings using `List.sort()`.
+
+#### 7.3.4 Sorting Streams with Comparators
+
+1. How do you sort a stream of objects using `Comparator`?
+2. What is the role of the `sorted()` method in Java Streams API?
+3. Can you sort a stream by multiple fields using `Comparator`? Provide an example.
+4. How do you collect sorted streams back into a list or set?
+5. Provide an example of using `Comparator` with streams to sort objects in reverse order.
+
+### 7.4 When to Use Comparable vs. Comparator
+
+1. How do you decide when to use `Comparable` or `Comparator`?
+2. What are the key use cases for `Comparable`?
+3. What are the key use cases for `Comparator`?
+4. Can a single class use both `Comparable` and multiple `Comparator` implementations? How?
+5. What are the performance implications of using `Comparator` vs. `Comparable`?
+
+## 8. Collections Utility Class
 
 1. What is the purpose of the `Collections` utility class in Java?
 2. How do you sort a collection using the `Collections` class?
