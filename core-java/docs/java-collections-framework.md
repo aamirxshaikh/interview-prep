@@ -1668,6 +1668,209 @@ map.put("Banana", 2);
 | **Range-based retrieval of data**           | `TreeSet`         | Supports range operations (e.g., subSet, headSet, tailSet) due to ordering.  |
 | **Insertion and deletion without ordering** | `HashSet`         | Faster insertions and deletions without the overhead of maintaining order.   |
 
+## 7. Sorting and Ordering Collections
+
+### Comparable Interface
+
+#### Overview of Comparable
+
+- The `Comparable` interface is used to define the natural ordering of objects in a collection.
+- It is part of the `java.lang` package.
+- A class implementing `Comparable` must override the `compareTo` method.
+
+#### Implementing Comparable
+
+```java
+class Student implements Comparable<Student> {
+  private String name;
+  private int age;
+
+  public Student(String name, int age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  @Override
+  public int compareTo(Student other) {
+    return Integer.compare(this.age, other.age);
+  }
+
+  @Override
+  public String toString() {
+    return name + " (" + age + ")";
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    List<Student> students = new ArrayList<>();
+    students.add(new Student("Alice", 22));
+    students.add(new Student("Bob", 20));
+    students.add(new Student("Charlie", 21));
+
+    Collections.sort(students);
+    System.out.println(students); // Sorted by age
+  }
+}
+```
+
+#### Using `compareTo` for Natural Ordering
+
+- The `compareTo` method defines how objects are compared for natural ordering.
+- It returns:
+    - A negative number if the current object is less than the other.
+    - Zero if both objects are equal.
+    - A positive number if the current object is greater than the other.
+
+#### Limitations of Comparable
+
+- A class can only have one natural ordering because it can only implement `Comparable` once.
+- This limits flexibility when you want to sort objects in multiple ways.
+
+### Comparator Interface
+
+#### Overview of Comparator
+
+- The `Comparator` interface is used for defining custom orderings of objects.
+- It is part of the `java.util` package.
+
+#### Creating Custom Comparators
+
+```java
+class Student {
+  private String name;
+  private int age;
+
+  public Student(String name, int age) {
+    this.name = name;
+    this.age = age;
+  }
+
+  @Override
+  public String toString() {
+    return name + " (" + age + ")";
+  }
+}
+
+class NameComparator implements Comparator<Student> {
+  @Override
+  public int compare(Student s1, Student s2) {
+    return s1.name.compareTo(s2.name);
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    List<Student> students = new ArrayList<>();
+    students.add(new Student("Alice", 22));
+    students.add(new Student("Bob", 20));
+    students.add(new Student("Charlie", 21));
+
+    Collections.sort(students, new NameComparator());
+    System.out.println(students); // Sorted by name
+  }
+}
+```
+
+#### Using `compare` for Custom Ordering
+
+- The `compare` method defines how objects are compared for custom ordering.
+- It follows the same return value rules as `compareTo`.
+
+#### Comparing Comparator and Comparable
+
+| Feature        | Comparable                       | Comparator                          |
+|----------------|----------------------------------|-------------------------------------|
+| Defined In     | `java.lang` package              | `java.util` package                 |
+| Implementation | Implemented by the object itself | Separate class or lambda expression |
+| Flexibility    | Limited to one natural ordering  | Allows multiple custom orderings    |
+
+#### Chaining Comparators (e.g., `thenComparing`)
+
+```java
+class Student {
+  private String name;
+  private int age;
+  private double grade;
+
+  public Student(String name, int age, double grade) {
+    this.name = name;
+    this.age = age;
+    this.grade = grade;
+  }
+
+  @Override
+  public String toString() {
+    return name + " (" + age + ", " + grade + ")";
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    List<Student> students = new ArrayList<>();
+    students.add(new Student("Alice", 22, 3.9));
+    students.add(new Student("Bob", 20, 3.6));
+    students.add(new Student("Charlie", 22, 3.7));
+
+    students.sort(Comparator.comparing(Student::getAge)
+            .thenComparing(Student::getGrade));
+
+    System.out.println(students); // Sorted by age, then grade
+  }
+}
+```
+
+### Sorting with Collections Utility Class
+
+#### `Collections.sort()` with Comparable
+
+- Uses the natural ordering defined by the `compareTo` method.
+- Example:
+
+```java
+Collections.sort(students);
+```
+
+#### `Collections.sort()` with Comparator
+
+- Uses a custom comparator for sorting.
+- Example:
+
+```java
+Collections.sort(students, new NameComparator());
+```
+
+#### Using `List.sort()`
+
+- An alternative to `Collections.sort()`, introduced in Java 8.
+- Example:
+
+```java
+students.sort(Comparator.comparing(Student::getName));
+```
+
+#### Sorting Streams with Comparators
+
+- Sorting directly using streams:
+
+```java
+List<Student> sortedStudents = students.stream()
+    .sorted(Comparator.comparing(Student::getGrade))
+    .collect(Collectors.toList());
+System.out.println(sortedStudents);
+```
+
+### When to Use Comparable vs. Comparator
+
+- **Use `Comparable`** when:
+    - There is a single, natural ordering for the class.
+    - Example: Sorting numbers, strings, or dates.
+
+- **Use `Comparator`** when:
+    - Multiple orderings are required for the same class.
+    - The ordering logic is external to the object.
+    - Example: Sorting by name, age, or grade in different scenarios.
+
 ## 7. Collections Utility Class
 
 The `Collections` utility class in Java is part of the `java.util` package and provides a collection of static methods
