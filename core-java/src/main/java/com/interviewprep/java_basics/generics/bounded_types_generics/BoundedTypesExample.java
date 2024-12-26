@@ -1,4 +1,4 @@
-package com.interviewprep.java_collections_framework.generics.bounded_types_generics;
+package com.interviewprep.java_basics.generics.bounded_types_generics;
 
 class Bound<T extends Number> {
   private final T data;
