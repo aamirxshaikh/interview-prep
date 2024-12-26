@@ -1,4 +1,4 @@
-package com.interviewprep.java_collections_framework.set.treeset.with_comparator_custom_object;
+package com.interviewprep.java_collections_framework.set.treeset.with_comparator;
 
 import java.util.Comparator;
 import java.util.Set;
