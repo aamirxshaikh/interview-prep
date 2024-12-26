@@ -1,117 +1,6 @@
 # Java Collections Framework
 
-## 1. Generics in Java
-
-### Introduction to Generics
-
-Generics were introduced in Java 5 to provide a way to create classes, interfaces, and methods with type parameters.
-This allows code to be more reusable, type-safe, and less error-prone. With generics, you can create classes and methods
-that operate on a variety of data types.
-
-Example:
-
-```java
-public class Box<T> {
-  private T value;
-
-  public Box(T value) {
-    this.value = value;
-  }
-
-  public T getValue() {
-    return value;
-  }
-}
-```
-
-### Type Parameters and Wildcards
-
-Type parameters in generics are placeholders for types passed at instantiation. Common type parameters include `<T>`,
-`<E>`, `<K>`, and `<V>`. Wildcards, represented by `?`, allow flexibility in specifying types without explicitly
-defining them.
-
-Example:
-
-```java
-public void printList(List<?> list) {
-  for (Object item : list) {
-    System.out.println(item);
-  }
-}
-```
-
-### Generic Classes and Interfaces
-
-A generic class allows you to define a class with type parameters, enabling it to work with any data type. Similarly,
-generic interfaces work with unspecified data types, useful for building flexible APIs.
-
-Example:
-
-```java
-public interface Container<T> {
-  void add(T item);
-
-  T get();
-}
-```
-
-### Generic Methods
-
-A generic method allows you to specify type parameters for individual methods. This can be useful when the method's type
-doesn't need to match the class's generic type.
-
-Example:
-
-```java
-public <T> void display(T item) {
-  System.out.println(item);
-}
-```
-
-### Bounded Types in Generics
-
-Bounded types restrict the type parameters to a specified range, typically a superclass or interface, using the
-`extends` keyword.
-
-Example:
-
-```java
-public <T extends Number> void printDoubleValue(T value) {
-  System.out.println(value.doubleValue());
-}
-```
-
-### Wildcards: `? extends` and `? super`
-
-- `? extends T`: Accepts T or any subclass of T, known as an upper-bounded wildcard.
-- `? super T`: Accepts T or any superclass of T, known as a lower-bounded wildcard.
-
-Example:
-
-```java
-public void addNumbers(List<? super Integer> list) {
-  list.add(1);
-  list.add(2);
-}
-```
-
-### Erasure and Limitations of Generics
-
-Type erasure removes generic type information at runtime, making generic types only available at compile time.
-Limitations include the inability to create generic arrays, perform instanceof checks, and use primitives as type
-parameters.
-
-### Benefits of Using Generics
-
-Generics improve code reusability, provide compile-time type safety, and reduce the need for casting. They help create
-more flexible and maintainable code.
-
-### Generics and Collections
-
-Collections heavily use generics to allow type-safe storage and retrieval of elements, making them versatile and
-reducing errors. Collections like `List<T>`, `Map<K, V>`, and `Set<E>` rely on generics for flexible data handling.
-
-## 2. Iterable and Iterator
+## 1. Iterable and Iterator
 
 ### Iterable Interface
 
@@ -399,7 +288,7 @@ for (String key : map.keySet()) {
 - In this example, `ConcurrentHashMap` permits safe removal during iteration without throwing
   `ConcurrentModificationException`.
 
-## 3. Overview of Collections Framework
+## 2. Overview of Collections Framework
 
 The Java Collections Framework (JCF) is a unified architecture for representing and manipulating collections, enabling
 developers to work with data more efficiently and effectively. It provides a set of interfaces, implementations, and
@@ -407,7 +296,7 @@ algorithms to handle groups of objects.
 
 ![img_2.png](images/img_1.png)
 
-## 4. Collection Interfaces: List, Set, Queue, Map
+## 3. Collection Interfaces: List, Set, Queue, Map
 
 ### List
 
@@ -445,7 +334,7 @@ The `Map` interface represents a collection of key-value pairs, with unique keys
 - **TreeMap**: Implements a red-black tree to provide a sorted map.
 - **Hashtable**: Similar to `HashMap`, but synchronized and does not allow null keys or values.
 
-## 5. Implementations of Collection Interfaces
+## 4. Implementations of Collection Interfaces
 
 ### List
 
@@ -1426,7 +1315,7 @@ map.put("Banana", 2);
         - Removal in `Hashtable` is also O(1) on average. Like insertion, synchronization may impact performance in a
           multi-threaded environment.
 
-## 6. Comparisons
+## 5. Comparisons
 
 ### ArrayList vs. LinkedList
 
@@ -1668,7 +1557,7 @@ map.put("Banana", 2);
 | **Range-based retrieval of data**           | `TreeSet`         | Supports range operations (e.g., subSet, headSet, tailSet) due to ordering.  |
 | **Insertion and deletion without ordering** | `HashSet`         | Faster insertions and deletions without the overhead of maintaining order.   |
 
-## 7. Sorting and Ordering Collections
+## 6. Sorting and Ordering Collections
 
 ### Comparable Interface
 
@@ -1871,7 +1760,7 @@ System.out.println(sortedStudents);
     - The ordering logic is external to the object.
     - Example: Sorting by name, age, or grade in different scenarios.
 
-## 8. Collections Utility Class
+## 7. Collections Utility Class
 
 The `Collections` utility class in Java is part of the `java.util` package and provides a collection of static methods
 for performing common tasks on collection objects. These methods simplify and enhance collection management by offering
@@ -2068,195 +1957,137 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 
 # Interview Questions
 
-## 1. Generics in Java
+## 1. Iterable and Iterator
 
-### 1.1 Introduction to Generics
-
-1. What is generics in Java, and why is it used?
-2. How do generics improve type safety in Java?
-3. Can you explain type erasure in the context of generics?
-4. What are the key advantages of using generics in Java?
-
-### 1.2 Type Parameters and Wildcards
-
-1. What are type parameters in generics?
-2. What is the difference between `T`, `E`, `K`, and `V` in generic types?
-3. How are wildcards (`?`) used in generics?
-4. Explain the difference between `? extends` and `? super`.
-
-### 1.3 Generic Classes and Interfaces
-
-1. How do you define a generic class in Java?
-2. Can an interface be generic? Provide an example.
-3. Explain the significance of the diamond operator (`<>`) in generics.
-
-### 1.4 Generic Methods
-
-1. How do you define a generic method in Java?
-2. Can generic methods exist in non-generic classes? Provide an example.
-3. Explain how a generic method can handle multiple type parameters.
-
-### 1.5 Bounded Types in Generics
-
-1. What are bounded type parameters in Java generics?
-2. How do you define an upper bound for a type parameter?
-3. Explain the use of multiple bounds in generic types.
-
-### 1.6 Wildcards: `? extends` and `? super`
-
-1. What is the purpose of `? extends` in generics?
-2. When should you use `? super` in generics?
-3. How do wildcards contribute to generic method flexibility?
-
-### 1.7 Erasure and Limitations of Generics
-
-1. What is type erasure in Java generics, and why does it exist?
-2. What are some limitations of Java generics?
-3. Why can't you create an array of a generic type?
-
-### 1.8 Benefits of Using Generics
-
-1. How do generics help in reducing runtime errors?
-2. Explain how generics provide stronger type checks at compile time.
-3. How do generics eliminate the need for explicit type casting?
-
-### 1.9 Generics and Collections
-
-1. How are generics used in the Java Collections Framework?
-2. Provide examples of generic usage in `List`, `Set`, and `Map`.
-3. How do generic collections improve code readability and maintainability?
-
-## 2. Iterable and Iterator
-
-### 2.1 Iterable Interface
+### 1.1 Iterable Interface
 
 1. What is the `Iterable` interface in Java?
 2. How does the `Iterable` interface support the enhanced for-each loop?
 3. Provide an example of implementing the `Iterable` interface in a custom class.
 
-#### 2.1.1 Using Iterable
+#### 1.1.1 Using Iterable
 
 1. How can you use the `Iterable` interface with custom collections?
 2. What is the significance of the `iterator()` method in `Iterable`?
 3. Explain how `Iterable` improves code consistency.
 
-### 2.2 Iterator Interface
+### 1.2 Iterator Interface
 
 1. What is the purpose of the `Iterator` interface in Java?
 2. How is `Iterator` different from `Enumeration`?
 3. Explain the working of the `hasNext()` and `next()` methods.
 
-#### 2.2.1 Using Iterator
+#### 1.2.1 Using Iterator
 
 1. Provide an example of using `Iterator` with a collection.
 2. How can you use `Iterator` to remove elements from a collection?
 3. What are the advantages of using `Iterator` over traditional loops?
 
-#### 2.2.2 Key Features of Iterator
+#### 1.2.2 Key Features of Iterator
 
 1. How does `Iterator` help in traversing collections?
 2. What are the key limitations of `Iterator`?
 3. Explain the difference between fail-fast and fail-safe iterators.
 
-#### 2.2.3 Common Methods of Iterator
+#### 1.2.3 Common Methods of Iterator
 
 1. What is the purpose of the `remove()` method in `Iterator`?
 2. How do you safely modify a collection while iterating through it?
 3. Provide an example of using `remove()` with `Iterator`.
 
-#### 2.2.4 What You Can and Cannot Do with Iterator
+#### 1.2.4 What You Can and Cannot Do with Iterator
 
 1. Why can't you modify a collection directly while using `Iterator`?
 2. How does `ConcurrentModificationException` occur?
 3. What are safe ways to modify a collection during iteration?
 
-### 2.3 ListIterator Interface
+### 1.3 ListIterator Interface
 
 1. What is the `ListIterator` interface in Java?
 2. How does `ListIterator` differ from `Iterator`?
 3. Explain how `ListIterator` supports bidirectional traversal.
 
-#### 2.3.1 Using ListIterator
+#### 1.3.1 Using ListIterator
 
 1. Provide an example of using `ListIterator` with a `List`.
 2. How can you add or replace elements using `ListIterator`?
 3. What are the advantages of `ListIterator` over `Iterator`?
 
-#### 2.3.2 Common Methods of ListIterator
+#### 1.3.2 Common Methods of ListIterator
 
 1. Explain the `add()` and `set()` methods of `ListIterator`.
 2. How does the `previous()` method work in `ListIterator`?
 3. Provide an example of using `ListIterator` to traverse a list in reverse order.
 
-### 2.4 forEach Loop and Iterable
+### 1.4 forEach Loop and Iterable
 
 1. How does the forEach loop utilize the `Iterable` interface?
 2. What are the advantages of the forEach loop over traditional loops?
 3. Provide an example of using the forEach loop with a custom collection.
 
-### 2.5 Fail-Fast vs. Fail-Safe Iterators
+### 1.5 Fail-Fast vs. Fail-Safe Iterators
 
 1. What is the difference between fail-fast and fail-safe iterators?
 2. How do fail-safe iterators avoid `ConcurrentModificationException`?
 3. Provide examples of collections that use fail-fast and fail-safe iterators.
 
-### 2.6 Understanding ConcurrentModificationException and Safe Modification Approaches
+### 1.6 Understanding ConcurrentModificationException and Safe Modification Approaches
 
-#### 2.6.1 Why Direct Modification Causes ConcurrentModificationException
+#### 1.6.1 Why Direct Modification Causes ConcurrentModificationException
 
 1. What is `ConcurrentModificationException`, and why does it occur?
 2. Provide an example of a scenario that causes `ConcurrentModificationException`.
 3. How can you avoid `ConcurrentModificationException` in Java?
 
-#### 2.6.2 Why Iterator.remove() Does Not Cause ConcurrentModificationException
+#### 1.6.2 Why Iterator.remove() Does Not Cause ConcurrentModificationException
 
 1. How does the `remove()` method of `Iterator` work?
 2. Why is `Iterator.remove()` considered safe for modifying collections?
 3. Provide an example of using `Iterator.remove()` to prevent `ConcurrentModificationException`.
 
-#### 2.6.3 Why CopyOnWriteArrayList and ConcurrentHashMap Do Not Cause ConcurrentModificationException
+#### 1.6.3 Why CopyOnWriteArrayList and ConcurrentHashMap Do Not Cause ConcurrentModificationException
 
 1. How does `CopyOnWriteArrayList` handle concurrent modifications?
 2. Why is `ConcurrentHashMap` safe for concurrent access?
 3. Provide examples of using `CopyOnWriteArrayList` and `ConcurrentHashMap`.
 
-## 3. Overview of Collections Framework
+## 2. Overview of Collections Framework
 
 1. What is the Java Collections Framework, and why is it important?
 2. Explain the hierarchy of the Java Collections Framework.
 3. What are the primary interfaces in the Java Collections Framework?
 
-## 4. Collection Interfaces: List, Set, Queue, Map
+## 3. Collection Interfaces: List, Set, Queue, Map
 
-### 4.1 List
+### 3.1 List
 
 1. What is the `List` interface in Java?
 2. How does `ArrayList` differ from `LinkedList`?
 3. Provide examples of common methods in the `List` interface.
 
-### 4.2 Set
+### 3.2 Set
 
 1. What is the `Set` interface in Java?
 2. How does `HashSet` ensure uniqueness?
 3. Explain the difference between `HashSet` and `TreeSet`.
 
-### 4.3 Queue
+### 3.3 Queue
 
 1. What is the `Queue` interface in Java?
 2. Explain the difference between `PriorityQueue` and `LinkedList` as queue implementations.
 3. Provide examples of common methods in the `Queue` interface.
 
-### 4.4 Map
+### 3.4 Map
 
 1. What is the `Map` interface in Java?
 2. How does `HashMap` differ from `LinkedHashMap`?
 3. Explain the use of `TreeMap` in Java.
 
-## 5. Implementations of Collection Interfaces
+## 4. Implementations of Collection Interfaces
 
-### 5.1 List
+### 4.1 List
 
-#### 5.1.1 ArrayList
+#### 4.1.1 ArrayList
 
 1. What is an `ArrayList` in Java, and how does it differ from an array?
 2. How does `ArrayList` handle resizing?
@@ -2266,7 +2097,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 6. Can `ArrayList` store null values? How does it handle them?
 7. How does `ArrayList` internally ensure elements are contiguous?
 
-#### 5.1.2 LinkedList
+#### 4.1.2 LinkedList
 
 1. What is a `LinkedList`, and how is it different from an `ArrayList`?
 2. Describe the internal structure of a `LinkedList`.
@@ -2275,23 +2106,23 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 5. Can `LinkedList` store null elements?
 6. How does the `LinkedList` manage memory for its elements?
 
-#### 5.1.3 Vector
+#### 4.1.3 Vector
 
 1. What is a `Vector`, and how is it different from an `ArrayList`?
 2. Explain how `Vector` ensures thread safety.
 3. What is the default capacity and growth strategy of a `Vector`?
 4. Is `Vector` recommended for use in modern applications? Why or why not?
 
-#### 5.1.4 Stack
+#### 4.1.4 Stack
 
 1. What is a `Stack`, and how is it implemented in Java?
 2. Describe the main operations of a `Stack` and their time complexities.
 3. How does `Stack` extend the `Vector` class?
 4. Provide an example of a real-world use case for `Stack`.
 
-### 5.2 Set
+### 4.2 Set
 
-#### 5.2.1 HashSet
+#### 4.2.1 HashSet
 
 1. What is a `HashSet`, and how does it differ from a `HashMap`?
 2. How does `HashSet` ensure uniqueness of elements?
@@ -2299,13 +2130,13 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. Can `HashSet` store null elements? If yes, how many?
 5. How is the load factor significant in `HashSet`?
 
-#### 5.2.2 LinkedHashSet
+#### 4.2.2 LinkedHashSet
 
 1. What is a `LinkedHashSet`, and how is it different from a `HashSet`?
 2. How does `LinkedHashSet` maintain insertion order?
 3. What are the performance trade-offs of using `LinkedHashSet` over `HashSet`?
 
-#### 5.2.3 TreeSet
+#### 4.2.3 TreeSet
 
 1. What is a `TreeSet`, and how is it different from a `HashSet`?
 2. How does `TreeSet` ensure elements are sorted?
@@ -2313,9 +2144,9 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. What is the time complexity of basic operations in a `TreeSet`?
 5. How does `TreeSet` use a comparator or comparable to define the sorting order?
 
-### 5.3 Map
+### 4.3 Map
 
-#### 5.3.1 HashMap
+#### 4.3.1 HashMap
 
 1. What is a `HashMap`, and how does it work internally?
 2. How does `HashMap` handle collisions?
@@ -2323,29 +2154,29 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. Explain the significance of the load factor in `HashMap`.
 5. How does `HashMap` differ from `Hashtable`?
 
-#### 5.3.2 LinkedHashMap
+#### 4.3.2 LinkedHashMap
 
 1. What is a `LinkedHashMap`, and how does it differ from a `HashMap`?
 2. How does `LinkedHashMap` maintain insertion or access order?
 3. What is a practical use case for `LinkedHashMap`?
 
-#### 5.3.3 TreeMap
+#### 4.3.3 TreeMap
 
 1. What is a `TreeMap`, and how is it different from a `HashMap`?
 2. How does `TreeMap` maintain the natural order of keys?
 3. What happens if you try to store null keys in a `TreeMap`?
 4. Describe how `TreeMap` uses Red-Black Trees internally.
 
-#### 5.3.4 Hashtable
+#### 4.3.4 Hashtable
 
 1. What is a `Hashtable`, and how does it ensure thread safety?
 2. How does `Hashtable` handle null keys and values?
 3. Compare the performance of `Hashtable` with `HashMap`.
 4. Why is `Hashtable` considered legacy, and what are the modern alternatives?
 
-### 5.4 Queue: PriorityQueue, LinkedList
+### 4.4 Queue: PriorityQueue, LinkedList
 
-#### 5.4.1 PriorityQueue
+#### 4.4.1 PriorityQueue
 
 1. What is a `PriorityQueue`, and how does it differ from a regular `Queue`?
 2. How does `PriorityQueue` determine the order of elements?
@@ -2354,7 +2185,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 5. Explain the time complexity of insertion and deletion in a `PriorityQueue`.
 6. What are the use cases of a `PriorityQueue` in real-world applications?
 
-#### 5.4.2 ArrayDeque
+#### 4.4.2 ArrayDeque
 
 1. What is an `ArrayDeque`, and how does it differ from other Deque implementations?
 2. How does `ArrayDeque` handle resizing when its capacity is exceeded?
@@ -2362,9 +2193,9 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. Can `ArrayDeque` store null elements? Why or why not?
 5. Describe the time complexity of adding and removing elements at both ends of an `ArrayDeque`.
 
-## 6. Comparisons
+## 5. Comparisons
 
-#### 6.1 ArrayList vs. LinkedList
+#### 5.1 ArrayList vs. LinkedList
 
 1. What are the performance differences between `ArrayList` and `LinkedList`?
 2. When would you prefer `ArrayList` over `LinkedList`?
@@ -2372,7 +2203,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. What are the differences in iteration performance?
 5. Provide examples of scenarios where each is suitable.
 
-#### 6.2 HashMap vs. TreeMap
+#### 5.2 HashMap vs. TreeMap
 
 1. What are the differences in the internal implementation of `HashMap` and `TreeMap`?
 2. How does the performance of `HashMap` compare to `TreeMap`?
@@ -2380,7 +2211,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. What are the ordering guarantees provided by `TreeMap`?
 5. Can you explain how null keys and values are handled by both?
 
-#### 6.3 HashSet vs. TreeSet
+#### 5.3 HashSet vs. TreeSet
 
 1. What are the differences between `HashSet` and `TreeSet`?
 2. How do `HashSet` and `TreeSet` handle duplicates?
@@ -2388,11 +2219,11 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. When would you prefer `TreeSet` over `HashSet`?
 5. Provide examples where each is the better choice.
 
-## 7. Sorting and Ordering Collections
+## 6. Sorting and Ordering Collections
 
-### 7.1 Comparable Interface
+### 6.1 Comparable Interface
 
-#### 7.1.1 Overview of Comparable
+#### 6.1.1 Overview of Comparable
 
 1. What is the purpose of the `Comparable` interface in Java?
 2. How does the `compareTo` method work, and what does it return?
@@ -2401,7 +2232,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 5. What happens if two objects are compared using `compareTo` but their comparison logic is not consistent with
    `equals()`?
 
-#### 7.1.2 Implementing Comparable
+#### 6.1.2 Implementing Comparable
 
 1. How do you implement the `Comparable` interface in a custom class?
 2. Why is the `compareTo` method used to define the natural ordering of objects?
@@ -2409,7 +2240,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. How do you sort a list of objects that implement `Comparable` using `Collections.sort()`?
 5. What precautions should you take when modifying the `compareTo` logic for a class?
 
-#### 7.1.3 Using `compareTo` for Natural Ordering
+#### 6.1.3 Using `compareTo` for Natural Ordering
 
 1. How do you define natural ordering for a class using `compareTo`?
 2. Why should the `compareTo` method return 0 if two objects are considered equal?
@@ -2417,7 +2248,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. Provide an example of using `compareTo` to sort objects based on multiple fields.
 5. Can the natural ordering of a class change dynamically during runtime? Why or why not?
 
-#### 7.1.4 Limitations of Comparable
+#### 6.1.4 Limitations of Comparable
 
 1. What are the key limitations of the `Comparable` interface?
 2. Why can `Comparable` define only one natural ordering for a class?
@@ -2425,9 +2256,9 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. What are some practical use cases where `Comparator` is preferred over `Comparable`?
 5. Why does implementing `Comparable` tightly couple the sorting logic with the class definition?
 
-### 7.2 Comparator Interface
+### 6.2 Comparator Interface
 
-#### 7.2.1 Overview of Comparator
+#### 6.2.1 Overview of Comparator
 
 1. What is the purpose of the `Comparator` interface in Java?
 2. How does `Comparator` provide more flexibility compared to `Comparable`?
@@ -2435,7 +2266,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. How do you use `Comparator` to sort objects that do not implement `Comparable`?
 5. What are some key differences between `Comparable` and `Comparator`?
 
-#### 7.2.2 Creating Custom Comparators
+#### 6.2.2 Creating Custom Comparators
 
 1. How do you create a custom `Comparator` in Java?
 2. Can you use anonymous classes or lambda expressions to implement `Comparator`? Provide an example.
@@ -2443,7 +2274,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. How can you handle null values in a custom `Comparator`?
 5. How do you sort a list of objects using a custom `Comparator`?
 
-#### 7.2.3 Using `compare` for Custom Ordering
+#### 6.2.3 Using `compare` for Custom Ordering
 
 1. How does the `compare` method in `Comparator` differ from `compareTo` in `Comparable`?
 2. Why is `compare` considered more flexible for custom sorting?
@@ -2451,7 +2282,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. What is the significance of returning negative, zero, or positive values from the `compare` method?
 5. How does `Comparator` handle primitive types differently than objects?
 
-#### 7.2.4 Comparing Comparator and Comparable
+#### 6.2.4 Comparing Comparator and Comparable
 
 1. What are the advantages and disadvantages of `Comparable` and `Comparator`?
 2. When would you choose `Comparator` over `Comparable`?
@@ -2459,7 +2290,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. How do `Comparable` and `Comparator` differ in terms of implementation and usage?
 5. Which interface is more suitable for sorting third-party classes?
 
-#### 7.2.5 Chaining Comparators (e.g., `thenComparing`)
+#### 6.2.5 Chaining Comparators (e.g., `thenComparing`)
 
 1. What is the purpose of `thenComparing` in the `Comparator` interface?
 2. How do you chain multiple comparators to sort by multiple fields?
@@ -2467,9 +2298,9 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. What is the difference between `thenComparing` and writing multiple custom comparators?
 5. How does `Comparator` ensure immutability when chaining?
 
-### 7.3 Sorting with Collections Utility Class
+### 6.3 Sorting with Collections Utility Class
 
-#### 7.3.1 `Collections.sort()` with Comparable
+#### 6.3.1 `Collections.sort()` with Comparable
 
 1. How does `Collections.sort()` work with `Comparable` objects?
 2. What happens if a list of objects implementing `Comparable` contains null values?
@@ -2477,7 +2308,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. How do you verify that the natural ordering defined in `compareTo` is correct?
 5. Provide an example of sorting a list of `Comparable` objects using `Collections.sort()`.
 
-#### 7.3.2 `Collections.sort()` with Comparator
+#### 6.3.2 `Collections.sort()` with Comparator
 
 1. How does `Collections.sort()` work with a custom `Comparator`?
 2. Can you use lambda expressions with `Collections.sort()`? Provide an example.
@@ -2485,7 +2316,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. How does `Collections.sort()` handle sorting when multiple comparators are chained?
 5. Provide an example of using `Collections.sort()` to sort objects in descending order.
 
-#### 7.3.3 Using `List.sort()`
+#### 6.3.3 Using `List.sort()`
 
 1. What is the difference between `Collections.sort()` and `List.sort()`?
 2. How do you use `List.sort()` with a custom `Comparator`?
@@ -2493,7 +2324,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. How does `List.sort()` improve performance compared to `Collections.sort()`?
 5. Provide an example of sorting a list of strings using `List.sort()`.
 
-#### 7.3.4 Sorting Streams with Comparators
+#### 6.3.4 Sorting Streams with Comparators
 
 1. How do you sort a stream of objects using `Comparator`?
 2. What is the role of the `sorted()` method in Java Streams API?
@@ -2501,7 +2332,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. How do you collect sorted streams back into a list or set?
 5. Provide an example of using `Comparator` with streams to sort objects in reverse order.
 
-### 7.4 When to Use Comparable vs. Comparator
+### 6.4 When to Use Comparable vs. Comparator
 
 1. How do you decide when to use `Comparable` or `Comparator`?
 2. What are the key use cases for `Comparable`?
@@ -2509,7 +2340,7 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. Can a single class use both `Comparable` and multiple `Comparator` implementations? How?
 5. What are the performance implications of using `Comparator` vs. `Comparable`?
 
-## 8. Collections Utility Class
+## 7. Collections Utility Class
 
 1. What is the purpose of the `Collections` utility class in Java?
 2. How do you sort a collection using the `Collections` class?

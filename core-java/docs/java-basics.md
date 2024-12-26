@@ -26,39 +26,151 @@ instance of the JVM is created whenever you run a Java application.
 
 ## 4. The `static` Keyword
 
-### 4.1. Static Variables (Class Variables)
+### Static Variables (Class Variables)
 
 Static variables are also known as class variables. They are declared with the `static` keyword in a class but outside a
 method, constructor, or block. There would only be one copy of each class variable per class, regardless of how many
 objects are created from it. Static variables are shared among all instances of a class.
 
-### 4.2. Static Methods
+### Static Methods
 
 Static methods are methods that belong to the class rather than any object of the class. They can be called without
 creating an instance of the class. Static methods can access static variables and other static methods directly. They
 cannot access instance variables or instance methods.
 
-### 4.3. Static Blocks
+### Static Blocks
 
 Static blocks are used for static initializations of a class. This code inside the static block is executed only once
 when the class is first loaded into memory. Static blocks are useful for initializing static variables.
 
-### 4.4. Static Class (Nested Static Classes)
+### Static Class (Nested Static Classes)
 
 A static class is a nested class that is declared static. It can be instantiated without an instance of the enclosing
 class. Static nested classes can access all static data members of the enclosing class, including private ones.
 
-### 4.5. Static Import
+### Static Import
 
 Static import allows the static members (fields and methods) of a class to be used in Java code without specifying the
 class in which the field is defined. This feature was introduced in Java 5.0. It can make the code more readable by
 removing the class name from the static member access.
 
+## 5. Generics in Java
+
+### Introduction to Generics
+
+Generics were introduced in Java 5 to provide a way to create classes, interfaces, and methods with type parameters.
+This allows code to be more reusable, type-safe, and less error-prone. With generics, you can create classes and methods
+that operate on a variety of data types.
+
+Example:
+
+```java
+public class Box<T> {
+  private T value;
+
+  public Box(T value) {
+    this.value = value;
+  }
+
+  public T getValue() {
+    return value;
+  }
+}
+```
+
+### Type Parameters and Wildcards
+
+Type parameters in generics are placeholders for types passed at instantiation. Common type parameters include `<T>`,
+`<E>`, `<K>`, and `<V>`. Wildcards, represented by `?`, allow flexibility in specifying types without explicitly
+defining them.
+
+Example:
+
+```java
+public void printList(List<?> list) {
+  for (Object item : list) {
+    System.out.println(item);
+  }
+}
+```
+
+### Generic Classes and Interfaces
+
+A generic class allows you to define a class with type parameters, enabling it to work with any data type. Similarly,
+generic interfaces work with unspecified data types, useful for building flexible APIs.
+
+Example:
+
+```java
+public interface Container<T> {
+  void add(T item);
+
+  T get();
+}
+```
+
+### Generic Methods
+
+A generic method allows you to specify type parameters for individual methods. This can be useful when the method's type
+doesn't need to match the class's generic type.
+
+Example:
+
+```java
+public <T> void display(T item) {
+  System.out.println(item);
+}
+```
+
+### Bounded Types in Generics
+
+Bounded types restrict the type parameters to a specified range, typically a superclass or interface, using the
+`extends` keyword.
+
+Example:
+
+```java
+public <T extends Number> void printDoubleValue(T value) {
+  System.out.println(value.doubleValue());
+}
+```
+
+### Wildcards: `? extends` and `? super`
+
+- `? extends T`: Accepts T or any subclass of T, known as an upper-bounded wildcard.
+- `? super T`: Accepts T or any superclass of T, known as a lower-bounded wildcard.
+
+Example:
+
+```java
+public void addNumbers(List<? super Integer> list) {
+  list.add(1);
+  list.add(2);
+}
+```
+
+### Erasure and Limitations of Generics
+
+Type erasure removes generic type information at runtime, making generic types only available at compile time.
+Limitations include the inability to create generic arrays, perform instanceof checks, and use primitives as type
+parameters.
+
+### Benefits of Using Generics
+
+Generics improve code reusability, provide compile-time type safety, and reduce the need for casting. They help create
+more flexible and maintainable code.
+
+### Generics and Collections
+
+Collections heavily use generics to allow type-safe storage and retrieval of elements, making them versatile and
+reducing errors. Collections like `List<T>`, `Map<K, V>`, and `Set<E>` rely on generics for flexible data handling.
+
+
 # Interview Questions
 
-## Introduction to Java
+## 1. Introduction to Java
 
-### 1. What is Java and what are its key features?
+### 1.1 What is Java and what are its key features?
 Java is a high-level, object-oriented programming language developed by Sun Microsystems (now owned by Oracle). It is designed to be platform-independent, secure, and robust. Key features include:
 - **Object-Oriented**: Everything in Java is an object.
 - **Platform-Independent**: Java bytecode can run on any platform with a JVM.
@@ -66,18 +178,18 @@ Java is a high-level, object-oriented programming language developed by Sun Micr
 - **Garbage Collection**: Java handles memory management automatically.
 - **Rich API**: Java provides a vast standard library (Java API).
 
-### 2. Explain the concept of "Write Once, Run Anywhere" in Java.
+### 1.2 Explain the concept of "Write Once, Run Anywhere" in Java.
 "Write Once, Run Anywhere" (WORA) refers to Java's ability to run the same code on any device that has a Java Virtual Machine (JVM). The source code is compiled into platform-independent bytecode, which the JVM interprets or compiles into native machine code on the host system.
 
-### 3. What are the main differences between Java and other programming languages like C++?
+### 1.3 What are the main differences between Java and other programming languages like C++?
 - **Memory Management**: Java has automatic garbage collection, while C++ requires manual memory management.
 - **Platform Independence**: Java is platform-independent through the JVM, whereas C++ is compiled to platform-specific machine code.
 - **Syntax**: Java does not support pointers, operator overloading, or multiple inheritance (though it supports interfaces), which are present in C++.
 - **Security**: Java provides built-in security features, such as the Java sandbox model, making it more secure than C++.
 
-## Java Development Kit (JDK) and Java Runtime Environment (JRE)
+## 2. Java Development Kit (JDK) and Java Runtime Environment (JRE)
 
-### 1. What is the Java Development Kit (JDK) and what are its components?
+### 2.1 What is the Java Development Kit (JDK) and what are its components?
 The JDK is a software development environment used to develop Java applications. It includes:
 - **Java Compiler (`javac`)**: Converts Java source code into bytecode.
 - **Java Runtime Environment (JRE)**: Provides the libraries and JVM needed to run Java applications.
@@ -85,84 +197,84 @@ The JDK is a software development environment used to develop Java applications.
 - **JavaDoc**: Generates API documentation from Java source code comments.
 - **Java Libraries**: Standard libraries that provide a wide range of functionalities.
 
-### 2. What is the Java Runtime Environment (JRE) and how does it differ from the JDK?
+### 2.2 What is the Java Runtime Environment (JRE) and how does it differ from the JDK?
 The JRE is a subset of the JDK that provides the libraries, JVM, and other components necessary to run Java applications, but it does not include development tools like the Java compiler. The JDK includes everything in the JRE plus the development tools.
 
-### 3. Explain the role of the `javac` compiler in the JDK.
+### 2.3 Explain the role of the `javac` compiler in the JDK.
 The `javac` compiler is responsible for converting Java source code (`.java` files) into bytecode (`.class` files). This bytecode is platform-independent and can be executed by the JVM on any platform.
 
-## The Java Virtual Machine (JVM)
+## 3. The Java Virtual Machine (JVM)
 
-### 1. What is the Java Virtual Machine (JVM) and what is its purpose?
+### 3.1 What is the Java Virtual Machine (JVM) and what is its purpose?
 The JVM is an abstract computing machine that enables a computer to run Java programs. It converts Java bytecode into machine code and executes it, providing a platform-independent execution environment.
 
-### 2. Describe the three notions of the JVM: specification, implementation, and instance.
+### 3.2 Describe the three notions of the JVM: specification, implementation, and instance.
 - **Specification**: A document that describes the requirements for JVM implementations.
 - **Implementation**: A concrete implementation of the JVM specification, such as HotSpot.
 - **Instance**: A running instance of a JVM implementation, created when a Java program is executed.
 
-### 3. How does the JVM handle memory management and garbage collection?
+### 3.3 How does the JVM handle memory management and garbage collection?
 The JVM automatically manages memory through a process called garbage collection, which reclaims memory by removing objects that are no longer referenced by the program. This helps prevent memory leaks and optimizes memory usage.
 
-## The `static` Keyword
+## 4. The `static` Keyword
 
-### Static Variables (Class Variables)
+### 4.1 Static Variables (Class Variables)
 
-### 1. What are static variables in Java and how are they different from instance variables?
+### 4.1.1 What are static variables in Java and how are they different from instance variables?
 Static variables are shared across all instances of a class, meaning they have a single value per class, whereas instance variables have a separate value for each instance of the class.
 
-### 2. How do you declare a static variable in Java?
+### 4.1.2 How do you declare a static variable in Java?
 Static variables are declared using the `static` keyword, e.g., `static int count;`.
 
-### 3. Can static variables be accessed by instance methods? Explain.
+### 4.1.3 Can static variables be accessed by instance methods? Explain.
 Yes, static variables can be accessed by instance methods because they belong to the class rather than any specific instance.
 
-### Static Methods
+### 4.2 Static Methods
 
-### 1. What are static methods and how do they differ from instance methods?
+### 4.2.1 What are static methods and how do they differ from instance methods?
 Static methods belong to the class rather than any instance of the class. They can be called without creating an instance of the class, while instance methods require an object of the class to be invoked.
 
-### 2. How do you call a static method in Java?
+### 4.2.2 How do you call a static method in Java?
 Static methods are called using the class name, e.g., `ClassName.methodName();`.
 
-### 3. Can static methods access instance variables? Why or why not?
+### 4.2.3 Can static methods access instance variables? Why or why not?
 No, static methods cannot access instance variables directly because they do not belong to any specific instance of the class. They can only access static variables and other static methods.
 
-### Static Blocks
+### 4.3 Static Blocks
 
-### 1. What is a static block in Java and when is it executed?
+### 4.3.1 What is a static block in Java and when is it executed?
 A static block is a block of code inside a class that is executed when the class is loaded into memory, before any objects are created or any static methods are called.
 
-### 2. How can static blocks be used for initializing static variables?
+### 4.3.2 How can static blocks be used for initializing static variables?
 Static blocks can be used to initialize static variables when the value of the variable requires complex logic that cannot be handled in a simple assignment statement.
 
-### 3. Can a class have multiple static blocks? If so, how are they executed?
+### 4.3.3 Can a class have multiple static blocks? If so, how are they executed?
 Yes, a class can have multiple static blocks. They are executed in the order in which they appear in the class, from top to bottom.
 
-### Static Class (Nested Static Classes)
+### 4.4 Static Class (Nested Static Classes)
 
-### 1. What is a static nested class in Java and how is it different from an inner class?
+### 4.4.1 What is a static nested class in Java and how is it different from an inner class?
 A static nested class is a class defined within another class with the `static` keyword. Unlike inner classes, static nested classes do not have access to the instance variables or methods of the outer class.
 
-### 2. How do you instantiate a static nested class?
+### 4.4.2 How do you instantiate a static nested class?
 A static nested class is instantiated using the outer class name, e.g., `OuterClass.NestedClass nestedObject = new OuterClass.NestedClass();`.
 
-### 3. Can a static nested class access the non-static members of its enclosing class?
+### 4.4.3 Can a static nested class access the non-static members of its enclosing class?
 No, a static nested class cannot access non-static members (instance variables and methods) of its enclosing class because it does not have a reference to an instance of the outer class.
 
-### Static Import
+### 4.5 Static Import
 
-### 1. What is static import in Java and how is it used?
+### 4.5.1 What is static import in Java and how is it used?
 Static import allows you to access static members of a class directly without specifying the class name. For example, `import static java.lang.Math.*;` allows you to use `Math.PI` simply as `PI`.
 
-### 2. What are the advantages and disadvantages of using static import?
+### 4.5.2 What are the advantages and disadvantages of using static import?
 **Advantages**:
 - It reduces code verbosity by eliminating the need to specify the class name for static members.
   **Disadvantages**:
 - It can lead to ambiguity if multiple static members with the same name are imported.
 - It can reduce code readability, as it may be unclear where a static member is coming from.
 
-### 3. Provide an example of how to use static import in a Java program.
+### 4.5.3 Provide an example of how to use static import in a Java program.
 ```java
 import static java.lang.Math.*;
 
@@ -173,6 +285,65 @@ public class StaticImportExample {
     }
 }
 ```
+
+## 5. Generics in Java
+
+### 5.1 Introduction to Generics
+
+1. What is generics in Java, and why is it used?
+2. How do generics improve type safety in Java?
+3. Can you explain type erasure in the context of generics?
+4. What are the key advantages of using generics in Java?
+
+### 5.2 Type Parameters and Wildcards
+
+1. What are type parameters in generics?
+2. What is the difference between `T`, `E`, `K`, and `V` in generic types?
+3. How are wildcards (`?`) used in generics?
+4. Explain the difference between `? extends` and `? super`.
+
+### 5.3 Generic Classes and Interfaces
+
+1. How do you define a generic class in Java?
+2. Can an interface be generic? Provide an example.
+3. Explain the significance of the diamond operator (`<>`) in generics.
+
+### 5.4 Generic Methods
+
+1. How do you define a generic method in Java?
+2. Can generic methods exist in non-generic classes? Provide an example.
+3. Explain how a generic method can handle multiple type parameters.
+
+### 5.5 Bounded Types in Generics
+
+1. What are bounded type parameters in Java generics?
+2. How do you define an upper bound for a type parameter?
+3. Explain the use of multiple bounds in generic types.
+
+### 5.6 Wildcards: `? extends` and `? super`
+
+1. What is the purpose of `? extends` in generics?
+2. When should you use `? super` in generics?
+3. How do wildcards contribute to generic method flexibility?
+
+### 5.7 Erasure and Limitations of Generics
+
+1. What is type erasure in Java generics, and why does it exist?
+2. What are some limitations of Java generics?
+3. Why can't you create an array of a generic type?
+
+### 5.8 Benefits of Using Generics
+
+1. How do generics help in reducing runtime errors?
+2. Explain how generics provide stronger type checks at compile time.
+3. How do generics eliminate the need for explicit type casting?
+
+### 5.9 Generics and Collections
+
+1. How are generics used in the Java Collections Framework?
+2. Provide examples of generic usage in `List`, `Set`, and `Map`.
+3. How do generic collections improve code readability and maintainability?
+
 
 ## Summary
 
