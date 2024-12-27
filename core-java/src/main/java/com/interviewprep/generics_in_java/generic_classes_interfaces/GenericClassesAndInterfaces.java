@@ -1,4 +1,4 @@
-package com.interviewprep.java_basics.generics.generic_classes_interfaces;
+package com.interviewprep.generics_in_java.generic_classes_interfaces;
 
 // Define a generic interface
 interface Container<T> {

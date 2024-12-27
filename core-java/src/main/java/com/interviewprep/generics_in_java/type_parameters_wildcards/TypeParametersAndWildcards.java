@@ -1,4 +1,4 @@
-package com.interviewprep.java_basics.generics.type_parameters_wildcards;
+package com.interviewprep.generics_in_java.type_parameters_wildcards;
 
 import java.util.ArrayList;
 import java.util.List;

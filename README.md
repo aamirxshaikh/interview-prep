@@ -112,6 +112,18 @@ you should prepare:
         - Comparison: Abstract Class vs Interface
         - When to Use Abstract Classes vs Interfaces
 
+- **[Generics in Java](core-java/docs/generics-in-java.md)**
+    - Introduction to Generics
+        - Type Parameters and Wildcards
+        - Generic Classes and Interfaces
+        - Generic Methods
+        - Bounded Types in Generics
+        - Wildcards: `? extends` and `? super`
+        - Erasure and Limitations of Generics
+        - Benefits of Using Generics
+        - Generics and Collections
+        
+
 - **[Java Collections Framework](core-java/docs/java-collections-framework.md)**
     - Iterable and Iterator
         - Iterable Interface

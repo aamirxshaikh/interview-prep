@@ -1,4 +1,4 @@
-package com.interviewprep.java_basics.generics.generic_methods;
+package com.interviewprep.generics_in_java.generic_methods;
 
 public class GenericMethodsExample {
   public static <T> void displayArray(T[] array) {
