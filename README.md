@@ -20,16 +20,6 @@ you should prepare:
         - Static Blocks
         - Static Class (Nested Static Classes)
         - Static Import
-    - Generics in Java
-        - Introduction to Generics
-        - Type Parameters and Wildcards
-        - Generic Classes and Interfaces
-        - Generic Methods
-        - Bounded Types in Generics
-        - Wildcards: `? extends` and `? super`
-        - Erasure and Limitations of Generics
-        - Benefits of Using Generics
-        - Generics and Collections
 
 - **[Data Types and Variables](core-java/docs/data-types-and-variables.md)**
     - Primitive Data Types (int, char, float, etc.)
