@@ -112,7 +112,6 @@ you should prepare:
         - Erasure and Limitations of Generics
         - Benefits of Using Generics
         - Generics and Collections
-        
 
 - **[Java Collections Framework](core-java/docs/java-collections-framework.md)**
     - Iterable and Iterator
