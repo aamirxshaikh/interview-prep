@@ -181,8 +181,30 @@ you should prepare:
         - Creating Asynchronous Tasks with Callable
         - Retrieving Results with Future
     - Concurrent Collections
-        - BlockingQueue, ConcurrentHashMap, CopyOnWriteArrayList
-        - ConcurrentLinkedQueue, ConcurrentSkipListMap
+        - Blocking Collections (For Producer-Consumer Patterns)
+            - BlockingQueue
+            - ArrayBlockingQueue
+            - LinkedBlockingQueue
+            - PriorityBlockingQueue
+            - BlockingDeque
+            - LinkedBlockingDeque
+        - Non-Blocking Collections (Optimized for Concurrent Access)
+            - ConcurrentHashMap
+            - ConcurrentSkipListMap
+            - ConcurrentSkipListSet
+            - ConcurrentLinkedQueue
+            - ConcurrentLinkedDeque
+        - Copy-On-Write Collections (For Iteration Safety)
+            - CopyOnWriteArrayList
+            - CopyOnWriteArraySet
+        - Other Useful Collections
+            - DelayQueue
+            - SynchronousQueue
+            - LinkedTransferQueue
+        - Comparison of Concurrent Collections
+            - When to Use Blocking vs. Non-Blocking Collections
+            - Performance and Scalability Considerations
+            - Use Cases for Copy-On-Write Collections
 
 - **Java 8+ Features**
     - Lambda Expressions
