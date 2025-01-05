@@ -308,6 +308,15 @@ provides methods to manipulate the size of the list. Common implementations incl
 - **Vector**: Similar to `ArrayList`, but synchronized and thus thread-safe.
 - **Stack**: Represents a last-in-first-out (LIFO) stack of objects.
 
+### Map
+
+The `Map` interface represents a collection of key-value pairs, with unique keys. Implementations include:
+
+- **HashMap**: Hash table-based implementation of the `Map` interface, allowing null values and one null key.
+- **LinkedHashMap**: Maintains a linked list of entries for predictable iteration order.
+- **TreeMap**: Implements a red-black tree to provide a sorted map.
+- **Hashtable**: Similar to `HashMap`, but synchronized and does not allow null keys or values.
+
 ### Set
 
 The `Set` interface represents a collection that cannot contain duplicate elements. Implementations include:
@@ -324,15 +333,6 @@ are:
 - **PriorityQueue**: A queue that orders its elements based on their natural ordering or a specified comparator.
 - **ArrayDeque**: Resizable-array implementation of the `Deque` interface, allowing fast insertion and removal operations.
 - **LinkedList**: Also implements the `Queue` interface, providing flexibility for queue operations.
-
-### Map
-
-The `Map` interface represents a collection of key-value pairs, with unique keys. Implementations include:
-
-- **HashMap**: Hash table-based implementation of the `Map` interface, allowing null values and one null key.
-- **LinkedHashMap**: Maintains a linked list of entries for predictable iteration order.
-- **TreeMap**: Implements a red-black tree to provide a sorted map.
-- **Hashtable**: Similar to `HashMap`, but synchronized and does not allow null keys or values.
 
 ## 4. Implementations of Collection Interfaces
 
@@ -556,6 +556,231 @@ public class StackExample {
 | **Synchronization**           | Not synchronized                                 | Not synchronized                                      | Synchronized                              | Synchronized                                            |
 | **Memory Efficiency**         | Less memory overhead due to array storage        | More memory overhead due to node storage              | Less memory overhead due to array storage | Similar to `Vector`                                     |
 | **Use Cases**                 | Best for read-heavy operations and random access | Best for insertions/deletions at the beginning/middle | Use when synchronization is needed        | Use for LIFO data structures (e.g., undo functionality) |
+
+### Map
+
+The `Map` interface represents a collection of key-value pairs, with each key being unique. It is part of the Java
+Collections Framework and is used to represent mappings between keys and values.
+
+- **HashMap**: Hash table-based implementation of the `Map` interface, allowing null values and one null key.
+- **LinkedHashMap**: Maintains a linked list of entries for predictable iteration order.
+- **TreeMap**: Implements a red-black tree to provide a sorted map.
+- **Hashtable**: Similar to `HashMap`, but synchronized and does not allow null keys or values.
+
+### Commonly Used Map Implementations
+
+#### `HashMap`
+
+- `HashMap` is a widely used implementation of the `Map` interface.
+- **Order**: It does not maintain any specific order of elements.
+- **Null allowance**: Allows one null key and multiple null values.
+- **Performance**: Offers constant-time performance (O(1)) for get and put operations under ideal conditions.
+
+##### Internal Working:
+
+##### Underlying Data Structure
+
+`HashMap` uses an array of nodes (buckets) where each node represents an entry (key-value pair) and uses hashing to
+place entries into these buckets. The class maintains entries in the form of `Map.Entry<K,V>` pairs, which are stored in
+linked lists within buckets.
+
+##### Adding an Element
+
+1. **Hashing**: The hash code of the key is calculated using the `hashCode()` method.
+2. **Index Calculation**: Hash code is transformed into an index to place the element in the appropriate bucket.
+3. **Collision Handling**: If two elements hash to the same index, a linked list or a balanced tree (for high collision
+   scenarios) is used.
+
+```java
+Map<String, Integer> map = new HashMap<>();
+map.put("Apple", 3);
+map.put("Banana", 5);
+```
+
+##### Removing an Element
+
+1. **Hashing**: The key's hash code finds the correct bucket.
+2. **Equality Check**: Uses `equals()` to ensure accurate match.
+3. **Deletion**: If matched, the entry is removed.
+
+##### Handling Collisions
+
+When multiple keys hash to the same bucket, `HashMap` handles collisions by chaining entries in a linked list or by
+using balanced trees in cases of high collisions.
+
+##### Resizing
+
+Resizes automatically when the number of entries exceeds the product of load factor (default 0.75) and current capacity.
+
+```java
+public V put(K key, V value) {
+  if (size >= threshold) resize();
+  // hashing and inserting logic
+}
+```
+
+- **Time Complexity**:
+    - Insert: O(1) average, O(n) in the worst case.
+        - `HashMap` provides constant-time insertion by calculating the bucket index via the hash code. However, if many
+          keys hash to the same bucket (causing collisions), the time can degrade to O(n) for operations within that
+          bucket. In cases of excessive collisions, buckets are converted to balanced trees, reducing the lookup
+          complexity back to O(log n) for those buckets.
+
+    - Access: O(1) average, O(n) worst case.
+        - `HashMap`’s direct access via the hash code keeps complexity low. Collisions can increase the time if chaining
+          becomes extensive, especially if many items reside in one bucket.
+
+    - Remove: O(1) average, O(n) worst case.
+        - Removal works similarly to insertion and lookup, with O(1) time in most cases. With excessive collisions in a
+          single bucket, it degrades to O(n).
+
+#### `LinkedHashMap`
+
+- Maintains a **linked list** of entries for predictable iteration order.
+- **Order**: Preserves insertion order.
+- **Null allowance**: Allows null keys and values.
+- Primarily beneficial for cache or when ordering is required.
+
+##### Internal Working
+
+##### Underlying Data Structure
+
+- Uses a combination of a hash table and a doubly-linked list. The hash table allows for O(1) access, and the linked
+  list maintains the insertion order.
+
+##### Adding an Element
+
+- Each element is hashed to determine its bucket.
+- The linked list structure ensures that the entry's order is preserved by linking each new entry to the end.
+
+##### Removing an Element
+
+- The element's hash is used to locate the bucket, and then it's removed from both the hash table and the linked list.
+
+##### Handling Collisions
+
+- Uses separate chaining. If multiple elements hash to the same bucket, they are stored as a linked list within that
+  bucket.
+
+##### Resizing
+
+- Resizing occurs when the load factor threshold is reached, just as in `HashMap`. The entire table is rehashed,
+  maintaining both hash table and linked list structures.
+
+```java
+Map<String, Integer> map = new LinkedHashMap<>();
+map.put("Apple", 1);
+map.put("Banana", 2);
+```
+
+- **Time Complexity**:
+    - Insert: O(1) average, O(n) worst case.
+        - Like `HashMap`, `LinkedHashMap` uses hashing to determine the bucket. Additionally, each entry maintains links
+          to preserve order (insertion or access order). When the number of elements exceeds the threshold, resizing can
+          lead to O(n) complexity.
+
+    - Access: O(1) average, O(n) worst case.
+        - `LinkedHashMap` retrieves elements in O(1) time on average, with the linked list structure enabling
+          predictable order. However, chaining within buckets can still cause O(n) time if there are many collisions.
+
+    - Remove: O(1) average.
+        - Removal in `LinkedHashMap` is O(1) in most cases. Each entry has links to neighboring entries, making it
+          efficient to remove items while maintaining order.
+
+#### `TreeMap`
+
+- **Sorted Order**: Implements a red-black tree to provide a **sorted map** based on keys.
+- **Null allowance**: Does not allow null keys (throws NullPointerException).
+- Ideal when keys need natural ordering or custom sorting.
+
+##### Internal Working
+
+##### Underlying Data Structure
+
+- Uses a red-black tree, a balanced binary search tree where each node maintains a color (red or black) for balancing.
+
+##### Adding an Element
+
+- Elements are added based on their natural order or a specified comparator. The tree self-balances after each
+  insertion.
+
+##### Removing an Element
+
+- Elements are located based on their order, and the tree self-balances after the element is removed.
+
+##### Handling Collisions
+
+- `TreeMap` does not experience hash collisions since it’s based on natural ordering.
+
+### Resizing
+- `TreeMap` does not resize since it’s based on a tree structure.
+
+```java
+Map<String, Integer> map = new TreeMap<>();
+map.put("Apple", 4);
+map.put("Banana", 6);
+```
+
+- **Time Complexity**:
+    - Insert: O(log n).
+        - `TreeMap` uses a red-black tree, balancing after each insertion to maintain O(log n) performance for both
+          insertion and retrieval, regardless of collisions.
+
+    - Access: O(log n).
+        - Accessing elements in `TreeMap` is O(log n) because the red-black tree enables binary search. Each retrieval
+          operation traverses the tree’s depth, which remains balanced.
+
+    - Remove: O(log n).
+        - Removal involves rebalancing the tree, keeping the operation at O(log n) complexity even as the number of
+          entries grows.
+
+#### `Hashtable`
+
+- **Synchronized**: Thread-safe by default, unlike other `Map` implementations.
+- **Order**: Does not maintain element order.
+- **Null allowance**: Does not allow null keys or values.
+- Primarily used in multi-threaded environments.
+
+##### Internal Working
+
+##### Underlying Data Structure
+
+- Uses a hash table for storing entries.
+
+##### Adding an Element
+
+- The element’s hash determines its bucket. Synchronization is applied to ensure thread-safety.
+
+##### Removing an Element
+
+- Elements are located and removed using their hash. The operation is thread-safe due to synchronization.
+
+##### Handling Collisions
+
+- Uses separate chaining with linked lists within each bucket to handle collisions.
+
+##### Resizing
+
+- Resizing occurs when the load factor is reached. The table is doubled, and entries are rehashed.
+
+```java
+Map<String, Integer> map = new Hashtable<>();
+map.put("Apple", 1);
+map.put("Banana", 2);
+```
+
+- **Time Complexity**:
+    - Insert: O(1) average, O(n) worst case.
+        - `Hashtable` insertion is similar to `HashMap`, with O(1) expected for inserting and resizing when the load
+          factor is reached. Synchronization can slow down access under heavy concurrent access.
+
+    - Access: O(1) average, O(n) worst case.
+        - Access performance matches `HashMap`. Synchronized access can slow retrieval under multi-threaded
+          environments, although it remains O(1) on average.
+
+    - Remove: O(1) average, O(n) worst case.
+        - Removal in `Hashtable` is also O(1) on average. Like insertion, synchronization may impact performance in a
+          multi-threaded environment.
 
 ### Set
 
@@ -929,7 +1154,7 @@ public class TreeSetExample {
 | Null Values          | Allows one null                                               | Allows one null                                         | Does not allow null                                        |
 | Performance          | Fastest for basic operations (O(1) for add, remove, contains) | Slightly slower than `HashSet` due to maintaining order | Slower (O(log n) for add, remove, contains) due to sorting |
 
-### 3. Queue
+### Queue
 
 The **`Queue` interface** in Java is a part of the Java Collections Framework. It represents a collection designed for
 holding elements before processing, following the First-In-First-Out (FIFO) principle. Queues are typically used to
@@ -1089,231 +1314,6 @@ LinkedList was already covered in the `List` section.
 | **Null Elements**        | Not Allowed                          | Not Allowed                      | Allowed                         |
 | **Underlying Structure** | Binary Heap                          | Resizable Circular Array         | Doubly Linked List              |
 | **Use Case**             | Priority-based processing            | Efficient Stack/Queue operations | General-purpose, flexible queue |
-
-### 4. Map
-
-The `Map` interface represents a collection of key-value pairs, with each key being unique. It is part of the Java
-Collections Framework and is used to represent mappings between keys and values.
-
-- **HashMap**: Hash table-based implementation of the `Map` interface, allowing null values and one null key.
-- **LinkedHashMap**: Maintains a linked list of entries for predictable iteration order.
-- **TreeMap**: Implements a red-black tree to provide a sorted map.
-- **Hashtable**: Similar to `HashMap`, but synchronized and does not allow null keys or values.
-
-### Commonly Used Map Implementations
-
-#### `HashMap`
-
-- `HashMap` is a widely used implementation of the `Map` interface.
-- **Order**: It does not maintain any specific order of elements.
-- **Null allowance**: Allows one null key and multiple null values.
-- **Performance**: Offers constant-time performance (O(1)) for get and put operations under ideal conditions.
-
-##### Internal Working:
-
-##### Underlying Data Structure
-
-`HashMap` uses an array of nodes (buckets) where each node represents an entry (key-value pair) and uses hashing to
-place entries into these buckets. The class maintains entries in the form of `Map.Entry<K,V>` pairs, which are stored in
-linked lists within buckets.
-
-##### Adding an Element
-
-1. **Hashing**: The hash code of the key is calculated using the `hashCode()` method.
-2. **Index Calculation**: Hash code is transformed into an index to place the element in the appropriate bucket.
-3. **Collision Handling**: If two elements hash to the same index, a linked list or a balanced tree (for high collision
-   scenarios) is used.
-
-```java
-Map<String, Integer> map = new HashMap<>();
-map.put("Apple", 3);
-map.put("Banana", 5);
-```
-
-##### Removing an Element
-
-1. **Hashing**: The key's hash code finds the correct bucket.
-2. **Equality Check**: Uses `equals()` to ensure accurate match.
-3. **Deletion**: If matched, the entry is removed.
-
-##### Handling Collisions
-
-When multiple keys hash to the same bucket, `HashMap` handles collisions by chaining entries in a linked list or by
-using balanced trees in cases of high collisions.
-
-##### Resizing
-
-Resizes automatically when the number of entries exceeds the product of load factor (default 0.75) and current capacity.
-
-```java
-public V put(K key, V value) {
-  if (size >= threshold) resize();
-  // hashing and inserting logic
-}
-```
-
-- **Time Complexity**:
-    - Insert: O(1) average, O(n) in the worst case.
-        - `HashMap` provides constant-time insertion by calculating the bucket index via the hash code. However, if many
-          keys hash to the same bucket (causing collisions), the time can degrade to O(n) for operations within that
-          bucket. In cases of excessive collisions, buckets are converted to balanced trees, reducing the lookup
-          complexity back to O(log n) for those buckets.
-
-    - Access: O(1) average, O(n) worst case.
-        - `HashMap`’s direct access via the hash code keeps complexity low. Collisions can increase the time if chaining
-          becomes extensive, especially if many items reside in one bucket.
-
-    - Remove: O(1) average, O(n) worst case.
-        - Removal works similarly to insertion and lookup, with O(1) time in most cases. With excessive collisions in a
-          single bucket, it degrades to O(n).
-
-#### `LinkedHashMap`
-
-- Maintains a **linked list** of entries for predictable iteration order.
-- **Order**: Preserves insertion order.
-- **Null allowance**: Allows null keys and values.
-- Primarily beneficial for cache or when ordering is required.
-
-##### Internal Working
-
-##### Underlying Data Structure
-
-- Uses a combination of a hash table and a doubly-linked list. The hash table allows for O(1) access, and the linked
-  list maintains the insertion order.
-
-##### Adding an Element
-
-- Each element is hashed to determine its bucket.
-- The linked list structure ensures that the entry's order is preserved by linking each new entry to the end.
-
-##### Removing an Element
-
-- The element's hash is used to locate the bucket, and then it's removed from both the hash table and the linked list.
-
-##### Handling Collisions
-
-- Uses separate chaining. If multiple elements hash to the same bucket, they are stored as a linked list within that
-  bucket.
-
-##### Resizing
-
-- Resizing occurs when the load factor threshold is reached, just as in `HashMap`. The entire table is rehashed,
-  maintaining both hash table and linked list structures.
-
-```java
-Map<String, Integer> map = new LinkedHashMap<>();
-map.put("Apple", 1);
-map.put("Banana", 2);
-```
-
-- **Time Complexity**:
-    - Insert: O(1) average, O(n) worst case.
-        - Like `HashMap`, `LinkedHashMap` uses hashing to determine the bucket. Additionally, each entry maintains links
-          to preserve order (insertion or access order). When the number of elements exceeds the threshold, resizing can
-          lead to O(n) complexity.
-
-    - Access: O(1) average, O(n) worst case.
-        - `LinkedHashMap` retrieves elements in O(1) time on average, with the linked list structure enabling
-          predictable order. However, chaining within buckets can still cause O(n) time if there are many collisions.
-
-    - Remove: O(1) average.
-        - Removal in `LinkedHashMap` is O(1) in most cases. Each entry has links to neighboring entries, making it
-          efficient to remove items while maintaining order.
-
-#### `TreeMap`
-
-- **Sorted Order**: Implements a red-black tree to provide a **sorted map** based on keys.
-- **Null allowance**: Does not allow null keys (throws NullPointerException).
-- Ideal when keys need natural ordering or custom sorting.
-
-##### Internal Working
-
-##### Underlying Data Structure
-
-- Uses a red-black tree, a balanced binary search tree where each node maintains a color (red or black) for balancing.
-
-##### Adding an Element
-
-- Elements are added based on their natural order or a specified comparator. The tree self-balances after each
-  insertion.
-
-##### Removing an Element
-
-- Elements are located based on their order, and the tree self-balances after the element is removed.
-
-##### Handling Collisions
-
-- `TreeMap` does not experience hash collisions since it’s based on natural ordering.
-
-### Resizing
-- `TreeMap` does not resize since it’s based on a tree structure.
-
-```java
-Map<String, Integer> map = new TreeMap<>();
-map.put("Apple", 4);
-map.put("Banana", 6);
-```
-
-- **Time Complexity**:
-    - Insert: O(log n).
-        - `TreeMap` uses a red-black tree, balancing after each insertion to maintain O(log n) performance for both
-          insertion and retrieval, regardless of collisions.
-
-    - Access: O(log n).
-        - Accessing elements in `TreeMap` is O(log n) because the red-black tree enables binary search. Each retrieval
-          operation traverses the tree’s depth, which remains balanced.
-
-    - Remove: O(log n).
-        - Removal involves rebalancing the tree, keeping the operation at O(log n) complexity even as the number of
-          entries grows.
-
-#### `Hashtable`
-
-- **Synchronized**: Thread-safe by default, unlike other `Map` implementations.
-- **Order**: Does not maintain element order.
-- **Null allowance**: Does not allow null keys or values.
-- Primarily used in multi-threaded environments.
-
-##### Internal Working
-
-##### Underlying Data Structure
-
-- Uses a hash table for storing entries.
-
-##### Adding an Element
-
-- The element’s hash determines its bucket. Synchronization is applied to ensure thread-safety.
-
-##### Removing an Element
-
-- Elements are located and removed using their hash. The operation is thread-safe due to synchronization.
-
-##### Handling Collisions
-
-- Uses separate chaining with linked lists within each bucket to handle collisions.
-
-##### Resizing
-
-- Resizing occurs when the load factor is reached. The table is doubled, and entries are rehashed.
-
-```java
-Map<String, Integer> map = new Hashtable<>();
-map.put("Apple", 1);
-map.put("Banana", 2);
-```
-
-- **Time Complexity**:
-    - Insert: O(1) average, O(n) worst case.
-        - `Hashtable` insertion is similar to `HashMap`, with O(1) expected for inserting and resizing when the load
-          factor is reached. Synchronization can slow down access under heavy concurrent access.
-
-    - Access: O(1) average, O(n) worst case.
-        - Access performance matches `HashMap`. Synchronized access can slow retrieval under multi-threaded
-          environments, although it remains O(1) on average.
-
-    - Remove: O(1) average, O(n) worst case.
-        - Removal in `Hashtable` is also O(1) on average. Like insertion, synchronization may impact performance in a
-          multi-threaded environment.
 
 ## 5. Comparisons
 

@@ -135,8 +135,8 @@ you should prepare:
     - Collection Interfaces: List, Set, Queue, Map
     - Implementations of Collection Interfaces
         - List: ArrayList, LinkedList, Vector, Stack
-        - Set: HashSet, LinkedHashSet, TreeSet
         - Map: HashMap, LinkedHashMap, TreeMap, Hashtable
+        - Set: HashSet, LinkedHashSet, TreeSet
         - Queue: PriorityQueue, LinkedList
     - Comparisons
         - ArrayList vs. LinkedList
