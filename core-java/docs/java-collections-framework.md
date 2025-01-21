@@ -575,6 +575,31 @@ Collections Framework and is used to represent mappings between keys and values.
 - **Order**: It does not maintain any specific order of elements.
 - **Null allowance**: Allows one null key and multiple null values.
 - **Performance**: Offers constant-time performance (O(1)) for get and put operations under ideal conditions.
+- **Initial Size**:
+    - Default initial capacity: **16 buckets**.
+    - Can be specified using the `HashMap(int initialCapacity)` constructor.
+    - The capacity is always a power of 2 (e.g., 16, 32, 64).
+
+- **Load Factor**:
+    - Default load factor: **0.75**.
+    - This means the HashMap resizes when 75% of the capacity is filled.
+
+- **When Resizing Happens**:
+    - Resizing occurs when the size of the HashMap exceeds the **threshold**, calculated as:
+      ```
+      threshold = capacity × load factor
+      ```
+        - Example: For the default settings (capacity = 16, load factor = 0.75), resizing will occur when the 12th
+          element is added (`16 × 0.75 = 12`).
+
+- **Resizing Mechanism**:
+    1. The internal bucket array is **doubled in size** (e.g., from 16 to 32).
+    2. The entries are **rehashed** to the new bucket array to ensure proper distribution.
+
+- **Impact of Resizing**:
+    - Resizing is a costly operation because:
+        1. A new array is allocated.
+        2. All elements in the old array are rehashed and redistributed to the new array.
 
 ##### Internal Working:
 
@@ -605,8 +630,34 @@ map.put("Banana", 5);
 
 ##### Handling Collisions
 
-When multiple keys hash to the same bucket, `HashMap` handles collisions by chaining entries in a linked list or by
-using balanced trees in cases of high collisions.
+In a `HashMap`, when multiple keys hash to the same bucket, collisions are managed using **separate chaining**. Each
+bucket stores a chain of entries, and these entries are linked together using a linked list structure. Each entry (
+`Map.Entry`) contains the key, value, and a reference to the next entry in the chain.
+
+The internal structure of a node resembles the following:
+
+```java
+static class Node<K, V> implements Map.Entry<K, V> {
+  final int hash;
+  final K key;
+  V value;
+  Node<K, V> next; // Points to the next entry in the same bucket
+}
+```
+
+When an entry is added to a bucket that already contains other entries, it is appended to the linked list. This ensures
+that all entries with the same hash are stored together in the same bucket.
+
+If the number of entries in a single bucket exceeds a predefined threshold (default: **8**), the `HashMap` switches from
+a linked list to a **balanced tree structure**, specifically a Red-Black Tree. This transformation significantly
+improves the performance of operations like `get()` and `put()` from **O(n)** to **O(log n)** for buckets with high
+collisions.
+
+However, if the number of entries in a tree-based bucket falls below a lower threshold (default: **6**), the `HashMap`
+reverts the tree back to a linked list to save memory.
+
+By combining these strategies, `HashMap` maintains efficient performance and adapts dynamically to handle varying levels
+of hash collisions.
 
 ##### Resizing
 
@@ -618,6 +669,22 @@ public V put(K key, V value) {
   // hashing and inserting logic
 }
 ```
+
+##### Handling Duplicate Keys in HashMap
+
+In `HashMap`, keys are unique, meaning that duplicate keys are not allowed. If an attempt is made to insert a new
+key-value pair where the key already exists in the map, the existing key's value is updated with the new value. The
+`put()` method of `HashMap` handles this behavior seamlessly.
+
+When a duplicate key is found:
+
+1. **Hashing**: The key is hashed, and the corresponding bucket is identified.
+2. **Key Matching**: The `HashMap` iterates through the entries in the bucket using the `equals()` method to check if
+   the key already exists.
+3. **Value Update**: If a matching key is found, the old value associated with the key is replaced by the new value. The
+   key itself is not reinserted or modified.
+4. **Return Old Value**: The `put()` method returns the previous value associated with the key, or `null` if no previous
+   value exists.
 
 - **Time Complexity**:
     - Insert: O(1) average, O(n) in the worst case.
