@@ -2188,33 +2188,9 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 3. How does `Stack` extend the `Vector` class?
 4. Provide an example of a real-world use case for `Stack`.
 
-### 4.2 Set
+### 4.2 Map
 
-#### 4.2.1 HashSet
-
-1. What is a `HashSet`, and how does it differ from a `HashMap`?
-2. How does `HashSet` ensure uniqueness of elements?
-3. Explain the internal working of a `HashSet` with an example.
-4. Can `HashSet` store null elements? If yes, how many?
-5. How is the load factor significant in `HashSet`?
-
-#### 4.2.2 LinkedHashSet
-
-1. What is a `LinkedHashSet`, and how is it different from a `HashSet`?
-2. How does `LinkedHashSet` maintain insertion order?
-3. What are the performance trade-offs of using `LinkedHashSet` over `HashSet`?
-
-#### 4.2.3 TreeSet
-
-1. What is a `TreeSet`, and how is it different from a `HashSet`?
-2. How does `TreeSet` ensure elements are sorted?
-3. Can a `TreeSet` store null elements? Why or why not?
-4. What is the time complexity of basic operations in a `TreeSet`?
-5. How does `TreeSet` use a comparator or comparable to define the sorting order?
-
-### 4.3 Map
-
-#### 4.3.1 HashMap
+#### 4.2.1 HashMap
 
 1. What is a `HashMap`, and how does it work internally?
 2. How does `HashMap` handle collisions?
@@ -2222,25 +2198,49 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 4. Explain the significance of the load factor in `HashMap`.
 5. How does `HashMap` differ from `Hashtable`?
 
-#### 4.3.2 LinkedHashMap
+#### 4.2.2 LinkedHashMap
 
 1. What is a `LinkedHashMap`, and how does it differ from a `HashMap`?
 2. How does `LinkedHashMap` maintain insertion or access order?
 3. What is a practical use case for `LinkedHashMap`?
 
-#### 4.3.3 TreeMap
+#### 4.2.3 TreeMap
 
 1. What is a `TreeMap`, and how is it different from a `HashMap`?
 2. How does `TreeMap` maintain the natural order of keys?
 3. What happens if you try to store null keys in a `TreeMap`?
 4. Describe how `TreeMap` uses Red-Black Trees internally.
 
-#### 4.3.4 Hashtable
+#### 4.2.4 Hashtable
 
 1. What is a `Hashtable`, and how does it ensure thread safety?
 2. How does `Hashtable` handle null keys and values?
 3. Compare the performance of `Hashtable` with `HashMap`.
 4. Why is `Hashtable` considered legacy, and what are the modern alternatives?
+
+### 4.3 Set
+
+#### 4.3.1 HashSet
+
+1. What is a `HashSet`, and how does it differ from a `HashMap`?
+2. How does `HashSet` ensure uniqueness of elements?
+3. Explain the internal working of a `HashSet` with an example.
+4. Can `HashSet` store null elements? If yes, how many?
+5. How is the load factor significant in `HashSet`?
+
+#### 4.3.2 LinkedHashSet
+
+1. What is a `LinkedHashSet`, and how is it different from a `HashSet`?
+2. How does `LinkedHashSet` maintain insertion order?
+3. What are the performance trade-offs of using `LinkedHashSet` over `HashSet`?
+
+#### 4.3.3 TreeSet
+
+1. What is a `TreeSet`, and how is it different from a `HashSet`?
+2. How does `TreeSet` ensure elements are sorted?
+3. Can a `TreeSet` store null elements? Why or why not?
+4. What is the time complexity of basic operations in a `TreeSet`?
+5. How does `TreeSet` use a comparator or comparable to define the sorting order?
 
 ### 4.4 Queue: PriorityQueue, LinkedList
 
