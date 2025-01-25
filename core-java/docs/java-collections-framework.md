@@ -2192,11 +2192,98 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 
 #### 4.2.1 HashMap
 
-1. What is a `HashMap`, and how does it work internally?
-2. How does `HashMap` handle collisions?
-3. What is the role of hashCode() and equals() in `HashMap`?
-4. Explain the significance of the load factor in `HashMap`.
-5. How does `HashMap` differ from `Hashtable`?
+#### 1. What is a HashMap, and how does it work internally?
+
+A `HashMap` is a part of Java’s `java.util` package and is an implementation of the `Map` interface. It stores key-value
+pairs, where each key is unique, and provides fast access to values using the key.
+
+##### How it works internally:
+
+- **Data Structure**: Internally, `HashMap` uses an array of buckets (called `Node<K,V>` objects). Each bucket can store
+  multiple entries using linked lists or balanced trees (in high-collision scenarios).
+- **Hashing**: The key's `hashCode()` is used to determine the hash value, which is then mapped to an index in the
+  bucket array using the formula:
+  ```java
+  index = hash & (capacity - 1)
+  ```
+- **Put Operation**:
+    1. The hash value of the key is computed.
+    2. The index for the bucket is calculated.
+    3. If the bucket at the index is empty, a new `Node` is added.
+    4. If the bucket already contains nodes, it checks for duplicates using the `equals()` method, updates the value if
+       the key already exists, or appends the new entry in the linked list/tree if it’s a unique key.
+- **Get Operation**:
+    1. The hash value of the key is computed.
+    2. The index is calculated.
+    3. The bucket is searched for the key using the `equals()` method.
+
+#### 2. How does HashMap handle collisions?
+
+Collisions occur when two different keys produce the same bucket index. To handle collisions, `HashMap` uses **separate
+chaining**:
+
+1. **Linked List**: Initially, each bucket stores entries in a linked list.
+2. **Balanced Tree (Red-Black Tree)**: If the number of entries in a bucket exceeds a threshold (default: 8), the linked
+   list is converted into a balanced tree for faster lookups (O(log n) instead of O(n)).
+3. If the entries reduce below the threshold (default: 6), the balanced tree reverts to a linked list.
+
+The `next` pointer in each node allows traversing the chain of entries in the bucket.
+
+#### 3. What is the role of hashCode() and equals() in HashMap?
+
+- **`hashCode()`**:
+    - The `hashCode()` method generates a hash value for a key, which determines the bucket index in the HashMap.
+    - A good `hashCode()` implementation reduces collisions by spreading keys uniformly across buckets.
+
+- **`equals()`**:
+    - Once a key is placed in a bucket, `equals()` is used to check if the key already exists in the bucket.
+    - If `equals()` returns `true`, the value associated with the key is updated; otherwise, a new entry is added.
+
+##### Example:
+
+```java
+
+@Override
+public int hashCode() {
+  return id; // Simple hash code based on `id`
+}
+
+@Override
+public boolean equals(Object obj) {
+  if (this == obj) return true;
+  if (obj == null || getClass() != obj.getClass()) return false;
+  MyClass other = (MyClass) obj;
+  return id == other.id && name.equals(other.name);
+}
+```
+
+#### 4. Explain the significance of the load factor in HashMap.
+
+The **load factor** controls the threshold for resizing the HashMap. It is the ratio of the number of elements to the
+total capacity.
+
+- **Default Load Factor**: 0.75.
+- **Threshold for Resizing**: When the number of elements exceeds `capacity × load factor`, the HashMap resizes (doubles
+  the capacity) and rehashes all entries into the new bucket array.
+
+#### Example:
+
+For a capacity of 16 and load factor 0.75, resizing occurs after 12 entries (`16 × 0.75 = 12`).
+
+**Why is it important?**
+
+- A lower load factor reduces collisions and ensures better performance but uses more memory.
+- A higher load factor reduces memory usage but increases the likelihood of collisions and may degrade performance.
+
+#### 5. How does HashMap differ from Hashtable?
+
+| **Aspect**           | **HashMap**                                       | **Hashtable**                                 |
+|----------------------|---------------------------------------------------|-----------------------------------------------|
+| **Thread Safety**    | Not thread-safe.                                  | Thread-safe (synchronized).                   |
+| **Performance**      | Faster due to no synchronization.                 | Slower because of synchronization.            |
+| **Null Keys/Values** | Allows one `null` key and multiple `null` values. | Does not allow `null` keys or values.         |
+| **Introduced In**    | Java 1.2                                          | Java 1.0                                      |
+| **Use Case**         | Preferred for non-concurrent applications.        | Used in legacy systems needing thread safety. |
 
 #### 4.2.2 LinkedHashMap
 
