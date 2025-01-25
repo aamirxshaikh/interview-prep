@@ -612,7 +612,8 @@ linked lists within buckets.
 ##### Adding an Element
 
 1. **Hashing**: The hash code of the key is calculated using the `hashCode()` method.
-2. **Index Calculation**: Hash code is transformed into an index to place the element in the appropriate bucket.
+2. **Index Calculation**: Hash code is transformed into an index to place the element in the appropriate bucket. The
+   index is calculated as `hash & (capacity - 1)`, where `capacity` is the number of buckets.
 3. **Collision Handling**: If two elements hash to the same index, a linked list or a balanced tree (for high collision
    scenarios) is used.
 
