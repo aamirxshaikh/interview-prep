@@ -850,6 +850,98 @@ map.put("Banana", 2);
         - Removal in `Hashtable` is also O(1) on average. Like insertion, synchronization may impact performance in a
           multi-threaded environment.
 
+### When to Use Which `Map` Implementation?
+
+- Use **`HashMap`** if:
+    - You need fast access to key-value pairs (O(1) average time complexity).
+    - Order of elements is not important.
+    - You want to allow `null` keys and values.
+
+- Use **`LinkedHashMap`** if:
+    - You need to maintain insertion order or access order.
+    - You want predictable iteration order.
+    - You want to allow `null` keys and values.
+
+- Use **`TreeMap`** if:
+    - You need a sorted map (natural order or custom comparator).
+    - You need advanced navigation methods (e.g., `ceilingKey`, `floorKey`).
+    - You do not allow `null` keys.
+
+- Use **`Hashtable`** if:
+    - You need a thread-safe map (synchronized).
+    - You do not allow `null` keys or values.
+    - Legacy code compatibility is required.
+
+### Important Methods in `Map` Interface
+
+#### **`Map Interface`**
+
+- `V put(K key, V value)`: Associates the specified value with the specified key.
+- `V get(Object key)`: Returns the value to which the specified key is mapped.
+- `V remove(Object key)`: Removes the mapping for the specified key.
+- `boolean containsKey(Object key)`: Returns `true` if the map contains the specified key.
+- `boolean containsValue(Object value)`: Returns `true` if the map contains the specified value.
+- `Set<K> keySet()`: Returns a `Set` view of the keys.
+- `Collection<V> values()`: Returns a `Collection` view of the values.
+- `Set<Map.Entry<K, V>> entrySet()`: Returns a `Set` view of the mappings.
+- `int size()`: Returns the number of key-value mappings.
+- `boolean isEmpty()`: Returns `true` if the map is empty.
+- `void clear()`: Removes all mappings from the map.
+- `V getOrDefault(Object key, V defaultValue)`: Returns the value for the specified key, or a default value if the
+  key is not present.
+- `V putIfAbsent(K key, V value)`: Inserts the specified key-value pair only if the key is not already associated with a
+  value.
+- `void putAll(Map<? extends K, ? extends V> m)`: Copies all mappings from the specified map.
+- `V replace(K key, V value)`: Replaces the entry for the specified key only if it is currently mapped.
+- `boolean replace(K key, V oldValue, V newValue)`: Replaces the entry for the specified key only if it is currently
+  mapped to the specified value.
+
+
+#### **`HashMap`**
+
+- Inherits all methods from `Map`.
+- No additional unique methods.
+
+#### **`LinkedHashMap`**
+
+- Inherits all methods from `HashMap`.
+- `protected boolean removeEldestEntry(Map.Entry<K, V> eldest)`: Override for custom removal policies.
+
+#### **`TreeMap`**
+
+- Inherits all methods from `Map`.
+- Implements `SortedMap` methods:
+    - `firstKey`: Returns the first (lowest) key.
+    - `lastKey`: Returns the last (highest) key.
+    - `headMap`: Returns a view of the portion of the map whose keys are strictly less than the specified key.
+    - `tailMap`: Returns a view of the portion of the map whose keys are greater than or equal to the specified key.
+    - `subMap`: Returns a view of the portion of the map whose keys range from the specified key (inclusive) to the
+      second key (exclusive).
+- Implements `NavigableMap` methods
+    - `lowerKey`: Returns the greatest key strictly less than the given key.
+    - `floorKey`: Returns the greatest key less than or equal to the given key.
+    - `ceilingKey`: Returns the least key greater than or equal to the given key.
+    - `higherKey`: Returns the least key strictly greater than the given key.
+    - `descendingMap`: Returns a reverse order view of the map.
+
+#### **`Hashtable`**
+
+- Inherits all methods from `Map`.
+- Legacy methods like
+  - `elements()`: Returns an enumeration of the values in the map. 
+  - `keys()`: Returns an enumeration of the keys in the map.
+
+### Differences between `Map` Implementations
+
+| Feature                 | `HashMap`                             | `LinkedHashMap`                            | `TreeMap`                                     | `Hashtable`                           |
+|-------------------------|---------------------------------------|--------------------------------------------|-----------------------------------------------|---------------------------------------|
+| **Ordering**            | No ordering                           | Insertion order or access order            | Sorted (natural or custom comparator)         | No ordering                           |
+| **Null Keys/Values**    | Allows `null` keys and values         | Allows `null` keys and values              | Does not allow `null` keys                    | Does not allow `null` keys or values  |
+| **Performance**         | O(1) average time for `get` and `put` | O(1) average time for `get` and `put`      | O(log n) for `get` and `put`                  | O(1) average time for `get` and `put` |
+| **Synchronization**     | Not synchronized                      | Not synchronized                           | Not synchronized                              | Synchronized                          |
+| **Use Cases**           | General-purpose map                   | Maps requiring predictable iteration order | Maps requiring sorted keys                    | Legacy code or thread-safe maps       |
+| **Additional Features** | None                                  | `removeEldestEntry` for LRU cache          | Navigation methods (`ceilingKey`, `floorKey`) | Legacy, thread-safe                   |
+
 ### Set
 
 A `Set` is a part of the Java Collections Framework. It is an interface that extends the `Collection` interface and
