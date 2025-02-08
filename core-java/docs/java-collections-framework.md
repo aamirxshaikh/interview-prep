@@ -623,6 +623,19 @@ map.put("Apple", 3);
 map.put("Banana", 5);
 ```
 
+##### Retrieving an Element
+
+In a `HashMap`, elements can be retrieved by using the `get()` method. Internally, the `get()` method uses the hash of
+the key to locate the corresponding value. It is a constant time operation on average (O(1)), but can degrade to O(n) in
+the worst case when there are many hash collisions.
+
+Below is the internal working of the `contains()` method:
+
+- The `containsKey()` method internally uses the `get()` method to check whether the key exists in the map.
+- The hash of the key is calculated, and the corresponding bucket is located.
+- The key is then compared using the `equals()` method to ensure a match.
+- Returns `true` if the key exists, `false` otherwise.
+
 ##### Removing an Element
 
 1. **Hashing**: The key's hash code finds the correct bucket.
@@ -721,6 +734,19 @@ When a duplicate key is found:
 - Each element is hashed to determine its bucket.
 - The linked list structure ensures that the entry's order is preserved by linking each new entry to the end.
 
+##### Retrieving an Element
+
+Elements in a `LinkedHashMap` can be accessed by iterating through the set or using the `get()` method for direct
+retrieval. Unlike a `HashMap`, a `LinkedHashMap` maintains insertion order, meaning that the order in which elements
+were added is preserved during iteration.
+
+Below is the internal working of the `contains()` method:
+
+- The `containsKey()` method first checks the hash table (like `HashMap`).
+- If a match is found, it confirms the key using the `equals()` method.
+- The insertion order is preserved in a doubly linked list for iteration, but this does not impact the lookup operation.
+- Returns `true` if the key exists, `false` otherwise.
+
 ##### Removing an Element
 
 - The element's hash is used to locate the bucket, and then it's removed from both the hash table and the linked list.
@@ -772,6 +798,20 @@ map.put("Banana", 2);
 - Elements are added based on their natural order or a specified comparator. The tree self-balances after each
   insertion.
 
+##### Retrieving an Element
+
+In a `TreeMap`, elements are stored in a sorted order. The `get()` method retrieves elements based on the key by
+performing a binary search in the underlying Red-Black Tree structure. The keys are compared according to their natural
+ordering or a custom comparator.
+
+Below is the internal working of the `contains()` method:
+
+- The `containsKey()` method performs a binary search using the key.
+- The key is compared using the `compareTo()` method (or a custom `Comparator` if provided).
+- If the element is found, `true` is returned; otherwise, `false`.
+- The time complexity for the `contains()` method in a `TreeMap` is O(log n), where n is the number of elements in the
+  map.
+
 ##### Removing an Element
 
 - Elements are located based on their order, and the tree self-balances after the element is removed.
@@ -818,6 +858,19 @@ map.put("Banana", 6);
 ##### Adding an Element
 
 - The element’s hash determines its bucket. Synchronization is applied to ensure thread-safety.
+
+##### Retrieving an Element
+
+In a `Hashtable`, elements are retrieved using the `get()` method. Like a `HashMap`, the `get()` method computes the
+hash of the key to locate the corresponding value. However, `Hashtable` is synchronized, which can cause performance
+overhead compared to `HashMap` and `LinkedHashMap`. It also does not allow `null` keys or values.
+
+Below is the internal working of the `contains()` method:
+
+- The `containsKey()` method checks the hash table for the presence of the key.
+- The key's hash is computed, and the corresponding bucket is located.
+- The key is compared using the `equals()` method to confirm a match.
+- Returns `true` if the key exists, `false` otherwise.
 
 ##### Removing an Element
 
