@@ -1,6 +1,5 @@
 package com.interviewprep.java_collections_framework.map.hashmap;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 

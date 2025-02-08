@@ -1015,6 +1015,16 @@ public boolean add(E e) {
 Since a `HashSet` does not allow direct access to elements (as it does not maintain ordering), elements can only be
 accessed using iteration, not by index.
 
+Below is the internal working of the `contains()` method:
+
+- **Compute Hash Code**: The `hashCode()` of the element is computed to determine the bucket index in the underlying
+  `HashMap`.
+- **Locate Bucket**: The bucket corresponding to the hash code is accessed.
+- **Search for Element**: The bucket (which may contain multiple elements due to hash collisions) is searched using the
+  `equals()` method.
+- **Return Result**: If a matching element is found, it is returned; otherwise, `null` (or indication of absence) is
+  returned.
+
 #### Removing an Element
 
 When an element is removed:
@@ -1128,8 +1138,20 @@ inserted.
 
 #### Retrieving an Element
 
-Elements in a `LinkedHashSet` can be accessed by iterating through the set. Unlike a `HashSet`, a
-`LinkedHashSet` guarantees that elements are iterated in their insertion order.
+Elements in a `LinkedHashSet` can be accessed by iterating through the set. Unlike a `HashSet`, a `LinkedHashSet`
+maintains the insertion order of elements, meaning the order in which elements were added to the set is preserved during
+iteration. This makes `LinkedHashSet` particularly useful when the order of elements is important. However, like
+`HashSet`, it does not allow direct access to elements by index.
+
+Below is the internal working of the `contains()` method:
+
+- **Compute Hash Code**: The `hashCode()` of the element is computed to determine the bucket index in the underlying
+  `LinkedHashMap`.
+- **Locate Bucket**: The corresponding bucket is accessed based on the computed hash.
+- **Search for Element**: The bucket (which maintains insertion order using a doubly linked list) is searched using the
+  `equals()` method.
+- **Return Result**: If a matching element is found, it is returned; otherwise, `null` (or indication of absence) is
+  returned.
 
 #### Removing an Element
 
@@ -1237,9 +1259,40 @@ public boolean add(E e) {
 
 #### Retrieving an Element
 
-Since a `TreeSet` maintains a sorted order of elements, it provides methods to retrieve elements like `first()`,
-`last()`, `ceiling()`, `floor()`, `higher()`, and `lower()`, based on specific criteria. Direct access to elements by
-index is not allowed.
+Since a `TreeSet` maintains a sorted order of elements, it provides methods to retrieve elements based on specific
+criteria, such as:
+
+- `first()`
+- `last()`
+- `ceiling()`
+- `floor()`
+- `higher()`
+- `lower()`
+
+These methods allow you to access elements relative to the first, last, or a given element, or to find the closest
+matching element according to the sorting order. However, direct access to elements by index is not allowed, as
+`TreeSet` does not support indexing like a list. The retrieval process is based on the order defined by the natural
+ordering of elements or by a provided `Comparator`.
+
+Below is the internal working of the `contains()` method:
+
+- **Red-Black Tree Structure**:
+    - `TreeSet` stores elements in a **Red-Black Tree**, a self-balancing binary search tree.
+    - Each node in the tree holds the element value and pointers to left and right children.
+
+- **Method Call**:
+    - Calling `contains(element)` triggers the internal `contains` method of the Red-Black Tree.
+
+- **Binary Search**:
+    - The method compares the target element with the root node.
+    - If the target element is smaller, the method moves to the left child; if larger, it moves to the right child.
+    - This comparison is done using the `compareTo()` method (for `Comparable` elements) or a custom `Comparator` (if
+      provided).
+
+- **Traversal**:
+    - The search continues recursively or iteratively through the tree, based on the comparisons.
+    - If a matching element is found, it returns `true`.
+    - If no match is found, the traversal reaches a `null` pointer, and it returns `false`.
 
 #### Removing an Element
 
