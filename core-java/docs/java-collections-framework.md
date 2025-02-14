@@ -2227,95 +2227,747 @@ result in an `UnsupportedOperationException`. Each of these methods returns a re
 
 ### 1.1 Iterable Interface
 
-1. What is the `Iterable` interface in Java?
-2. How does the `Iterable` interface support the enhanced for-each loop?
-3. Provide an example of implementing the `Iterable` interface in a custom class.
+#### 1. What is the `Iterable` interface in Java?
+
+The `Iterable` interface in Java is a part of the Java Collections Framework and represents a collection that can be
+iterated over. It provides a single method, `iterator()`, which returns an `Iterator` for the collection. The `Iterable`
+interface is the foundation for the enhanced for-each loop in Java.
+
+#### 2. How does the `Iterable` interface support the enhanced for-each loop?
+
+The `Iterable` interface supports the enhanced for-each loop by providing the `iterator()` method, which returns an
+`Iterator` for the collection. The for-each loop internally uses this `Iterator` to traverse the elements of the
+collection. Any class that implements `Iterable` can be used with the for-each loop.
+
+#### 3. Provide an example of implementing the `Iterable` interface in a custom class.
+
+Here’s an example of a custom class implementing the `Iterable` interface:
+
+```java
+import java.util.Iterator;
+
+class CustomCollection<T> implements Iterable<T> {
+  private T[] elements;
+
+  CustomCollection(T[] elements) {
+    this.elements = elements;
+  }
+
+  @Override
+  public Iterator<T> iterator() {
+    return new Iterator<T>() {
+      private int index = 0;
+
+      @Override
+      public boolean hasNext() {
+        return index < elements.length;
+      }
+
+      @Override
+      public T next() {
+        return elements[index++];
+      }
+    };
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    String[] data = {"A", "B", "C"};
+    CustomCollection<String> collection = new CustomCollection<>(data);
+
+    for (String item : collection) {
+      System.out.println(item); // A, B, C
+    }
+  }
+}
+```
 
 #### 1.1.1 Using Iterable
 
-1. How can you use the `Iterable` interface with custom collections?
-2. What is the significance of the `iterator()` method in `Iterable`?
-3. Explain how `Iterable` improves code consistency.
+##### 1. How can you use the `Iterable` interface with custom collections?
+
+You can use the `Iterable` interface with custom collections by implementing the `Iterable` interface in your custom
+class and providing an implementation for the `iterator()` method. This allows your custom collection to be used with
+the enhanced for-each loop and other constructs that rely on iteration. Here’s an example:
+
+```java
+import java.util.Iterator;
+
+class CustomCollection<T> implements Iterable<T> {
+  private T[] elements;
+
+  CustomCollection(T[] elements) {
+    this.elements = elements;
+  }
+
+  @Override
+  public Iterator<T> iterator() {
+    return new Iterator<T>() {
+      private int index = 0;
+
+      @Override
+      public boolean hasNext() {
+        return index < elements.length;
+      }
+
+      @Override
+      public T next() {
+        return elements[index++];
+      }
+    };
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    String[] data = {"A", "B", "C"};
+    CustomCollection<String> collection = new CustomCollection<>(data);
+
+    for (String item : collection) {
+      System.out.println(item); // A, B, C
+    }
+  }
+}
+```
+
+In this example, the `CustomCollection` class implements `Iterable`, allowing it to be used with the enhanced for-each
+loop.
+
+##### 2. What is the significance of the `iterator()` method in `Iterable`?
+
+The `iterator()` method in the `Iterable` interface is significant because it provides a way to obtain an `Iterator` for the
+collection. The `Iterator` allows you to traverse the elements of the collection sequentially. This method is the backbone
+of iteration in Java and enables the use of the enhanced for-each loop. Without the `iterator()` method, collections would
+not be able to support iteration in a standardized way.
+
+##### 3. Explain how `Iterable` improves code consistency.
+
+The `Iterable` interface improves code consistency by providing a standard way to iterate over collections. Any class that
+implements `Iterable` can be used with the enhanced for-each loop, making the code more readable and consistent. It also
+allows developers to write generic algorithms that work with any iterable collection, promoting code reuse and reducing
+redundancy. For example:
+
+```java
+public static <T> void printCollection(Iterable<T> collection) {
+  for (T item : collection) {
+    System.out.println(item);
+  }
+}
+```
+
+This method can work with any collection that implements `Iterable`, such as `ArrayList`, `LinkedList`, or a custom
+collection, ensuring consistent behavior across different types of collections.
 
 ### 1.2 Iterator Interface
 
-1. What is the purpose of the `Iterator` interface in Java?
-2. How is `Iterator` different from `Enumeration`?
-3. Explain the working of the `hasNext()` and `next()` methods.
+#### 1. What is the purpose of the `Iterator` interface in Java?
+
+The `Iterator` interface in Java provides a standard way to **traverse elements** in a collection **one at a time**. It
+allows developers to iterate over **List, Set, Queue**, and other collection types in a **consistent manner**, without
+exposing the underlying data structure.
+
+```java
+import java.util.Iterator;
+import java.util.List;
+
+public class IteratorExample {
+  public static void main(String[] args) {
+    List<String> list = List.of("A", "B", "C");
+    Iterator<String> iterator = list.iterator();
+
+    while (iterator.hasNext()) {
+      System.out.println(iterator.next());
+    }
+  }
+}
+```
+
+#### 2. How is `Iterator` different from `Enumeration`?
+
+| Feature          | `Iterator`                          | `Enumeration`                                      |
+|------------------|-------------------------------------|----------------------------------------------------|
+| Available Since  | Java 1.2                            | Java 1.0                                           |
+| Methods          | `hasNext()`, `next()`, `remove()`   | `hasMoreElements()`, `nextElement()`               |
+| Supports Removal | ✅ Yes (`remove()`)                  | ❌ No                                               |
+| Common Usage     | Used in **modern Java collections** | Used in **legacy classes** (`Vector`, `Hashtable`) |
+
+Example of `Enumeration` (Legacy):
+
+```java
+import java.util.Enumeration;
+import java.util.Vector;
+
+public class EnumerationExample {
+  public static void main(String[] args) {
+    Vector<Integer> numbers = new Vector<>();
+    numbers.add(10);
+    numbers.add(20);
+
+    Enumeration<Integer> enumeration = numbers.elements();
+    while (enumeration.hasMoreElements()) {
+      System.out.println(enumeration.nextElement());
+    }
+  }
+}
+```
+
+#### 3. Explain the working of the `hasNext()` and `next()` methods.
+
+- `hasNext()`: Returns `true` if there are more elements to iterate over.
+- `next()`: Returns the next element and **moves the cursor forward**.
+
+Example:
+
+```java
+import java.util.Iterator;
+import java.util.List;
+
+public class IteratorMethodsExample {
+  public static void main(String[] args) {
+    List<Integer> numbers = List.of(1, 2, 3);
+    Iterator<Integer> iterator = numbers.iterator();
+
+    while (iterator.hasNext()) {
+      System.out.println("Next element: " + iterator.next());
+    }
+  }
+}
+```
 
 #### 1.2.1 Using Iterator
 
-1. Provide an example of using `Iterator` with a collection.
-2. How can you use `Iterator` to remove elements from a collection?
-3. What are the advantages of using `Iterator` over traditional loops?
+##### 1. Provide an example of using `Iterator` with a collection.
+
+```java
+import java.util.Iterator;
+import java.util.List;
+
+public class IteratorExample {
+  public static void main(String[] args) {
+    List<String> list = List.of("Apple", "Banana", "Cherry");
+    Iterator<String> iterator = list.iterator();
+
+    while (iterator.hasNext()) {
+      System.out.println(iterator.next());
+    }
+  }
+}
+```
+
+##### 2. How can you use `Iterator` to remove elements from a collection?
+
+Using `remove()` method inside an iterator loop safely removes elements while iterating.
+
+```java
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class RemoveUsingIterator {
+  public static void main(String[] args) {
+    List<Integer> numbers = new ArrayList<>(List.of(1, 2, 3, 4, 5));
+    Iterator<Integer> iterator = numbers.iterator();
+
+    while (iterator.hasNext()) {
+      if (iterator.next() % 2 == 0) {
+        iterator.remove();
+      }
+    }
+
+    System.out.println("After removal: " + numbers);
+  }
+}
+```
+
+##### 3. What are the advantages of using `Iterator` over traditional loops?
+
+- Provides **consistent** iteration across collections.
+- **Prevents `ConcurrentModificationException`** when removing elements.
+- **Abstracts collection details**, making the code more maintainable.
 
 #### 1.2.2 Key Features of Iterator
 
-1. How does `Iterator` help in traversing collections?
-2. What are the key limitations of `Iterator`?
-3. Explain the difference between fail-fast and fail-safe iterators.
+##### 1. How does `Iterator` help in traversing collections?
+
+- It provides a **standardized way** to iterate over collections.
+- It works with **all major collection types** (`List`, `Set`, `Queue`).
+- Supports **safe removal** of elements using `remove()`.
+
+##### 2. What are the key limitations of `Iterator`?
+
+- **Only forward traversal** (No backward iteration like `ListIterator`).
+- **No modification support** (Only `remove()` is allowed, but no `add()` or `update()`).
+- **ConcurrentModificationException risk** if modified incorrectly while iterating.
+
+##### 3. Explain the difference between fail-fast and fail-safe iterators.
+
+| Feature     | Fail-Fast                                                            | Fail-Safe                                   |
+|-------------|----------------------------------------------------------------------|---------------------------------------------|
+| Behavior    | Throws `ConcurrentModificationException` if modified while iterating | Allows modification while iterating         |
+| Examples    | `ArrayList`, `HashSet`                                               | `CopyOnWriteArrayList`, `ConcurrentHashMap` |
+| Performance | Faster                                                               | Slower (creates a copy of collection)       |
+
+Example of Fail-Fast Iterator:
+
+```java
+List<String> list = new ArrayList<>(List.of("A", "B", "C"));
+Iterator<String> iterator = list.iterator();
+while (iterator.hasNext()) {
+  list.add("D"); // Throws ConcurrentModificationException
+  System.out.println(iterator.next());
+}
+```
+
+Example of Fail-Safe Iterator:
+
+```java
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Iterator;
+
+public class FailSafeExample {
+  public static void main(String[] args) {
+    CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<>(List.of("A", "B", "C"));
+    Iterator<String> iterator = list.iterator();
+
+    while (iterator.hasNext()) {
+      list.add("D"); // No exception thrown
+      System.out.println(iterator.next());
+    }
+  }
+}
+```
 
 #### 1.2.3 Common Methods of Iterator
 
-1. What is the purpose of the `remove()` method in `Iterator`?
-2. How do you safely modify a collection while iterating through it?
-3. Provide an example of using `remove()` with `Iterator`.
+##### 1. What is the purpose of the `remove()` method in `Iterator`?
+
+The `remove()` method **removes the last returned element** from the collection.
+
+##### 2. How do you safely modify a collection while iterating through it?
+
+- Always use `Iterator.remove()` instead of `collection.remove()`, which can cause `ConcurrentModificationException`.
+
+##### 3. Provide an example of using `remove()` with `Iterator`.
+
+```java
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class IteratorRemoveExample {
+  public static void main(String[] args) {
+    List<String> names = new ArrayList<>(List.of("John", "Doe", "Jane"));
+    Iterator<String> iterator = names.iterator();
+
+    while (iterator.hasNext()) {
+      if (iterator.next().equals("Doe")) {
+        iterator.remove();
+      }
+    }
+
+    System.out.println("After removal: " + names);
+  }
+}
+```
 
 #### 1.2.4 What You Can and Cannot Do with Iterator
 
-1. Why can't you modify a collection directly while using `Iterator`?
-2. How does `ConcurrentModificationException` occur?
-3. What are safe ways to modify a collection during iteration?
+##### 1. Why can't you modify a collection directly while using `Iterator`?
+
+Modifying a collection directly while iterating (e.g., adding or removing elements without using `Iterator.remove()`)
+causes **ConcurrentModificationException** because the internal structure of the collection changes unexpectedly.
+
+##### 2. How does `ConcurrentModificationException` occur?
+
+`ConcurrentModificationException` occurs when a collection is modified structurally while iterating using an `Iterator`.
+
+Example of failure:
+
+```java
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class ConcurrentModificationExample {
+  public static void main(String[] args) {
+    List<String> names = new ArrayList<>(List.of("John", "Doe", "Jane"));
+    for (String name : names) {
+      if (name.equals("Doe")) {
+        names.remove(name); // This causes ConcurrentModificationException
+      }
+    }
+  }
+}
+```
+
+##### 3. What are safe ways to modify a collection during iteration?
+
+- Use **`Iterator.remove()`** instead of `collection.remove()`.
+- Use **`CopyOnWriteArrayList`** (a fail-safe iterator).
+
+Example of safe removal:
+```java
+Iterator<String> iterator = names.iterator();
+while (iterator.hasNext()) {
+  if (iterator.next().equals("Doe")) {
+    iterator.remove();
+  }
+}
+```
 
 ### 1.3 ListIterator Interface
 
-1. What is the `ListIterator` interface in Java?
-2. How does `ListIterator` differ from `Iterator`?
-3. Explain how `ListIterator` supports bidirectional traversal.
+##### 1. What is the `ListIterator` interface in Java?
+
+`ListIterator` is an extended version of `Iterator` that allows **bidirectional traversal** of lists and provides
+additional functionality like adding, setting, and removing elements.
+
+##### 2. How does `ListIterator` differ from `Iterator`?
+
+| Feature                  | `Iterator`   | `ListIterator`     |
+|--------------------------|--------------|--------------------|
+| Direction                | Forward only | Forward & Backward |
+| Supports `add()`         | ❌ No         | ✅ Yes              |
+| Supports `set()`         | ❌ No         | ✅ Yes              |
+| Supports `hasPrevious()` | ❌ No         | ✅ Yes              |
+
+##### 3. Explain how `ListIterator` supports bidirectional traversal.
+
+`ListIterator` has **`hasPrevious()`** and **`previous()`** methods to iterate in reverse order.
+
+Example:
+
+```java
+import java.util.List;
+import java.util.ListIterator;
+
+public class ListIteratorExample {
+  public static void main(String[] args) {
+    List<String> names = List.of("Alice", "Bob", "Charlie");
+    ListIterator<String> iterator = names.listIterator(names.size());
+
+    while (iterator.hasPrevious()) {
+      System.out.println("Previous element: " + iterator.previous());
+    }
+  }
+}
+```
 
 #### 1.3.1 Using ListIterator
 
-1. Provide an example of using `ListIterator` with a `List`.
-2. How can you add or replace elements using `ListIterator`?
-3. What are the advantages of `ListIterator` over `Iterator`?
+##### 1. Provide an example of using `ListIterator` with a `List`.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+
+public class ListIteratorExample {
+  public static void main(String[] args) {
+    List<String> list = new ArrayList<>();
+    list.add("Apple");
+    list.add("Banana");
+    list.add("Cherry");
+
+    ListIterator<String> iterator = list.listIterator();
+
+    while (iterator.hasNext()) {
+      System.out.println(iterator.next());
+    }
+  }
+}
+```
+
+##### 2. How can you add or replace elements using `ListIterator`?
+
+- To **add** an element at the current position, use the `add()` method:
+  ```java
+  iterator.add("Orange");
+  ```
+
+- To **replace** an element at the current position, use the `set()` method:
+  ```java
+  iterator.set("Mango");
+  ```
+
+##### 3. What are the advantages of `ListIterator` over `Iterator`?
+
+- `ListIterator` allows bidirectional traversal, i.e., you can move both forward and backward through the list, whereas
+  `Iterator` only allows forward traversal.
+- `ListIterator` provides additional methods like `add()`, `set()`, and `previous()`, allowing modification of the list
+  while traversing, which `Iterator` does not provide.
 
 #### 1.3.2 Common Methods of ListIterator
 
-1. Explain the `add()` and `set()` methods of `ListIterator`.
-2. How does the `previous()` method work in `ListIterator`?
-3. Provide an example of using `ListIterator` to traverse a list in reverse order.
+##### 1. Explain the `add()` and `set()` methods of `ListIterator`.
+
+- `add(E e)`: Adds the specified element to the list at the current position of the iterator. The next element is
+  shifted right (if there is any).
+  ```java
+  iterator.add("Grapes");
+  ```
+
+- `set(E e)`: Replaces the last element returned by `next()` or `previous()` with the specified element.
+  ```java
+  iterator.set("Pineapple");
+  ```
+
+##### 2. How does the `previous()` method work in `ListIterator`?
+
+- The `previous()` method returns the previous element in the list and moves the cursor backward. It can only be used
+  when the iterator has already moved forward at least once. If the iterator is at the start, calling `previous()` will
+  throw a `NoSuchElementException`.
+
+  Example:
+  ```java
+  iterator.previous(); // Moves to the previous element
+  ```
+
+##### 3. Provide an example of using `ListIterator` to traverse a list in reverse order.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+
+public class ReverseListIteratorExample {
+  public static void main(String[] args) {
+    List<String> list = new ArrayList<>();
+    list.add("Apple");
+    list.add("Banana");
+    list.add("Cherry");
+
+    ListIterator<String> iterator = list.listIterator(list.size());
+
+    while (iterator.hasPrevious()) {
+      System.out.println(iterator.previous());
+    }
+  }
+}
+```
 
 ### 1.4 forEach Loop and Iterable
 
-1. How does the forEach loop utilize the `Iterable` interface?
-2. What are the advantages of the forEach loop over traditional loops?
-3. Provide an example of using the forEach loop with a custom collection.
+#### 1. How does the forEach loop utilize the `Iterable` interface?
+
+- The `forEach` loop works with any object that implements the `Iterable` interface. It internally calls the `forEach()`
+  method of the `Iterable` interface, which uses an `Iterator` to traverse the elements.
+
+Example:
+
+```java
+List<String> list = List.of("Apple", "Banana", "Cherry");
+list.forEach(item ->System.out.println(item));
+```
+
+#### 2. What are the advantages of the forEach loop over traditional loops?
+
+- **Concise syntax**: The `forEach` loop reduces boilerplate code compared to traditional `for` loops.
+- **Improved readability**: The code is more declarative, focusing on the operation rather than the loop mechanics.
+- **Lambda support**: It supports lambda expressions for cleaner and functional-style code.
+
+#### 3. Provide an example of using the forEach loop with a custom collection.
+
+```java
+import java.util.List;
+
+class CustomCollection implements Iterable<String> {
+  private List<String> items;
+
+  public CustomCollection(List<String> items) {
+    this.items = items;
+  }
+
+  @Override
+  public java.util.Iterator<String> iterator() {
+    return items.iterator();
+  }
+
+  public static void main(String[] args) {
+    CustomCollection collection = new CustomCollection(List.of("A", "B", "C"));
+    collection.forEach(item -> System.out.println(item));
+  }
+}
+```
 
 ### 1.5 Fail-Fast vs. Fail-Safe Iterators
 
-1. What is the difference between fail-fast and fail-safe iterators?
-2. How do fail-safe iterators avoid `ConcurrentModificationException`?
-3. Provide examples of collections that use fail-fast and fail-safe iterators.
+#### 1. What is the difference between fail-fast and fail-safe iterators?
+
+- **Fail-Fast Iterators**: These iterators detect concurrent modifications to the collection while it is being iterated
+  over (e.g., if the collection is modified during iteration). They throw a `ConcurrentModificationException` when such
+  a modification is detected. Examples include `ArrayList` and `HashMap`.
+
+- **Fail-Safe Iterators**: These iterators do not throw an exception if the collection is modified during iteration.
+  Instead, they work on a clone of the collection, meaning modifications to the original collection do not affect the
+  iteration. Examples include `CopyOnWriteArrayList` and `ConcurrentHashMap`.
+
+#### 2. How do fail-safe iterators avoid `ConcurrentModificationException`?
+
+Fail-safe iterators work on a snapshot (copy) of the collection, so changes made to the collection during iteration
+don't affect the iterator. This eliminates the possibility of a `ConcurrentModificationException`.
+
+#### 3. Provide examples of collections that use fail-fast and fail-safe iterators.
+
+- **Fail-Fast**:
+    - `ArrayList`
+    - `HashSet`
+    - `HashMap`
+
+- **Fail-Safe**:
+    - `CopyOnWriteArrayList`
+    - `ConcurrentHashMap`
 
 ### 1.6 Understanding ConcurrentModificationException and Safe Modification Approaches
 
 #### 1.6.1 Why Direct Modification Causes ConcurrentModificationException
 
-1. What is `ConcurrentModificationException`, and why does it occur?
-2. Provide an example of a scenario that causes `ConcurrentModificationException`.
-3. How can you avoid `ConcurrentModificationException` in Java?
+##### 1. What is `ConcurrentModificationException`, and why does it occur?
+
+`ConcurrentModificationException` is an exception thrown by some iterators when the underlying collection is modified
+directly while being iterated. This exception occurs because iterators detect modifications during the iteration
+process, and this inconsistency can lead to undefined behavior.
+
+##### 2. Provide an example of a scenario that causes `ConcurrentModificationException`.
+
+```java
+import java.util.ArrayList;
+import java.util.List;
+
+public class ConcurrentModificationExample {
+  public static void main(String[] args) {
+    List<String> list = new ArrayList<>();
+    list.add("Apple");
+    list.add("Banana");
+    list.add("Cherry");
+
+    for (String item : list) {
+      list.remove(item); // Modifying the list directly during iteration
+    }
+  }
+}
+```
+
+This code will throw a `ConcurrentModificationException` because we are trying to remove items from the list while
+iterating over it using an enhanced `for` loop.
+
+##### 3. How can you avoid `ConcurrentModificationException` in Java?
+
+To avoid `ConcurrentModificationException`, you should modify the collection safely while iterating. One way is to use
+an `Iterator` explicitly and call its `remove()` method, which is designed to handle concurrent modifications.
+
+```java
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class SafeModificationExample {
+  public static void main(String[] args) {
+    List<String> list = new ArrayList<>();
+    list.add("Apple");
+    list.add("Banana");
+    list.add("Cherry");
+
+    Iterator<String> iterator = list.iterator();
+    while (iterator.hasNext()) {
+      String item = iterator.next();
+      if (item.equals("Banana")) {
+        iterator.remove(); // Safely remove an element during iteration
+      }
+    }
+  }
+}
+```
 
 #### 1.6.2 Why Iterator.remove() Does Not Cause ConcurrentModificationException
 
-1. How does the `remove()` method of `Iterator` work?
-2. Why is `Iterator.remove()` considered safe for modifying collections?
-3. Provide an example of using `Iterator.remove()` to prevent `ConcurrentModificationException`.
+##### 1. How does the `remove()` method of `Iterator` work?
+
+The `remove()` method of `Iterator` removes the last element returned by the iterator. It ensures that the collection is modified safely during iteration by maintaining the iterator's state.
+
+##### 2. Why is `Iterator.remove()` considered safe for modifying collections?
+
+The `remove()` method is considered safe because it internally keeps track of the collection's state, ensuring that the
+iterator does not encounter a modification inconsistency when removing elements. It avoids the
+`ConcurrentModificationException` by updating the collection's internal structure while the iteration is in progress.
+
+##### 3. Provide an example of using `Iterator.remove()` to prevent `ConcurrentModificationException`.
+
+```java
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class IteratorRemoveExample {
+  public static void main(String[] args) {
+    List<String> list = new ArrayList<>();
+    list.add("Apple");
+    list.add("Banana");
+    list.add("Cherry");
+
+    Iterator<String> iterator = list.iterator();
+    while (iterator.hasNext()) {
+      String item = iterator.next();
+      if (item.equals("Banana")) {
+        iterator.remove(); // Safely remove "Banana" during iteration
+      }
+    }
+    System.out.println(list); // Output: [Apple, Cherry]
+  }
+}
+```
 
 #### 1.6.3 Why CopyOnWriteArrayList and ConcurrentHashMap Do Not Cause ConcurrentModificationException
 
-1. How does `CopyOnWriteArrayList` handle concurrent modifications?
-2. Why is `ConcurrentHashMap` safe for concurrent access?
-3. Provide examples of using `CopyOnWriteArrayList` and `ConcurrentHashMap`.
+##### 1. How does `CopyOnWriteArrayList` handle concurrent modifications?
+
+`CopyOnWriteArrayList` creates a new copy of the underlying array whenever it is modified (for example, when an element is
+added or removed). As a result, readers can continue accessing the list without being affected by the modifications
+because they operate on a snapshot of the collection.
+
+##### 2. Why is `ConcurrentHashMap` safe for concurrent access?
+
+`ConcurrentHashMap` provides thread-safe access by dividing the map into segments and allowing updates to occur in
+different segments concurrently. This design ensures that concurrent modifications are handled without throwing a
+`ConcurrentModificationException`. It also allows for atomic operations like `putIfAbsent()` and `remove()`.
+
+##### 3. Provide examples of using `CopyOnWriteArrayList` and `ConcurrentHashMap`.
+
+```java
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+public class CopyOnWriteArrayListExample {
+  public static void main(String[] args) {
+    List<String> list = new CopyOnWriteArrayList<>();
+    list.add("Apple");
+    list.add("Banana");
+
+    // Safe to modify and read concurrently
+    for (String item : list) {
+      list.add("Cherry"); // Modifying while iterating is safe
+      System.out.println(item);
+    }
+  }
+}
+```
+
+```java
+import java.util.concurrent.ConcurrentHashMap;
+
+public class ConcurrentHashMapExample {
+  public static void main(String[] args) {
+    ConcurrentHashMap<String, String> map = new ConcurrentHashMap<>();
+    map.put("A", "Apple");
+    map.put("B", "Banana");
+
+    // Safe to modify and access concurrently
+    map.putIfAbsent("C", "Cherry");
+    System.out.println(map);
+  }
+}
+```
 
 ## 2. Overview of Collections Framework
 
