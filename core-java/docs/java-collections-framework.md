@@ -1,4 +1,4 @@
-# Java Collections Framework
+# [Java Collections Framework](https://github.com/aamirxshaikh/interview-prep/tree/main/core-java/src/main/java/com/interviewprep/java_collections_framework)
 
 ## 1. Iterable and Iterator
 
