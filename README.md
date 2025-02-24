@@ -165,7 +165,7 @@ you should prepare:
         - Synchronized Collections
         - Unmodifiable Collections
 
-- **Concurrency**
+- **[Concurrency](core-java/docs/concurrency.md)**
     - Introduction to Multithreading
     - Creating Threads: Thread Class vs. Runnable Interface
     - Thread Lifecycle and States
