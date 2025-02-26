@@ -2,7 +2,7 @@ package com.interviewprep.concurrency.thread.thread_class;
 
 public class Main {
   public static void main(String[] args) {
-    Printer printer = new Printer();
+    Printer printer = new Printer("My printer");
     printer.start();
 
     for (int i = 0; i < 5; i++) {
