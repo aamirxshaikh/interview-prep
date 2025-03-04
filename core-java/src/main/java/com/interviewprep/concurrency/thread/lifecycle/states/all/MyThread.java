@@ -1,4 +1,4 @@
-package com.interviewprep.concurrency.thread.lifecycle;
+package com.interviewprep.concurrency.thread.lifecycle.states.all;
 
 public class MyThread extends Thread {
   @Override
