@@ -9,5 +9,7 @@ public class SharedResource {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+
+    System.out.println(Thread.currentThread().getName() + " is releasing the lock.");
   }
 }

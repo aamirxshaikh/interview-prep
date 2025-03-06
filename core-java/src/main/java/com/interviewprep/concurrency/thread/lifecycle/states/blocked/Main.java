@@ -8,8 +8,10 @@ public class Main {
     Thread t2 = new Thread(resource::access);
 
     t1.start();
+    Thread.sleep(100); // Ensure Thread-1 gets the lock first
     t2.start();
 
+    Thread.sleep(100); // Allow time for Thread-2 to be blocked
     System.out.println(t2.getState()); // BLOCKED if t1 is holding the lock
   }
 }
