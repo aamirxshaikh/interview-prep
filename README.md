@@ -169,6 +169,11 @@ you should prepare:
     - Introduction to Multithreading
     - Creating Threads: Thread Class vs. Runnable Interface
     - Thread Lifecycle and States
+    - Thread Priority
+        - Thread Priority
+            - Thread Priority Levels
+            - Setting Thread Priority
+            - Thread Priority vs. Thread Scheduling
     - Synchronization and Locks
         - Synchronized Methods and Blocks
         - Intrinsic Locks and Reentrant Locks
