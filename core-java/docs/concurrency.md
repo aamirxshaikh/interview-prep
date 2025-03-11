@@ -121,56 +121,139 @@ A thread in Java has the following states:
 
 ## 3.2 Example of Thread Lifecycle
 
+### 2.1 New, Runnable, and Terminated State
+
+This example demonstrates a thread that is created (`NEW`), started (`RUNNABLE`), and completes execution (
+`TERMINATED`).
+
 ```java
-public class MyThread extends Thread {
-  @Override
-  public void run() {
-    System.out.println("Thread is running...");
+public class ThreadLifecycleExample {
+  public static void main(String[] args) throws InterruptedException {
+// Create a thread (NEW state)
+    Thread thread = new Thread(() -> System.out.println("Thread is running..."));
 
-    try {
-      Thread.sleep(1000);
-    } catch (InterruptedException e) {
-      System.out.println("Thread interrupted");
-      Thread.currentThread().interrupt();
-    }
+    // Print NEW state
+    System.out.println("Thread state after creation: " + thread.getState()); // NEW
 
-    // Simulate waiting for a lock (BLOCKED state)
-    synchronized (MyThread.class) {
-      System.out.println("Thread acquired the lock and is running...");
-    }
+    // Start the thread (transition to RUNNABLE)
+    thread.start();
+    System.out.println("Thread state after start: " + thread.getState()); // RUNNABLE or TERMINATED (if very fast)
+
+    // Wait for the thread to finish
+    thread.join();
+    System.out.println("Thread state after completion: " + thread.getState()); // TERMINATED
+  }
+}
+```
+
+### 2.2 Blocked State
+
+This example demonstrates a thread that enters the `BLOCKED` state while waiting to acquire a synchronized lock.
+
+```java
+public class BlockedStateExample {
+  public static void main(String[] args) throws InterruptedException {
+    SharedResource resource = new SharedResource();
+
+    Thread t1 = new Thread(resource::access);
+    Thread t2 = new Thread(resource::access);
+
+    t1.start();
+    Thread.sleep(100); // Ensure Thread-0 gets the lock first
+    t2.start();
+
+    Thread.sleep(100); // Allow time for Thread-1 to be blocked
+    System.out.println(t2.getState()); // BLOCKED if t1 is holding the lock
   }
 }
 ```
 
 ```java
-public class Main {
-  public static void main(String[] args) throws InterruptedException {
-    // Create a thread
-    MyThread thread = new MyThread();
+public class SharedResource {
+  synchronized void access() {
+    System.out.println(Thread.currentThread().getName() + " got the lock.");
 
-    // Print initial state (NEW)
-    System.out.println("Thread state after creation: " + thread.getState());
-
-    // Start the thread (transition to RUNNABLE)
-    thread.start();
-    System.out.println("Thread state after start: " + thread.getState());
-
-    // Simulate main thread waiting for a short time
-    Thread.sleep(100);
-    System.out.println("Thread state after sleep: " + thread.getState());
-
-    // Simulate blocking by acquiring a lock
-    synchronized (MyThread.class) {
-      System.out.println("Main thread acquired the lock...");
-
-      // Let the thread try to acquire the lock (BLOCKED state)
-      Thread.sleep(100);
-      System.out.println("Thread state while waiting for lock: " + thread.getState());
+    try {
+      Thread.sleep(5000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     }
 
-    // Wait for the thread to finish (TERMINATED state)
-    thread.join();
-    System.out.println("Thread state after completion: " + thread.getState());
+    System.out.println(Thread.currentThread().getName() + " is releasing the lock.");
+  }
+}
+```
+
+### 2.3 Waiting State
+
+This example demonstrates a thread that enters the `WAITING` state by calling `wait()` and waits indefinitely until
+notified.
+
+```java
+public class Main {
+  public static void main(String[] args) throws InterruptedException {
+    WaitingExample obj = new WaitingExample();
+
+    Thread t1 = new Thread(obj::waitingMethod);
+    t1.start();
+
+    // Give some time for the thread to go into WAITING state
+    Thread.sleep(1000);
+    System.out.println("Thread state: " + t1.getState()); // WAITING
+
+    Thread t2 = new Thread(obj::notifyingMethod);
+    t2.start();
+
+    t1.join(); // Ensure t1 completes
+    System.out.println("Thread state after completion: " + t1.getState()); // TERMINATED
+  }
+}
+```
+
+```java
+public class WaitingExample {
+  synchronized void waitingMethod() {
+    try {
+      System.out.println(Thread.currentThread().getName() + " is waiting...");
+      wait(); // Thread enters WAITING state
+      System.out.println(Thread.currentThread().getName() + " resumed...");
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
+
+  synchronized void notifyingMethod() {
+    notify(); // Notify the waiting thread
+    System.out.println("Thread notified...");
+  }
+}
+```
+
+### 2.4 Timed Waiting State
+
+This example demonstrates a thread that enters the `TIMED_WAITING` state by calling `Thread.sleep()`.
+
+```java
+public class TimedWaitingStateExample {
+  public static void main(String[] args) throws InterruptedException {
+    Thread t1 = new Thread(() -> {
+      try {
+        System.out.println("Thread is sleeping...");
+        Thread.sleep(3000); // Thread enters TIMED_WAITING for 3 sec
+        System.out.println("Thread woke up...");
+      } catch (InterruptedException e) {
+        e.printStackTrace();
+      }
+    });
+
+    t1.start();
+
+    // Give some time for the thread to go into TIMED_WAITING state
+    Thread.sleep(1000);
+    System.out.println("Thread state: " + t1.getState()); // TIMED_WAITING
+
+    t1.join();
+    System.out.println("Thread state after completion: " + t1.getState()); // TERMINATED
   }
 }
 ```
